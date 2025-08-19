@@ -6,16 +6,19 @@ export default function EditorArea({
   tab,
   content,
   onChange,
+  onBlur,
 }: {
   tab: "edit" | "preview";
   content: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
+  onBlur: () => void;
 }) {
   return tab === "edit" ? (
     <textarea
       className="flex-1 p-6 font-mono text-lg resize-none outline-none border-none"
       value={content}
       onChange={onChange}
+      onBlur={onBlur}
       placeholder="Start writing markdown..."
     />
   ) : (

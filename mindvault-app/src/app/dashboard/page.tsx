@@ -7,6 +7,7 @@ import { PlusIcon } from "lucide-react";
 import Sidebar from "@/components/dashboard/Sidebar";
 import EditorHeader from "@/components/dashboard/EditorHeader";
 import EditorArea from "@/components/dashboard/EditorArea";
+import { apiFetch } from "@/lib/api";
 
 type Note = {
   id: number;
@@ -14,39 +15,48 @@ type Note = {
   content: string;
 };
 
-const initialNotes: Note[] = [
-  {
-    id: 1,
-    title: "Welcome note",
-    content: "# Welcome!\nStart editing or create a new note.",
-  },
-];
-
 export default function DashboardPage() {
   const router = useRouter();
+
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
+  const [tab, setTab] = useState<"edit" | "preview">("edit");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
       router.push("/login-register?mode=login");
+      return;
     }
-  }, [router]);
 
-  const [notes, setNotes] = useState<Note[]>(initialNotes);
-  const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
-  const [tab, setTab] = useState<"edit" | "preview">("edit");
+    (async () => {
+      try {
+        const notesFromApi: Note[] = await apiFetch("/notes");
+        setNotes(notesFromApi);
+      } catch (error) {
+        console.error("Failed to fetch notes:", error);
+      }
+    })();
+  }, [router]);
 
   const selectedNote = notes.find((n) => n.id === selectedNoteId);
 
-  const handleCreateNote = () => {
-    const newNote: Note = {
-      id: Date.now(),
-      title: `New Note ${notes.length + 1}`,
-      content: "",
-    };
-    setNotes([newNote, ...notes]);
-    setSelectedNoteId(newNote.id);
-    setTab("edit");
+  const handleCreateNote = async () => {
+    try {
+      const newNote: Note = await apiFetch("/notes", {
+        method: "POST",
+        body: JSON.stringify({
+          title: `New Note ${notes.length + 1}`,
+          content: "",
+        }),
+      });
+
+      setNotes([newNote, ...notes]);
+      setSelectedNoteId(newNote.id);
+      setTab("edit");
+    } catch (err) {
+      console.error("Failed to create note", err);
+    }
   };
 
   const handleSelectNote = (id: number) => {
@@ -61,6 +71,20 @@ export default function DashboardPage() {
         note.id === selectedNoteId ? { ...note, content: updatedContent } : note
       )
     );
+  };
+
+  const handleSaveNote = async () => {
+    try {
+      const note = notes.find((n) => n.id === selectedNoteId);
+      if (!note) return;
+
+      await apiFetch(`/notes/${note.id}`, {
+        method: "PUT",
+        body: JSON.stringify(note),
+      });
+    } catch (err) {
+      console.error("Failed to update note", err);
+    }
   };
 
   return (
@@ -97,6 +121,7 @@ export default function DashboardPage() {
               tab={tab}
               content={selectedNote.content}
               onChange={handleContentChange}
+              onBlur={handleSaveNote}
             />
           </>
         )}
