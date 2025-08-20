@@ -46,7 +46,7 @@ export default function DashboardPage() {
       const newNote: Note = await apiFetch("/notes", {
         method: "POST",
         body: JSON.stringify({
-          title: `New Note ${notes.length + 1}`,
+          title: `Untitled ${notes.length + 1}`,
           content: "",
         }),
       });
@@ -60,9 +60,9 @@ export default function DashboardPage() {
   };
 
   const handleHomeClick = () => {
-  setSelectedNoteId(null);
-  setTab("edit");
-};
+    setSelectedNoteId(null);
+    setTab("edit");
+  };
 
   const handleSelectNote = (id: number) => {
     setSelectedNoteId(id);
@@ -92,6 +92,25 @@ export default function DashboardPage() {
     }
   };
 
+  const handleDeleteNote = async () => {
+    if (!confirm("Are you sure you want to delete this note?")) return;
+
+    try {
+      const note = notes.find((n) => n.id === selectedNoteId);
+      if (!note) return;
+
+      await apiFetch(`/notes/${note.id}`, {
+        method: "DELETE",
+      });
+
+      setNotes((prev) => prev.filter((n) => n.id !== note.id));
+      setSelectedNoteId(null);
+      setTab("edit");
+    } catch (err) {
+      console.error("Failed to delete note", err);
+    }
+  };
+
   return (
     <div className="flex h-screen bg-gray-50 text-gray-900">
       <Sidebar
@@ -100,6 +119,7 @@ export default function DashboardPage() {
         onSelectNote={handleSelectNote}
         onCreateNote={handleCreateNote}
         onHomeClick={handleHomeClick}
+        onDeleteNote={handleDeleteNote}
       />
 
       <main className="flex-1 flex flex-col">
