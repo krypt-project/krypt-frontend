@@ -59,6 +59,11 @@ export default function DashboardPage() {
     }
   };
 
+  const handleHomeClick = () => {
+  setSelectedNoteId(null);
+  setTab("edit");
+};
+
   const handleSelectNote = (id: number) => {
     setSelectedNoteId(id);
     setTab("edit");
@@ -94,6 +99,7 @@ export default function DashboardPage() {
         selectedNoteId={selectedNoteId}
         onSelectNote={handleSelectNote}
         onCreateNote={handleCreateNote}
+        onHomeClick={handleHomeClick}
       />
 
       <main className="flex-1 flex flex-col">
