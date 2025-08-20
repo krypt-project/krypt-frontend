@@ -69,11 +69,10 @@ export default function DashboardPage() {
     setTab("edit");
   };
 
-  const handleContentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const updatedContent = e.target.value;
+  const handleContentChange = (newContent: string) => {
     setNotes((prev) =>
       prev.map((note) =>
-        note.id === selectedNoteId ? { ...note, content: updatedContent } : note
+        note.id === selectedNoteId ? { ...note, content: newContent } : note
       )
     );
   };
@@ -144,7 +143,6 @@ export default function DashboardPage() {
               setTab={setTab}
             />
             <EditorArea
-              tab={tab}
               content={selectedNote.content}
               onChange={handleContentChange}
               onBlur={handleSaveNote}
