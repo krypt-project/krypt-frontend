@@ -25,6 +25,7 @@ interface SidebarProps {
   selectedNoteId: number | null;
   onSelectNote: (id: number) => void;
   onCreateNote: () => void;
+  onHomeClick: () => void;
 }
 
 export default function Sidebar({
@@ -32,6 +33,7 @@ export default function Sidebar({
   selectedNoteId,
   onSelectNote,
   onCreateNote,
+  onHomeClick,
 }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [openNotes, setOpenNotes] = useState(true);
@@ -89,16 +91,16 @@ export default function Sidebar({
           {/* Home */}
           <ul className="mb-4">
             <li>
-              <Link
-                href="/dashboard"
-                className={`flex items-center p-2 rounded hover:bg-gray-200 transition ${
+              <button
+                onClick={onHomeClick}
+                className={`flex items-center w-full p-2 rounded hover:bg-gray-200 transition cursor-pointer ${
                   !collapsed && "text-gray-900"
                 }`}
                 title="Home"
               >
                 <Home size={18} />
                 {!collapsed && <span className="ml-3">Home</span>}
-              </Link>
+              </button>
             </li>
           </ul>
 
@@ -150,7 +152,7 @@ export default function Sidebar({
                   <li key={note.id}>
                     <button
                       onClick={() => onSelectNote(note.id)}
-                      className={`flex items-center w-full p-2 rounded hover:bg-gray-200 hover:text-gray-800 text-left truncate transition ${
+                      className={`flex items-center w-full p-2 rounded hover:bg-gray-200 hover:text-gray-800 text-left truncate cursor-pointer transition ${
                         note.id === selectedNoteId
                           ? "bg-gray-400/80 text-white py-2"
                           : "text-gray-800"
