@@ -12,6 +12,7 @@ import {
   ChevronLeft,
   File,
   Plus,
+  Trash,
 } from "lucide-react";
 
 type Note = {
@@ -26,6 +27,7 @@ interface SidebarProps {
   onSelectNote: (id: number) => void;
   onCreateNote: () => void;
   onHomeClick: () => void;
+  onDeleteNote: (id: number) => void;
 }
 
 export default function Sidebar({
@@ -34,6 +36,7 @@ export default function Sidebar({
   onSelectNote,
   onCreateNote,
   onHomeClick,
+  onDeleteNote,
 }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [openNotes, setOpenNotes] = useState(true);
@@ -149,10 +152,13 @@ export default function Sidebar({
                   </li>
                 )}
                 {notes.map((note) => (
-                  <li key={note.id}>
+                  <li
+                    key={note.id}
+                    className="group flex items-center justify-between"
+                  >
                     <button
                       onClick={() => onSelectNote(note.id)}
-                      className={`flex items-center w-full p-2 rounded hover:bg-gray-200 hover:text-gray-800 text-left truncate cursor-pointer transition ${
+                      className={`flex items-center flex-1 p-2 rounded hover:bg-gray-200 cursor-pointer hover:text-gray-800 text-left truncate transition ${
                         note.id === selectedNoteId
                           ? "bg-gray-400/80 text-white py-2"
                           : "text-gray-800"
@@ -161,6 +167,15 @@ export default function Sidebar({
                     >
                       <File size={16} />
                       <span className="ml-2 truncate">{note.title}</span>
+                    </button>
+
+                    {/* Delete note */}
+                    <button
+                      onClick={() => onDeleteNote(note.id)}
+                      className="ml-2 opacity-0 group-hover:opacity-100 text-red-500 hover:bg-red-100 p-1 rounded transition cursor-pointer"
+                      title="Delete note"
+                    >
+                      <Trash size={16} />
                     </button>
                   </li>
                 ))}
