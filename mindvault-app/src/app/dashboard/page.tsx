@@ -91,6 +91,25 @@ export default function DashboardPage() {
     }
   };
 
+  const handleRenameNote = async (newTitle: string) => {
+    if (!selectedNote) return;
+
+    setNotes((prev) =>
+      prev.map((note) =>
+        note.id === selectedNote.id ? { ...note, title: newTitle } : note
+      )
+    );
+
+    try {
+      await apiFetch(`/notes/${selectedNote.id}`, {
+        method: "PUT",
+        body: JSON.stringify({ ...selectedNote, title: newTitle }),
+      });
+    } catch (err) {
+      console.error("Failed to rename note", err);
+    }
+  };
+
   const handleDeleteNote = async () => {
     if (!confirm("Are you sure you want to delete this note?")) return;
 
@@ -141,12 +160,20 @@ export default function DashboardPage() {
               title={selectedNote.title}
               tab={tab}
               setTab={setTab}
+              onRename={handleRenameNote}
             />
-            <EditorArea
-              content={selectedNote.content}
-              onChange={handleContentChange}
-              onBlur={handleSaveNote}
-            />
+            {tab === "edit" ? (
+              <EditorArea
+                content={selectedNote.content}
+                onChange={handleContentChange}
+                onBlur={handleSaveNote}
+              />
+            ) : (
+              <div
+                className="flex-1 p-6 tiptap prose max-w-full overflow-auto"
+                dangerouslySetInnerHTML={{ __html: selectedNote.content }}
+              />
+            )}
           </>
         )}
       </main>
