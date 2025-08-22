@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Github, Twitter, Linkedin } from "lucide-react";
-import { FOOTER } from "@/lib/constants";
+import { FOOTER } from "@/utils/constants";
 import  icon from "@/app/favicon.png";
 
 export default function Footer({ border = false }: { border?: boolean }) {

@@ -7,7 +7,7 @@ import { PlusIcon } from "lucide-react";
 import Sidebar from "@/components/dashboard/Sidebar";
 import EditorHeader from "@/components/dashboard/EditorHeader";
 import EditorArea from "@/components/dashboard/EditorArea";
-import { apiFetch } from "@/lib/api";
+import { apiFetch } from "@/utils/api";
 
 type Note = {
   id: number;
