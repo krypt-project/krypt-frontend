@@ -8,6 +8,7 @@ import Sidebar from "@/components/dashboard/Sidebar";
 import EditorHeader from "@/components/dashboard/EditorHeader";
 import EditorArea from "@/components/dashboard/EditorArea";
 import { apiFetch } from "@/utils/api";
+import { useAutoSaveNote } from "@/utils/hooks/useAutoSaveNote";
 
 type Note = {
   id: number;
@@ -69,26 +70,26 @@ export default function DashboardPage() {
     setTab("edit");
   };
 
+  useAutoSaveNote({
+    noteId: selectedNote ? selectedNote.id.toString() : null,
+    content: selectedNote ? selectedNote.content : "",
+    delay: 2000,
+    threshold: 50,
+    onSave: async (content) => {
+      if (!selectedNote) return;
+      await apiFetch(`/notes/${selectedNote.id}`, {
+        method: "PUT",
+        body: JSON.stringify({ ...selectedNote, content }),
+      });
+    },
+  });
+
   const handleContentChange = (newContent: string) => {
     setNotes((prev) =>
       prev.map((note) =>
         note.id === selectedNoteId ? { ...note, content: newContent } : note
       )
     );
-  };
-
-  const handleSaveNote = async () => {
-    try {
-      const note = notes.find((n) => n.id === selectedNoteId);
-      if (!note) return;
-
-      await apiFetch(`/notes/${note.id}`, {
-        method: "PUT",
-        body: JSON.stringify(note),
-      });
-    } catch (err) {
-      console.error("Failed to update note", err);
-    }
   };
 
   const handleRenameNote = async (newTitle: string) => {
@@ -166,7 +167,6 @@ export default function DashboardPage() {
               <EditorArea
                 content={selectedNote.content}
                 onChange={handleContentChange}
-                onBlur={handleSaveNote}
               />
             ) : (
               <div
