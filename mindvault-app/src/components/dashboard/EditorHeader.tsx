@@ -36,7 +36,7 @@ export default function EditorHeader({
   };
 
   return (
-    <header className="flex items-center border-b border-gray-300 px-14 py-3 bg-white">
+    <header className="flex items-center border-b border-gray-200 px-14 py-3 bg-white">
       <div className="flex-1 flex items-center gap-2">
         {editingTitle ? (
           <input
