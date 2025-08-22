@@ -85,9 +85,9 @@ export default function EditorArea({
   );
 
   return (
-    <div className="flex flex-col flex-1 bg-white rounded-xl shadow border">
+    <div className="flex flex-col flex-1 bg-white rounded-xl shadow">
       {/* Toolbar */}
-      <div className="border-b p-2 flex gap-2 flex-wrap bg-gray-50">
+      <div className="border-b border-gray-300 p-2 flex gap-2 flex-wrap bg-gray-50">
         {toolbarButton(
           () => editor.chain().focus().toggleBold().run(),
           <BoldIcon size={16} />,
