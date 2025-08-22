@@ -36,11 +36,9 @@ import {
 export default function EditorArea({
   content,
   onChange,
-  onBlur,
 }: {
   content: string;
   onChange: (content: string) => void;
-  onBlur: () => void;
 }) {
   const editor = useEditor({
     extensions: [
@@ -64,7 +62,6 @@ export default function EditorArea({
     onUpdate: ({ editor }) => {
       onChange(editor.getHTML());
     },
-    onBlur,
     immediatelyRender: false,
   });
 
