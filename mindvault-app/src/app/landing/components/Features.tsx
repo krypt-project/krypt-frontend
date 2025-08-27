@@ -1,7 +1,7 @@
 import Image from "next/image";
+import { FeatureCard } from "@/components/molecules/FeatureCard";
 import PlanetImg from "@/app/favicon.png";
 import { FEATURES_HEADER, FEATURES_LIST } from "@/config/constants";
-import { LucideIcon } from "lucide-react";
 
 export default function Features() {
   return (
@@ -31,35 +31,13 @@ export default function Features() {
           </div>
 
           {/* Feature Grid */}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-gray-300 md:*:p-10 *:relative *:p-6 *:rounded-2xl *:bg-gray-900/30 *:backdrop-blur-md *:border *:border-white/10">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES_LIST.map((feature, idx) => (
-              <FeatureItem key={idx} {...feature} />
+              <FeatureCard key={idx} {...feature} />
             ))}
           </div>
         </div>
       </div>
     </section>
-  );
-}
-
-function FeatureItem({
-  icon: Icon,
-  color,
-  title,
-  desc,
-}: {
-  icon: LucideIcon;
-  color: string;
-  title: string;
-  desc: string;
-}) {
-  return (
-    <article>
-      <h3 className="mb-3 flex items-center gap-2 text-lg font-semibold text-white">
-        <Icon size={20} strokeWidth={2} color={color} />
-        <span>{title}</span>
-      </h3>
-      <p className="text-sm text-gray-400">{desc}</p>
-    </article>
   );
 }
