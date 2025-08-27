@@ -4,9 +4,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PlusIcon } from "lucide-react";
 
-import Sidebar from "@/components/dashboard/Sidebar";
-import EditorHeader from "@/components/dashboard/EditorHeader";
-import EditorArea from "@/components/dashboard/EditorArea";
+import Sidebar from "@/app/dashboard/components/Sidebar";
+import EditorHeader from "@/app/dashboard/components/EditorHeader";
+import EditorArea from "@/app/dashboard/components/EditorArea";
 import { apiFetch } from "@/utils/api";
 import { useAutoSaveNote } from "@/utils/hooks/useAutoSaveNote";
 
