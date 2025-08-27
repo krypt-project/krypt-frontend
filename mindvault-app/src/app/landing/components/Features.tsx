@@ -1,6 +1,6 @@
 import Image from "next/image";
 import PlanetImg from "@/app/favicon.png";
-import { FEATURES_HEADER, FEATURES_LIST } from "@/utils/constants";
+import { FEATURES_HEADER, FEATURES_LIST } from "@/config/constants";
 import { LucideIcon } from "lucide-react";
 
 export default function Features() {

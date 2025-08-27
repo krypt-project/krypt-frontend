@@ -8,7 +8,7 @@ import Sidebar from "@/app/dashboard/components/Sidebar";
 import EditorHeader from "@/app/dashboard/components/EditorHeader";
 import EditorArea from "@/app/dashboard/components/EditorArea";
 import { apiFetch } from "@/utils/api";
-import { useAutoSaveNote } from "@/utils/hooks/useAutoSaveNote";
+import { useAutoSaveNote } from "@/hooks/useAutoSaveNote";
 
 type Note = {
   id: number;

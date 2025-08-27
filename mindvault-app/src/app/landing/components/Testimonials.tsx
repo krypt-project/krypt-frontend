@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Quote } from "lucide-react";
 import TestimonialImg from "@/app/favicon.png";
-import { TESTIMONIAL } from "@/utils/constants";
+import { TESTIMONIAL } from "@/config/constants";
 
 export default function Testimonial() {
   return (
