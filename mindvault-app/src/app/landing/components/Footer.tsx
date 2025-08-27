@@ -1,8 +1,9 @@
 import Link from "next/link";
+import { NavLink } from "@/components/NavLink";
 import Image from "next/image";
 import { Github, Twitter, Linkedin } from "lucide-react";
 import { FOOTER } from "@/config/constants";
-import  icon from "@/app/favicon.png";
+import icon from "@/app/favicon.png";
 
 export default function Footer({ border = false }: { border?: boolean }) {
   return (
@@ -91,9 +92,9 @@ function FooterSection({ title, links }: { title: string; links: string[] }) {
       <ul className="space-y-2">
         {links.map((label) => (
           <li key={label}>
-            <Link className="hover:text-black transition" href="#">
+            <NavLink href="#" variant="footer">
               {label}
-            </Link>
+            </NavLink>
           </li>
         ))}
       </ul>

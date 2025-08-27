@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { NavLink } from "@/components/NavLink";
 import Image from "next/image";
 import icon from "@/app/favicon.png";
 
@@ -20,22 +20,16 @@ export default function Header() {
 
           {/* Navigation links */}
           <ul className="flex flex-1 items-center justify-end gap-3">
-            <li>
-              <Link
-                href="/login-register?mode=login"
-                className="text-sm font-medium inline-flex items-center justify-center rounded-lg whitespace-nowrap transition-all px-3 py-[5px] bg-white text-gray-800 shadow-sm hover:bg-gray-100"
-              >
-                Login
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/login-register?mode=register"
-                className="text-sm font-medium whitespace-nowrap transition-all px-3 py-[5px] shadow-sm group text-white inline-flex items-center justify-center rounded-lg bg-gradient-to-tr from-[#D56434] to-[#6D66E7] hover:from-[#D56434]/90 hover:to-[#6D66E7]/90 sm:w-auto"
-              >
-                Register
-              </Link>
-            </li>
+            <NavLink href="/login-register?mode=login" variant="header">
+              Login
+            </NavLink>
+            <NavLink
+              href="/login-register?mode=register"
+              variant="header"
+              className="bg-gradient-to-tr from-[#D56434] to-[#6D66E7] text-white"
+            >
+              Register
+            </NavLink>
           </ul>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { HERO_CONTENT } from "@/config/constants";
+import Button from "@/components/Button";
 import Image from "next/image";
 
 export default function Hero() {
@@ -34,12 +35,8 @@ export default function Hero() {
                 data-aos="zoom-y-out"
                 data-aos-delay={450}
               >
-                <button className="group cursor-pointer inline-flex items-center justify-center rounded-lg bg-gradient-to-tr from-[#D56434] to-[#6D66E7] px-6 py-3 text-sm font-medium text-white shadow-lg transition-transform hover:scale-105 sm:w-auto">
-                  {HERO_CONTENT.primaryCta}
-                </button>
-                <button className="inline-flex cursor-pointer items-center justify-center rounded-lg border border-gray-800 px-6 py-3 text-sm font-medium text-gray-800 transition-colors duration-150 hover:bg-gray-100">
-                  {HERO_CONTENT.secondaryCta}
-                </button>
+                <Button variant="primary">{HERO_CONTENT.primaryCta}</Button>
+                <Button variant="secondary">{HERO_CONTENT.secondaryCta}</Button>
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
+import Button from "@/components/Button";
 import image from "@/app/favicon.png";
 
 export default function Cta() {
@@ -42,16 +43,12 @@ export default function Cta() {
             </h2>
 
             <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
-              <a
-                className="group inline-flex items-center justify-center rounded-lg bg-gradient-to-tr from-[#D56434] to-[#6D66E7] px-6 py-3 text-sm font-medium text-white shadow-lg transition-transform hover:scale-105 sm:w-auto"
-                href="#"
-              >
-                Start Free Trial
-                <ArrowRight
-                  className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
-                  aria-hidden="true"
-                />
-              </a>
+              <Button variant="primary" asChild>
+                <a href="#">
+                  Start Free Trial
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </a>
+              </Button>
             </div>
           </div>
         </div>
