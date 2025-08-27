@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import AuthCard from "@/components/login-register/AuthCard";
+import AuthCard from "@/app/login-register/components/AuthCard";
 
 export default function LoginRegisterPage() {
   const searchParams = useSearchParams();
