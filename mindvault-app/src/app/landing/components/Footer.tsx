@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { NavLink } from "@/components/NavLink";
+import { NavLink } from "@/components/atoms/NavLink";
 import Image from "next/image";
 import { Github, Twitter, Linkedin } from "lucide-react";
 import { FOOTER } from "@/config/constants";

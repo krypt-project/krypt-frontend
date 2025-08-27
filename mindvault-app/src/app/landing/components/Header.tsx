@@ -1,4 +1,4 @@
-import { NavLink } from "@/components/NavLink";
+import { NavLink } from "@/components/atoms/NavLink";
 import Image from "next/image";
 import icon from "@/app/favicon.png";
 
