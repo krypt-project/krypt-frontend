@@ -1,23 +1,76 @@
 import { cn } from "@/utils/cn";
 import { ReactNode } from "react";
+import Button from "@/components/atoms/Button";
 
 type CardProps = {
-  children: ReactNode;
+  children?: ReactNode;
   className?: string;
   variant?: "default" | "feature" | "pricing" | "ghost";
+  title?: string;
+  description?: string;
+  price?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
 };
 
-export function Card({ children, className, variant = "default" }: CardProps) {
-  const base = "relative rounded-2xl border backdrop-blur-md transition-shadow";
+export function Card({
+  children,
+  className,
+  variant = "default",
+  title,
+  description,
+  price,
+  ctaLabel,
+  ctaHref,
+}: CardProps) {
+  const base =
+    "relative rounded-2xl border backdrop-blur-md transition-shadow flex flex-col";
 
   const variants = {
-    default: "bg-white border-gray-200 shadow-sm",
-    feature: "bg-gray-900/30 border-white/10 text-gray-300",
-    pricing: "bg-white border-gray-100 shadow-lg hover:shadow-xl",
+    default: "bg-white border-gray-200 shadow-sm p-6",
+    feature: cn(
+      "bg-gray-900/30 border-white/10 text-gray-300 p-6 md:p-10",
+      "hover:border-[var(--primary)] hover:shadow-lg hover:shadow-[var(--primary)]/20 hover:scale-[1.02] transition-transform duration-300"
+    ),
+    pricing:
+      "bg-white border-gray-100 shadow-lg hover:shadow-xl p-8 text-center",
     ghost: "bg-transparent border-transparent shadow-none",
   };
 
   return (
-    <div className={cn(base, variants[variant], className)}>{children}</div>
+    <div className={cn(base, variants[variant], className)}>
+      {title && <h3 className="text-lg font-semibold mb-2">{title}</h3>}
+      {description && (
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          {description}
+        </p>
+      )}
+
+      {/* Pricing */}
+      {variant === "pricing" && price && (
+        <div className="mb-6">
+          <span className="text-4xl font-bold text-gray-900">{price}</span>
+          <span className="text-gray-500 text-sm"> /mo</span>
+        </div>
+      )}
+
+      {/* Custom content */}
+      {children && <div className="flex-1">{children}</div>}
+
+      {/* CTA */}
+      {ctaLabel && ctaHref && (
+        <div className="mt-6">
+          <Button
+            href={ctaHref}
+            variant={variant === "feature" ? "outlined" : "gradient"}
+            size="md"
+            rounded
+            className="w-full"
+          >
+            {ctaLabel}
+          </Button>
+        </div>
+      )}
+    </div>
   );
 }
