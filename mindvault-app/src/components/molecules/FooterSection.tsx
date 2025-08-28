@@ -1,4 +1,4 @@
-import { NavLink } from "../atoms/NavLink";
+import Button from "@/components/atoms/Button";
 
 export function FooterSection({
   title,
@@ -13,9 +13,9 @@ export function FooterSection({
       <ul className="space-y-2">
         {links.map((label) => (
           <li key={label}>
-            <NavLink href="#" variant="footer">
+            <Button href="#" variant="link">
               {label}
-            </NavLink>
+            </Button>
           </li>
         ))}
       </ul>
