@@ -16,7 +16,7 @@ export default function Cta() {
             className="absolute bottom-0 left-1/2 -z-10 -translate-x-1/2 translate-y-1/2"
             aria-hidden="true"
           >
-            <div className="h-56 w-[480px] rounded-full border-[20px] border-[#6D66E7] blur-3xl opacity-50" />
+            <div className="h-56 w-[480px] rounded-full border-[20px] border-[var(--primary)] blur-3xl opacity-50" />
           </div>
 
           {/* Background Illustration */}
@@ -25,7 +25,7 @@ export default function Cta() {
             aria-hidden="true"
           >
             <div className="relative h-[400px] w-[400px] rounded-full opacity-10">
-              <div className="absolute inset-0 animate-[pulse_6s_ease-in-out_infinite] rounded-full bg-gradient-to-br from-cyan-400 via-purple-600 to-[#D56434] blur-3xl"></div>
+              <div className="absolute inset-0 animate-[pulse_6s_ease-in-out_infinite] rounded-full bg-gradient-to-br from-[var(--background-2)] to-[var(--primary)] blur-3xl"></div>
               <Image
                 src={image}
                 alt="Background pattern"
@@ -43,11 +43,14 @@ export default function Cta() {
             </h2>
 
             <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
-              <Button variant="primary" asChild>
-                <a href="#">
-                  Start Free Trial
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </a>
+              <Button
+                href="#"
+                variant="gradient"
+                size="lg"
+                rounded
+                icon={<ArrowRight className="h-4 w-4" />}
+              >
+                Start Free Trial
               </Button>
             </div>
           </div>
