@@ -35,8 +35,8 @@ export default function Hero() {
                 data-aos="zoom-y-out"
                 data-aos-delay={450}
               >
-                <Button variant="primary">{HERO_CONTENT.primaryCta}</Button>
-                <Button variant="secondary">{HERO_CONTENT.secondaryCta}</Button>
+                <Button variant="gradient">{HERO_CONTENT.primaryCta}</Button>
+                <Button variant="outlined">{HERO_CONTENT.secondaryCta}</Button>
               </div>
             </div>
           </div>
