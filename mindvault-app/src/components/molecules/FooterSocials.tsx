@@ -13,19 +13,19 @@ const socials: Social[] = [
     href: "#",
     label: "Twitter",
     icon: <Twitter className="h-6 w-6" />,
-    hoverColor: "hover:text-[#D56434]",
+    hoverColor: "hover:text-[var(--primary)]",
   },
   {
     href: "#",
     label: "Github",
     icon: <Github className="h-6 w-6" />,
-    hoverColor: "hover:text-[#6D66E7]",
+    hoverColor: "hover:text-[var(--primary)]",
   },
   {
     href: "#",
     label: "Linkedin",
     icon: <Linkedin className="h-6 w-6" />,
-    hoverColor: "hover:text-[#00d5ff]",
+    hoverColor: "hover:text-[var(--primary)]",
   },
 ];
 
