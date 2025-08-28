@@ -10,6 +10,10 @@ import EditorArea from "@/app/dashboard/components/EditorArea";
 import { apiFetch } from "@/utils/api";
 import { useAutoSaveNote } from "@/hooks/useAutoSaveNote";
 
+/* Style */
+import "@/styles/dashboard.css";
+import "@/styles/editor.css";
+
 type Note = {
   id: number;
   title: string;
