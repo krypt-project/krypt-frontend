@@ -27,7 +27,7 @@ export default function Testimonial() {
             <div className="text-sm font-medium text-gray-500">
               <span className="text-gray-700">{TESTIMONIAL.author}</span>{" "}
               <span className="text-gray-400">/</span>{" "}
-              <span className="text-blue-500">{TESTIMONIAL.role}</span>
+              <span className="text-[var(--primary)]">{TESTIMONIAL.role}</span>
             </div>
           </div>
         </div>
