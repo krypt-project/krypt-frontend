@@ -10,7 +10,7 @@ import "@/styles/landing.css";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col justify-between overflow-hidden">
+    <div className="relative min-h-screen flex flex-col justify-between overflow-hidden overflow-x-hidden">
       <Header />
       <Hero />
       <Features />
