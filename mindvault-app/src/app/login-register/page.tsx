@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import Button from "@/components/atoms/Button";
 import { ArrowLeft } from "lucide-react";
 import AuthCard from "@/app/login-register/components/AuthCard";
 
@@ -18,14 +18,11 @@ export default function LoginRegisterPage() {
   }, [mode]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4">
-      <Link
-        href="/"
-        className="absolute top-4 left-4 text-sm text-gray-600 hover:text-gray-800 underline"
-      >
-        <ArrowLeft className="mr-1 inline-block" />
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[var(--background-2)]/10 to-[var(--primary)]/25 px-4">
+      <Button href="/" variant="outlined" className="absolute top-4 left-4">
+        <ArrowLeft />
         Back to Home
-      </Link>
+      </Button>
       <AuthCard isLogin={isLogin} setIsLogin={setIsLogin} />
     </div>
   );
