@@ -5,7 +5,7 @@ import Button from "@/components/atoms/Button";
 type CardProps = {
   children?: ReactNode;
   className?: string;
-  variant?: "default" | "feature" | "pricing" | "ghost";
+  variant?: "default" | "feature" | "pricing" | "ghost" | "auth";
   title?: string;
   description?: string;
   price?: string;
@@ -35,11 +35,21 @@ export function Card({
     pricing:
       "bg-white border-gray-100 shadow-lg hover:shadow-xl p-8 text-center",
     ghost: "bg-transparent border-transparent shadow-none",
+    auth: "bg-white border-gray-200 shadow-md p-8 text-center",
   };
 
   return (
     <div className={cn(base, variants[variant], className)}>
-      {title && <h3 className="text-lg font-semibold mb-2">{title}</h3>}
+      {title && (
+        <h3
+          className={cn(
+            "mb-4 font-semibold",
+            variant === "auth" ? "text-3xl text-center" : "text-lg"
+          )}
+        >
+          {title}
+        </h3>
+      )}
       {description && (
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
           {description}
