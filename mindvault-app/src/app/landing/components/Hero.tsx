@@ -54,7 +54,7 @@ export default function Hero() {
               <div className="overflow-hidden rounded-2xl shadow-xl">
                 <Image
                   src="/demo_app.png"
-                  alt="Hero illustration"
+                  alt="Editor screenshot"
                   width={1280}
                   height={720}
                   className="w-full h-auto object-cover rounded-2xl"
