@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 
 type ButtonProps = {
   children: React.ReactNode;
-  variant?: "default" | "outlined" | "gradient" | "link";
+  variant?: "default" | "outlined" | "gradient" | "link" | "sidebar";
   size?: "sm" | "md" | "lg";
   rounded?: boolean;
   loading?: boolean;
@@ -31,7 +31,7 @@ export default function Button({
 }: ButtonProps) {
   // Base styles
   const baseStyles =
-    "inline-flex items-center justify-center font-medium transition-colors focus:outline-none cursor-pointer focus:ring-2 focus:ring-offset-2";
+    "inline-flex items-center font-medium transition-colors focus:outline-none cursor-pointer focus:ring-2 focus:ring-offset-2";
 
   // Variants
   const variants = {
@@ -41,6 +41,7 @@ export default function Button({
     gradient:
       "bg-gradient-to-r from-[var(--background-2)] to-[var(--primary)] text-white hover:opacity-90",
     link: "text-sm text-gray-500 hover:text-black transition-colors focus:outline-none focus:ring-0",
+    sidebar: "flex items-center w-full p-2 rounded hover:bg-gray-200 transition cursor-pointer",
   };
 
   // Sizes
