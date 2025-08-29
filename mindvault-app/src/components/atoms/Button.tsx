@@ -40,7 +40,7 @@ export default function Button({
       "border border-[var(--border)] text-[var(--foreground)] bg-[var(--background)]/70 hover:bg-[var(--secondary)]",
     gradient:
       "bg-gradient-to-r from-[var(--background-2)] to-[var(--primary)] text-white hover:opacity-90",
-    link: "text-sm text-gray-500 hover:text-black transition-colors",
+    link: "text-sm text-gray-500 hover:text-black transition-colors focus:outline-none focus:ring-0",
   };
 
   // Sizes
@@ -66,7 +66,7 @@ export default function Button({
 
   const classes = cn(
     baseStyles,
-    variants[variant],
+    variant === "link" ? "focus:outline-none focus:ring-0" : variants[variant],
     sizes[size],
     shape,
     isDisabled ? "opacity-50 cursor-not-allowed" : "",
