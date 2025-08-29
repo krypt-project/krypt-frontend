@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import Image from "next/image";
+import Button from "@/components/atoms/Button";
 import {
   Home,
   FileText,
@@ -94,26 +94,29 @@ export default function Sidebar({
           {/* Home */}
           <ul className="mb-4">
             <li>
-              <button
+              <Button
                 onClick={onHomeClick}
-                className={`flex items-center w-full p-2 rounded hover:bg-gray-200 transition cursor-pointer ${
+                variant="sidebar"
+                className={`flex w-full items-center ${
                   !collapsed && "text-gray-900"
                 }`}
                 title="Home"
               >
                 <Home size={18} />
                 {!collapsed && <span className="ml-3">Home</span>}
-              </button>
+              </Button>
             </li>
           </ul>
 
           {/* Notes */}
           <div className="mb-4">
-            <button
+            <Button
               onClick={() => setOpenNotes(!openNotes)}
-              className="flex items-center w-full p-2 rounded hover:bg-gradient-to-tr hover:from-[#FBD5C2] hover:to-[#B8B9F7] hover:text-black cursor-pointer transition"
+              variant="sidebar"
+              className="flex w-full items-center"
               aria-expanded={openNotes}
               aria-controls="notes-submenu"
+              title="Notes"
             >
               <FileText size={18} />
               {!collapsed && (
@@ -121,30 +124,32 @@ export default function Sidebar({
                   <span className="ml-3 flex-1 text-left">Notes</span>
                   <ChevronDown
                     size={16}
-                    className={`transition-transform ${
+                    className={`text-right transition-transform ${
                       openNotes ? "rotate-180" : ""
                     }`}
                   />
                 </>
               )}
-            </button>
+            </Button>
 
             {openNotes && !collapsed && (
               <ul
                 id="notes-submenu"
-                className="pl-8 mt-2 max-h-[calc(100vh-180px)] overflow-y-auto"
+                className="pl-8 mt-2 max-h-[calc(100vh-180px)] overflow-y-visible"
               >
                 <li className="mb-1 flex justify-between items-center">
                   <span className="font-semibold text-gray-700">
                     Your notes
                   </span>
-                  <button
+                  <Button
                     onClick={onCreateNote}
+                    variant="sidebar"
                     aria-label="Create new note"
-                    className="p-1 rounded hover:bg-green-200 text-green-600 transition cursor-pointer"
+                    className="hover:bg-green-200 text-green-600"
+                    title="Create new note"
                   >
                     <Plus size={16} />
-                  </button>
+                  </Button>
                 </li>
                 {notes.length === 0 && (
                   <li className="px-2 py-1 text-sm text-gray-500 italic">
@@ -156,27 +161,29 @@ export default function Sidebar({
                     key={note.id}
                     className="group flex items-center justify-between"
                   >
-                    <button
+                    <Button
                       onClick={() => onSelectNote(note.id)}
-                      className={`flex items-center flex-1 p-2 rounded hover:bg-gray-200 cursor-pointer hover:text-gray-800 text-left truncate transition ${
+                      variant="sidebar"
+                      className={`flex items-center text-left truncate ${
                         note.id === selectedNoteId
-                          ? "bg-gray-400/80 text-white py-2"
+                          ? "bg-[var(--secondary)] text-gray-800 py-2"
                           : "text-gray-800"
                       }`}
                       title={note.title}
                     >
                       <File size={16} />
                       <span className="ml-2 truncate">{note.title}</span>
-                    </button>
+                    </Button>
 
                     {/* Delete note */}
-                    <button
+                    <Button
                       onClick={() => onDeleteNote(note.id)}
-                      className="ml-2 opacity-0 group-hover:opacity-100 text-red-500 hover:bg-red-100 p-1 rounded transition cursor-pointer"
+                      variant="sidebar"
+                      className="ml-2 opacity-0 group-hover:opacity-100 text-red-500 hover:bg-red-100"
                       title="Delete note"
                     >
                       <Trash size={16} />
-                    </button>
+                    </Button>
                   </li>
                 ))}
               </ul>
@@ -191,24 +198,26 @@ export default function Sidebar({
               </p>
               <ul className="space-y-1">
                 <li>
-                  <Link
+                  <Button
                     href="/settings"
-                    className="flex items-center p-2 rounded hover:bg-gray-100 transition"
+                    variant="sidebar"
+                    className="flex w-full items-center hover:bg-gray-100"
                     title="Settings"
                   >
                     <Settings size={18} />
                     <span className="ml-3">Settings</span>
-                  </Link>
+                  </Button>
                 </li>
                 <li>
-                  <button
+                  <Button
                     onClick={logout}
-                    className="flex items-center w-full p-2 rounded hover:text-red-500 hover:bg-gray-200 transition cursor-pointer"
+                    variant="sidebar"
+                    className="flex items-center w-full hover:text-red-500 hover:bg-gray-200"
                     title="Logout"
                   >
                     <LogOut size={18} />
                     <span className="ml-3">Logout</span>
-                  </button>
+                  </Button>
                 </li>
               </ul>
             </>
@@ -216,16 +225,17 @@ export default function Sidebar({
         </nav>
       </aside>
 
-      <button
+      <Button
         onClick={() => setCollapsed(!collapsed)}
+        variant="outlined"
         aria-label="Toggle Sidebar"
-        className="absolute top-4 left-full ml-1 bg-white border border-gray-300 rounded p-1 shadow hover:bg-gray-100 transition cursor-pointer"
+        className="absolute top-4 left-full ml-1 shadow w-10 h-10 flex items-center justify-center p-0"
       >
         <ChevronLeft
           size={20}
           className={`transition-transform ${collapsed ? "rotate-180" : ""}`}
         />
-      </button>
+      </Button>
     </div>
   );
 }
