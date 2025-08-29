@@ -3,6 +3,8 @@
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { useRouter } from "next/navigation";
+import { Card } from "@/components/atoms/Card";
+import Button from "@/components/atoms/Button";
 
 export default function AuthCard({
   isLogin,
@@ -58,40 +60,44 @@ export default function AuthCard({
     }
   };
   return (
-    <div className="w-full max-w-md rounded-2xl backdrop-blur-xl shadow-lg border border-gray-200 bg-white/70 p-8">
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
-        {isLogin ? "Login" : "Register"}
-      </h2>
-
+    <Card
+      variant="auth"
+      title={isLogin ? "Login" : "Register"}
+      className="w-full max-w-md"
+    >
+      {/* Form */}
       {isLogin ? (
         <LoginForm onSubmit={handleLogin} />
       ) : (
         <RegisterForm onSubmit={handleRegister} />
       )}
 
+      {/* switch login/register */}
       <div className="text-center mt-6 text-sm text-gray-600">
         {isLogin ? (
           <>
             Don&apos;t have an account yet ?{" "}
-            <button
+            <Button
               onClick={() => setIsLogin(false)}
-              className="text-blue-600 hover:underline font-medium"
+              variant="link"
+              className="text-[var(--primary)] hover:underline font-medium cursor-pointer"
             >
               Registration
-            </button>
+            </Button>
           </>
         ) : (
           <>
             Already have an account ?{" "}
-            <button
+            <Button
               onClick={() => setIsLogin(true)}
-              className="text-blue-600 hover:underline font-medium"
+              variant="link"
+              className="text-[var(--primary)] hover:underline font-medium"
             >
               Login
-            </button>
+            </Button>
           </>
         )}
       </div>
-    </div>
+    </Card>
   );
 }
