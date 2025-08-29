@@ -7,6 +7,7 @@ import { PlusIcon } from "lucide-react";
 import Sidebar from "@/app/dashboard/components/Sidebar";
 import EditorHeader from "@/app/dashboard/components/EditorHeader";
 import EditorArea from "@/app/dashboard/components/EditorArea";
+import Button from "@/components/atoms/Button";
 import { apiFetch } from "@/utils/api";
 import { useAutoSaveNote } from "@/hooks/useAutoSaveNote";
 
@@ -151,13 +152,14 @@ export default function DashboardPage() {
             <h2 className="text-3xl font-semibold mb-4">
               Open a note or create one
             </h2>
-            <button
+            <Button
               onClick={handleCreateNote}
-              className="rounded bg-green-600 text-white px-6 py-3 hover:bg-green-700 transition cursor-pointer flex items-center"
+              variant="default"
+              className="bg-green-600 text-white px-6 py-3 hover:bg-green-700"
             >
               <PlusIcon className="mr-2 w-5" />
               Create a new note
-            </button>
+            </Button>
           </div>
         ) : (
           <>
