@@ -9,7 +9,7 @@ export default function Hero() {
         <div className="pb-12 pt-32 md:pb-20 md:pt-40">
           <div className="pb-12 text-center md:pb-16">
             <h1
-              className="mb-6 border-y text-5xl font-bold [border-image:linear-gradient(to_right,transparent,#cbd5e1,transparent)1] md:text-6xl"
+              className="mb-10 text-5xl font-bold md:text-6xl"
               data-aos="zoom-y-out"
               data-aos-delay={150}
             >
