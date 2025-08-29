@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Button from "@/components/atoms/Button";
+import Input from "@/components/atoms/Input";
 
 export default function RegisterForm({
   onSubmit,
@@ -33,48 +35,40 @@ export default function RegisterForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <input
+      <Input
         name="firstName"
         type="text"
         placeholder="First Name"
         value={formData.firstName}
         onChange={handleChange}
-        className="w-full border rounded px-3 py-2"
-        required
       />
-      <input
+      <Input
         name="lastName"
         type="text"
         placeholder="Last Name"
         value={formData.lastName}
         onChange={handleChange}
-        className="w-full border rounded px-3 py-2"
         required
       />
-      <input
+      <Input
         name="email"
         type="email"
         placeholder="Email"
         value={formData.email}
         onChange={handleChange}
-        className="w-full border rounded px-3 py-2"
         required
       />
-      <input
+      <Input
         name="password"
         type="password"
         placeholder="Password"
         value={formData.password}
         onChange={handleChange}
-        className="w-full border rounded px-3 py-2"
         required
       />
-      <button
-        type="submit"
-        className="w-full bg-gradient-to-tr from-[#D56434] to-[#6D66E7] text-white py-2 rounded hover:opacity-90 transition cursor-pointer"
-      >
+      <Button type="submit" variant="gradient" className="w-full">
         Register
-      </button>
+      </Button>
     </form>
   );
 }
