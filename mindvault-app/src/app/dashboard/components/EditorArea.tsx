@@ -172,7 +172,7 @@ export default function EditorArea({
       {/* Zone d'édition */}
       <EditorContent
         editor={editor}
-        className="flex-1 p-6 tiptap [&_.ProseMirror]:focus:outline-none"
+        className="flex-1 p-6 tiptap [&_.ProseMirror]:focus:outline-none prose"
       />
     </div>
   );

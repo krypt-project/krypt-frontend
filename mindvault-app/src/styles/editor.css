@@ -1,10 +1,6 @@
 /* ========================== */
 /* Editor Styles - editor.css */
 /* ========================== */
-.prose {
-  @apply max-w-none;
-}
-
 .tiptap {
     @apply prose max-w-none;
     line-height: 1.6;
