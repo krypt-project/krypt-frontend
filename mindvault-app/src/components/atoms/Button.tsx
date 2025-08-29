@@ -11,6 +11,7 @@ type ButtonProps = {
   icon?: React.ReactNode;
   href?: string;
   className?: string;
+  title?: string;
   onClick?: () => void;
   type?: "button" | "submit";
   disabled?: boolean;
@@ -25,6 +26,7 @@ export default function Button({
   icon,
   href,
   className,
+  title,
   onClick,
   type = "button",
   disabled = false,
@@ -41,7 +43,7 @@ export default function Button({
     gradient:
       "bg-gradient-to-r from-[var(--background-2)] to-[var(--primary)] text-white hover:opacity-90",
     link: "text-sm text-gray-500 hover:text-black transition-colors focus:outline-none focus:ring-0",
-    sidebar: "flex items-center w-full p-2 rounded hover:bg-gray-200 transition cursor-pointer",
+    sidebar: "p-2 rounded hover:bg-gray-200 transition cursor-pointer",
   };
 
   // Sizes
@@ -88,6 +90,7 @@ export default function Button({
       onClick={onClick}
       className={classes}
       disabled={isDisabled}
+      title={title}
     >
       {content}
     </button>
