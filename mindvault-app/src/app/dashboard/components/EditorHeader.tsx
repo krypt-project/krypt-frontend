@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Edit2 } from "lucide-react";
+import Button from "@/components/atoms/Button";
+import Input from "@/components/atoms/Input";
 
 export default function EditorHeader({
   title,
@@ -36,51 +38,54 @@ export default function EditorHeader({
   };
 
   return (
-    <header className="flex items-center border-b border-gray-200 px-14 py-3 bg-white">
+    <header className="flex items-center px-14 py-3 bg-white">
       <div className="flex-1 flex items-center gap-2">
         {editingTitle ? (
-          <input
+          <Input
             ref={inputRef}
             value={currentTitle}
+            className="text-xl font-semibold pr-5"
             onChange={(e) => setCurrentTitle(e.target.value)}
             onBlur={handleBlur}
             onKeyDown={(e) => e.key === "Enter" && inputRef.current?.blur()}
-            className="border-b border-gray-400 text-xl font-semibold focus:outline-none focus:border-indigo-500"
           />
         ) : (
           <>
             <h2 className="text-xl font-semibold">{title}</h2>
-            <button
+            <Button
               onClick={() => setEditingTitle(true)}
-              className="ml-2 text-yellow-600 hover:bg-yellow-200 p-1 rounded transition cursor-pointer"
+              variant="sidebar"
+              className="ml-2 text-yellow-600 hover:bg-yellow-200 p-1"
             >
               <Edit2 size={16} />
-            </button>
+            </Button>
           </>
         )}
       </div>
 
       <nav className="flex space-x-4">
-        <button
+        <Button
           onClick={() => setTab("edit")}
-          className={`py-1 px-3 rounded ${
+          variant="outlined"
+          className={`py-0 px-3 ${
             tab === "edit"
-              ? "bg-gradient-to-tr from-[#D56434] to-[#6D66E7] text-white py-2 rounded hover:opacity-90 transition cursor-pointer"
-              : "hover:bg-indigo-100 text-gray-700 transition cursor-pointer"
+              ? "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-white py-2 hover:opacity-90"
+              : "hover:bg-indigo-100 text-gray-700"
           }`}
         >
           Edit
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => setTab("preview")}
-          className={`py-1 px-3 rounded ${
+          variant="outlined"
+          className={`py-0 px-3 ${
             tab === "preview"
-              ? "bg-gradient-to-tr from-[#D56434] to-[#6D66E7] text-white py-2 rounded hover:opacity-90 transition cursor-pointer"
-              : "hover:bg-indigo-100 text-gray-700 transition cursor-pointer"
+              ? "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-white py-2 hover:opacity-90"
+              : "hover:bg-indigo-100 text-gray-700"
           }`}
         >
           Preview
-        </button>
+        </Button>
       </nav>
     </header>
   );
