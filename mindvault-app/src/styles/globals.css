@@ -62,8 +62,3 @@ body {
     transform: translateY(-5px);
   }
 }
-
-/* Editor */
-.prose {
-  @apply max-w-none;
-}

@@ -1,6 +1,9 @@
 /* ========================== */
 /* Editor Styles - editor.css */
 /* ========================== */
+.prose {
+  @apply max-w-none;
+}
 
 .tiptap {
     @apply prose max-w-none;
