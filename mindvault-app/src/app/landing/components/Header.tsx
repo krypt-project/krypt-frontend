@@ -12,8 +12,8 @@ export default function Header() {
             <Image
               src={icon}
               alt="Logo"
-              width={32}
-              height={32}
+              width={60}
+              height={60}
               style={{ borderRadius: "0.5rem" }}
             />
           </div>
