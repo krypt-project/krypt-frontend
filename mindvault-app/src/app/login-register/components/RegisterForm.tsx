@@ -66,7 +66,7 @@ export default function RegisterForm({
         onChange={handleChange}
         required
       />
-      <Button type="submit" variant="gradient" className="w-full">
+      <Button type="submit" variant="gradient" className="w-full justify-center">
         Register
       </Button>
     </form>

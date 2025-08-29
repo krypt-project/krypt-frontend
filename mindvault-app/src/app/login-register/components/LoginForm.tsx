@@ -32,7 +32,7 @@ export default function LoginForm({
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      <Button type="submit" variant="gradient" className="w-full">
+      <Button type="submit" variant="gradient" className="w-full justify-center">
         Login
       </Button>
     </form>
