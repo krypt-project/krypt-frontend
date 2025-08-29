@@ -17,6 +17,9 @@ import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import { TextStyle } from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 
+import Button from "@/components/atoms/Button";
+import Input from "@/components/atoms/Input";
+
 import {
   Bold as BoldIcon,
   Italic as ItalicIcon,
@@ -72,16 +75,17 @@ export default function EditorArea({
     icon: React.ReactNode,
     active = false
   ) => (
-    <button
+    <Button
       onClick={command}
-      className={`p-2 rounded-md border flex items-center justify-center transition cursor-pointer ${
+      variant="outlined"
+      className={`border-[var(--border)] ${
         active
-          ? "bg-gray-200 border-gray-400"
-          : "hover:bg-gray-100 border-gray-200"
+          ? "bg-[var(--primary)] text-white hover:bg-[var(--primary)] hover:text-gray-900"
+          : "hover:bg-gray-200 text-gray-900"
       }`}
     >
       {icon}
-    </button>
+    </Button>
   );
 
   return (
@@ -149,9 +153,9 @@ export default function EditorArea({
         )}
 
         {/* Color picker */}
-        <label className="p-2 rounded-md border hover:bg-gray-100 flex items-center gap-1 cursor-pointer">
-          <Palette size={16} />
-          <input
+        <label className="p-2 rounded-full border border-[var(--border)] hover:bg-gray-200 flex items-center gap-1 cursor-pointer">
+          <Palette size={24} />
+          <Input
             type="color"
             onInput={(e) =>
               editor
@@ -161,7 +165,6 @@ export default function EditorArea({
                 .setColor((e.target as HTMLInputElement).value)
                 .run()
             }
-            className="w-6 h-6 p-0 border-none cursor-pointer"
           />
         </label>
       </div>
