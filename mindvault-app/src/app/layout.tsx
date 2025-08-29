@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "MindVault",
-  icons: "/favicon.png",
+  icons: "/favicon-2.png",
   description: "Your intelligent knowledge base",
   authors: [
     {
