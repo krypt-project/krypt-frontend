@@ -78,11 +78,11 @@ export default function Sidebar({
         <div className="flex items-center p-4 border-b border-gray-200 h-16">
           <div className="flex items-center space-x-2">
             <Image
-              src="/favicon.png"
+              src="/favicon-1.png"
               alt="MindVault Logo"
-              width={32}
-              height={32}
-              className="h-8 w-8 object-contain select-none"
+              width={48}
+              height={48}
+              className="h-14 w-14 object-contain select-none"
               draggable={false}
             />
             {!collapsed && <p className="font-bold text-lg">MindVault</p>}
