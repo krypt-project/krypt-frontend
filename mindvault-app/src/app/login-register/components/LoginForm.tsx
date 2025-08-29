@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Button from "@/components/atoms/Button";
+import Input from "@/components/atoms/Input";
 
 export default function LoginForm({
   onSubmit,
@@ -17,28 +19,22 @@ export default function LoginForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
-      <input
+      <Input
         type="email"
         placeholder="Email"
-        className="w-full border rounded px-3 py-2"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        required
       />
-      <input
+      <Input
         type="password"
         placeholder="Mot de passe"
-        className="w-full border rounded px-3 py-2"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      <button
-        type="submit"
-        className="w-full bg-gradient-to-tr from-[#D56434] to-[#6D66E7] text-white py-2 rounded hover:opacity-90 transition cursor-pointer"
-      >
+      <Button type="submit" variant="gradient" className="w-full">
         Login
-      </button>
+      </Button>
     </form>
   );
 }
