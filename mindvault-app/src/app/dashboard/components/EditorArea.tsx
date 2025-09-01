@@ -73,6 +73,9 @@ export default function EditorArea({
   });
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupPos, setPopupPos] = useState({ x: 0, y: 0 });
+  const [generatedTags, setGeneratedTags] = useState<Record<string, number>>(
+    {}
+  );
 
   if (!editor) return null;
 
@@ -100,13 +103,30 @@ export default function EditorArea({
     setPopupOpen(true);
   };
 
+  const insertTagsAsText = (tags: Record<string, number>) => {
+    if (!editor || !tags) return;
+
+    const htmlTags = Object.keys(tags)
+      .map(
+        (tag) => `<span class="badge-tag">#${tag.replace(/\s+/g, "")}</span>`
+      )
+      .join(" ");
+
+    editor
+      .chain()
+      .focus()
+      .insertContent(htmlTags + " ")
+      .run();
+  };
+
   const handleGenerateTags = async () => {
     try {
       const data = await apiAIFetch("/generate-tags", {
         method: "POST",
         body: JSON.stringify({ text: editor?.getText() || "" }),
       });
-      console.log("Generated Tags:", data);
+      setGeneratedTags(data || {});
+      insertTagsAsText(data || {});
       setPopupOpen(false);
     } catch (err) {
       console.error(err);
@@ -114,7 +134,10 @@ export default function EditorArea({
   };
 
   return (
-    <div className="flex flex-col flex-1 bg-white rounded-xl shadow" onContextMenu={handleRightClick}>
+    <div
+      className="flex flex-col flex-1 bg-white rounded-xl shadow"
+      onContextMenu={handleRightClick}
+    >
       {/* Toolbar */}
       <div className="border-b border-gray-300 p-2 flex gap-2 flex-wrap bg-gray-50">
         {toolbarButton(
