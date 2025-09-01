@@ -1,5 +1,8 @@
 "use client";
 
+import { useState } from "react";
+import { apiAIFetch } from "@/utils/api";
+
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Bold from "@tiptap/extension-bold";
@@ -19,6 +22,7 @@ import Color from "@tiptap/extension-color";
 
 import Button from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input";
+import QuickAccessPopup from "@/app/dashboard/components/QuickAccessPopup";
 
 import {
   Bold as BoldIcon,
@@ -67,6 +71,8 @@ export default function EditorArea({
     },
     immediatelyRender: false,
   });
+  const [popupOpen, setPopupOpen] = useState(false);
+  const [popupPos, setPopupPos] = useState({ x: 0, y: 0 });
 
   if (!editor) return null;
 
@@ -88,8 +94,27 @@ export default function EditorArea({
     </Button>
   );
 
+  const handleRightClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    setPopupPos({ x: e.clientX, y: e.clientY });
+    setPopupOpen(true);
+  };
+
+  const handleGenerateTags = async () => {
+    try {
+      const data = await apiAIFetch("/generate-tags", {
+        method: "POST",
+        body: JSON.stringify({ text: editor?.getText() || "" }),
+      });
+      console.log("Generated Tags:", data);
+      setPopupOpen(false);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   return (
-    <div className="flex flex-col flex-1 bg-white rounded-xl shadow">
+    <div className="flex flex-col flex-1 bg-white rounded-xl shadow" onContextMenu={handleRightClick}>
       {/* Toolbar */}
       <div className="border-b border-gray-300 p-2 flex gap-2 flex-wrap bg-gray-50">
         {toolbarButton(
@@ -173,6 +198,15 @@ export default function EditorArea({
       <EditorContent
         editor={editor}
         className="flex-1 p-6 tiptap [&_.ProseMirror]:focus:outline-none prose"
+      />
+
+      {/* Popup d'accès rapide */}
+      <QuickAccessPopup
+        isOpen={popupOpen}
+        x={popupPos.x}
+        y={popupPos.y}
+        onClose={() => setPopupOpen(false)}
+        onGenerateTags={handleGenerateTags}
       />
     </div>
   );
