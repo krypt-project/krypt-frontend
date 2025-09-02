@@ -129,7 +129,7 @@ export default function EditorArea({
 
   return (
     <div
-      className="flex flex-col flex-1 bg-white rounded-xl shadow"
+      className="flex flex-col flex-1 bg-[var(--secondary)] overflow-hidden"
       onContextMenu={handleRightClick}
     >
       {/* Toolbar */}
@@ -214,7 +214,7 @@ export default function EditorArea({
       {/* Zone d'édition */}
       <EditorContent
         editor={editor}
-        className="flex-1 p-6 tiptap [&_.ProseMirror]:focus:outline-none prose"
+        className="flex-1 px-12 py-12 tiptap prose max-w-none [&_.ProseMirror]:focus:outline-none w-[70%] mx-auto bg-white shadow-lg overflow-y-scroll"
       />
 
       {/* Popup d'accès rapide */}
