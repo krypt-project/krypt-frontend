@@ -109,3 +109,21 @@ input[type="color"]::-moz-color-swatch {
 }
 
 /* AI */
+.badge-tag {
+  display: inline-block;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  margin: 0 0.25rem 0.25rem 0; 
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.badge-tag:hover {
+  background-color: #e5e7eb;
+  color: #111827;
+}
