@@ -146,7 +146,7 @@ export default function DashboardPage() {
         onDeleteNote={handleDeleteNote}
       />
 
-      <main className="flex-1 flex flex-col">
+      <main className="flex-1 flex flex-col bg-[var(--secondary)] overflow-hidden">
         {!selectedNote ? (
           <div className="flex flex-col items-center justify-center flex-1 px-6">
             <h2 className="text-3xl font-semibold mb-4">
@@ -176,7 +176,7 @@ export default function DashboardPage() {
               />
             ) : (
               <div
-                className="flex-1 p-6 tiptap prose max-w-full overflow-auto"
+                className="flex-1 px-12 py-12 tiptap prose max-w-none [&_.ProseMirror]:focus:outline-none w-[70%] mx-auto bg-white shadow-lg overflow-y-scroll"
                 dangerouslySetInnerHTML={{ __html: selectedNote.content }}
               />
             )}
