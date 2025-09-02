@@ -23,6 +23,7 @@ import Color from "@tiptap/extension-color";
 import Button from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input";
 import QuickAccessPopup from "@/app/dashboard/components/QuickAccessPopup";
+import Tag from "@/app/dashboard/components/extensions/Tag";
 
 import {
   Bold as BoldIcon,
@@ -50,6 +51,7 @@ export default function EditorArea({
   const editor = useEditor({
     extensions: [
       StarterKit,
+      Tag,
       Bold,
       Italic,
       Underline,
@@ -106,17 +108,9 @@ export default function EditorArea({
   const insertTagsAsText = (tags: Record<string, number>) => {
     if (!editor || !tags) return;
 
-    const htmlTags = Object.keys(tags)
-      .map(
-        (tag) => `<span class="badge-tag">#${tag.replace(/\s+/g, "")}</span>`
-      )
-      .join(" ");
-
-    editor
-      .chain()
-      .focus()
-      .insertContent(htmlTags + " ")
-      .run();
+    Object.keys(tags).forEach((tag) => {
+      editor.chain().focus().insertTag(tag.replace(/\s+/g, "")).run();
+    });
   };
 
   const handleGenerateTags = async () => {
