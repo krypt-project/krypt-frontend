@@ -2,7 +2,7 @@
 /* Editor Styles - editor.css */
 /* ========================== */
 .tiptap {
-    @apply prose max-w-none;
+    @apply prose;
     line-height: 1.6;
     font-size: 1rem;
     background-color: #ffffff;
