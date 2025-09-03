@@ -18,7 +18,7 @@ export default function Loader() {
         {[...Array(3)].map((_, i) => (
           <motion.span
             key={i}
-            className="block w-3 h-3 rounded-full bg-indigo-600"
+            className="block w-3 h-3 rounded-full bg-[var(--primary)]"
             variants={{
               hidden: { y: 0, opacity: 0.3 },
               visible: {
