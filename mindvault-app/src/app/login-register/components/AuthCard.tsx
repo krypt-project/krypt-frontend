@@ -1,10 +1,13 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import { useRouter } from "next/navigation";
 import { Card } from "@/components/atoms/Card";
 import Button from "@/components/atoms/Button";
+import Loader from "@/components/feedback/Loader";
 
 export default function AuthCard({
   isLogin,
@@ -13,6 +16,8 @@ export default function AuthCard({
   isLogin: boolean;
   setIsLogin: (value: boolean) => void;
 }) {
+  const [loading, setLoading] = useState(false);
+
   const handleRegister = async (formData: {
     firstName: string;
     lastName: string;
@@ -20,6 +25,8 @@ export default function AuthCard({
     password: string;
   }) => {
     try {
+      setLoading(true);
+
       const response = await fetch("http://localhost:8080/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -32,6 +39,8 @@ export default function AuthCard({
       console.log("Registration successful:", data.message);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -40,6 +49,8 @@ export default function AuthCard({
     email: string;
     password: string;
   }) => {
+    setLoading(true);
+
     try {
       const response = await fetch("http://localhost:8080/api/auth/login", {
         method: "POST",
@@ -57,47 +68,57 @@ export default function AuthCard({
       router.push("/dashboard");
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
-  return (
-    <Card
-      variant="auth"
-      title={isLogin ? "Login" : "Register"}
-      className="w-full max-w-md"
-    >
-      {/* Form */}
-      {isLogin ? (
-        <LoginForm onSubmit={handleLogin} />
-      ) : (
-        <RegisterForm onSubmit={handleRegister} />
-      )}
 
-      {/* switch login/register */}
-      <div className="text-center mt-6 text-sm text-gray-600">
+  return (
+    <>
+      {loading && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+          <Loader />
+        </div>
+      )}
+      <Card
+        variant="auth"
+        title={isLogin ? "Login" : "Register"}
+        className="w-full max-w-md"
+      >
+        {/* Form */}
         {isLogin ? (
-          <>
-            Don&apos;t have an account yet ?{" "}
-            <Button
-              onClick={() => setIsLogin(false)}
-              variant="link"
-              className="text-[var(--primary)] hover:underline font-medium cursor-pointer"
-            >
-              Registration
-            </Button>
-          </>
+          <LoginForm onSubmit={handleLogin} />
         ) : (
-          <>
-            Already have an account ?{" "}
-            <Button
-              onClick={() => setIsLogin(true)}
-              variant="link"
-              className="text-[var(--primary)] hover:underline font-medium"
-            >
-              Login
-            </Button>
-          </>
+          <RegisterForm onSubmit={handleRegister} />
         )}
-      </div>
-    </Card>
+
+        {/* switch login/register */}
+        <div className="text-center mt-6 text-sm text-gray-600">
+          {isLogin ? (
+            <>
+              Don&apos;t have an account yet ?{" "}
+              <Button
+                onClick={() => setIsLogin(false)}
+                variant="link"
+                className="text-[var(--primary)] hover:underline font-medium cursor-pointer"
+              >
+                Registration
+              </Button>
+            </>
+          ) : (
+            <>
+              Already have an account ?{" "}
+              <Button
+                onClick={() => setIsLogin(true)}
+                variant="link"
+                className="text-[var(--primary)] hover:underline font-medium"
+              >
+                Login
+              </Button>
+            </>
+          )}
+        </div>
+      </Card>
+    </>
   );
 }
