@@ -1,12 +1,12 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import Button from "@/components/atoms/Button";
 import { ArrowLeft } from "lucide-react";
 import AuthCard from "@/app/login-register/components/AuthCard";
 
-export default function LoginRegisterPage() {
+function LoginRegisterContent() {
   const searchParams = useSearchParams();
   const mode = searchParams.get("mode");
 
@@ -25,5 +25,13 @@ export default function LoginRegisterPage() {
       </Button>
       <AuthCard isLogin={isLogin} setIsLogin={setIsLogin} />
     </div>
+  );
+}
+
+export default function LoginRegisterPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LoginRegisterContent />
+    </Suspense>
   );
 }
