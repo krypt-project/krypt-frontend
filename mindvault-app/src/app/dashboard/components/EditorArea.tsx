@@ -105,10 +105,10 @@ export default function EditorArea({
     setPopupOpen(true);
   };
 
-  const insertTagsAsText = (tags: Record<string, number>) => {
+  const insertTagsAsText = (tags: { tag: string; score: number }[]) => {
     if (!editor || !tags) return;
 
-    Object.keys(tags).forEach((tag) => {
+    tags.forEach(({ tag }) => {
       editor.chain().focus().insertTag(tag.replace(/\s+/g, "")).run();
     });
   };
