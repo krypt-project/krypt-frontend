@@ -24,7 +24,6 @@ import Button from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input";
 import QuickAccessPopup from "@/app/dashboard/components/QuickAccessPopup";
 import Tag from "@/app/dashboard/components/extensions/Tag";
-import Loader from "@/components/feedback/Loader";
 
 import {
   Bold as BoldIcon,
@@ -135,12 +134,6 @@ export default function EditorArea({
 
   return (
     <>
-      {loading && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-          <Loader />
-        </div>
-      )}
-
       <div
         className="flex flex-col flex-1 bg-[var(--secondary)] overflow-hidden"
         onContextMenu={handleRightClick}
@@ -237,6 +230,7 @@ export default function EditorArea({
           y={popupPos.y}
           onClose={() => setPopupOpen(false)}
           onGenerateTags={handleGenerateTags}
+          loading={loading}
         />
       </div>
     </>
