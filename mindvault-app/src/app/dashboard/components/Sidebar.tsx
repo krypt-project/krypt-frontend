@@ -173,14 +173,14 @@ export default function Sidebar({
                   {notes.map((note) => (
                     <li
                       key={note.id}
-                      className="group flex items-center justify-between"
+                      className="group flex items-center justify-between mt-1"
                     >
                       <Button
                         onClick={() => onSelectNote(note.id)}
                         variant="sidebar"
                         className={`flex items-center text-left truncate ${
                           note.id === selectedNoteId
-                            ? "bg-[var(--secondary)] text-gray-800 py-2"
+                            ? "bg-[var(--secondary)] text-[#E88F59]"
                             : "text-gray-800"
                         }`}
                         title={note.title}

@@ -33,7 +33,7 @@ export default function Button({
 }: ButtonProps) {
   // Base styles
   const baseStyles =
-    "inline-flex items-center font-medium transition-colors focus:outline-none cursor-pointer focus:ring-2 focus:ring-offset-2";
+    "inline-flex items-center font-medium transition-colors focus:outline-none cursor-pointer focus:ring-1 focus:ring-offset-1";
 
   // Variants
   const variants = {
