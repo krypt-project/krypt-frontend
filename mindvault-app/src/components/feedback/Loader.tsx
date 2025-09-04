@@ -1,39 +1,32 @@
 import { motion } from "framer-motion";
+import clsx from "clsx";
 
-export default function Loader() {
+interface LoaderProps {
+  variant?: "inline" | "global";
+  size?: number;
+}
+
+export default function Loader({ variant = "inline", size = 24 }: LoaderProps) {
+  const isGlobal = variant === "global";
+  const dimension = isGlobal ? 40 : size;
+
   return (
-    <div className="flex items-center justify-center w-full h-full p-4">
+    <div
+      className={clsx("flex items-center justify-center", {
+        "fixed inset-0 z-50 bg-black/40 backdrop-blur-sm": isGlobal,
+        "w-fit h-fit": !isGlobal,
+      })}
+    >
       <motion.div
-        className="flex gap-2"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          visible: {
-            transition: {
-              staggerChildren: 0.15,
-            },
-          },
+        className="rounded-full border-2 border-[var(--primary)] border-t-transparent"
+        style={{ width: dimension, height: dimension }}
+        animate={{ rotate: 360 }}
+        transition={{
+          repeat: Infinity,
+          ease: "linear",
+          duration: 1,
         }}
-      >
-        {[...Array(3)].map((_, i) => (
-          <motion.span
-            key={i}
-            className="block w-3 h-3 rounded-full bg-[var(--primary)]"
-            variants={{
-              hidden: { y: 0, opacity: 0.3 },
-              visible: {
-                y: -8,
-                opacity: 1,
-                transition: {
-                  repeat: Infinity,
-                  repeatType: "reverse",
-                  duration: 0.5,
-                },
-              },
-            }}
-          />
-        ))}
-      </motion.div>
+      />
     </div>
   );
 }
