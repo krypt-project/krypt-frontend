@@ -77,7 +77,7 @@ export default function AuthCard({
     <>
       {loading && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-          <Loader />
+          <Loader variant="global" size={24} />
         </div>
       )}
       <Card
