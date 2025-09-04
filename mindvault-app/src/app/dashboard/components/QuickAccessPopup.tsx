@@ -2,6 +2,7 @@
 
 import React from "react";
 import Button from "@/components/atoms/Button";
+import Loader from "@/components/feedback/Loader";
 
 interface QuickAccessPopupProps {
   isOpen: boolean;
@@ -9,9 +10,17 @@ interface QuickAccessPopupProps {
   y: number;
   onClose: () => void;
   onGenerateTags: () => void;
+  loading?: boolean;
 }
 
-export default function QuickAccessPopup({ isOpen, x, y, onClose, onGenerateTags }: QuickAccessPopupProps) {
+export default function QuickAccessPopup({
+  isOpen,
+  x,
+  y,
+  onClose,
+  onGenerateTags,
+  loading = false,
+}: QuickAccessPopupProps) {
   if (!isOpen) return null;
 
   return (
@@ -20,9 +29,15 @@ export default function QuickAccessPopup({ isOpen, x, y, onClose, onGenerateTags
       style={{ top: y, left: x, minWidth: 150 }}
       onMouseLeave={onClose}
     >
-      <Button onClick={onGenerateTags} variant="outlined" className="w-full mb-1">
-        Generate Tags
+      <Button
+        onClick={onGenerateTags}
+        variant="outlined"
+        className="w-full mb-1 flex items-center justify-center"
+        disabled={loading}
+      >
+        {loading ? <Loader variant="inline" size={24} /> : "Generate Tags"}
       </Button>
+
       <Button onClick={onClose} variant="default" className="w-full">
         Close
       </Button>
