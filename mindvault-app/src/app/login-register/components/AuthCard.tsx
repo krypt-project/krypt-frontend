@@ -27,7 +27,13 @@ export default function AuthCard({
     try {
       setLoading(true);
 
-      const response = await fetch("http://localhost:8080/api/auth/register", {
+      const registerUrl = process.env.NEXT_PUBLIC_REGISTER_URL;
+      
+      if (!registerUrl) {
+        throw new Error("La variable NEXT_PUBLIC_REGISTER_URL n'est pas définie");
+      }
+
+      const response = await fetch(registerUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -52,7 +58,12 @@ export default function AuthCard({
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:8080/api/auth/login", {
+      const loginUrl = process.env.NEXT_PUBLIC_LOGIN_URL;
+
+      if (!loginUrl) {
+        throw new Error("La variable LOGIN_URL n'est pas définie");
+      }
+      const response = await fetch(loginUrl, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(credentials),
