@@ -16,7 +16,7 @@ export default function Cta() {
             className="absolute bottom-0 left-1/2 -z-10 -translate-x-1/2 translate-y-1/2"
             aria-hidden="true"
           >
-            <div className="h-56 w-[480px] rounded-full border-[20px] border-[var(--primary)] blur-3xl opacity-50" />
+            <div className="h-56 w-[480px] rounded-full border-[20px] border-[var(--primary)] blur-3xl opacity-100" />
           </div>
 
           {/* Background Illustration */}
@@ -24,14 +24,14 @@ export default function Cta() {
             className="absolute inset-0 -z-10 flex items-center justify-center"
             aria-hidden="true"
           >
-            <div className="relative h-[400px] w-[400px] rounded-full opacity-10">
+            <div className="relative h-[400px] w-[400px] rounded-full opacity-30">
               <div className="absolute inset-0 animate-[pulse_6s_ease-in-out_infinite] rounded-full bg-gradient-to-br from-[var(--background-2)] to-[var(--primary)] blur-3xl"></div>
               <Image
                 src={image}
                 alt="Background pattern"
                 width={400}
                 height={400}
-                className="relative z-10 mx-auto rounded-full border border-white/10 bg-gray-900 p-4 shadow-inner"
+                className="relative z-10 mx-auto rounded-full bg-transparent p-4 shadow-inner"
               />
             </div>
           </div>

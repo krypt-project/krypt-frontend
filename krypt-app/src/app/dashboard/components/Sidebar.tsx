@@ -51,7 +51,7 @@ export default function Sidebar({
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
-      
+
       const logoutUrl = process.env.NEXT_PUBLIC_LOGOUT_URL;
 
       if (!logoutUrl) {
@@ -96,16 +96,26 @@ export default function Sidebar({
         >
           {/* Header */}
           <div className="flex items-center p-4 border-b border-gray-200 h-16">
-            <div className="flex items-center space-x-2">
-              <Image
-                src="/favicon-1.png"
-                alt="MindVault Logo"
-                width={48}
-                height={48}
-                className="h-14 w-14 object-contain select-none"
-                draggable={false}
-              />
-              {!collapsed && <p className="font-bold text-lg">MindVault</p>}
+            <div className="flex items-center space-x-2 transition">
+              {collapsed ? (
+                <Image
+                  src="/favicon-2.png"
+                  alt="Krypt Logo"
+                  width={150}
+                  height={150}
+                  className="h-10 w-20 object-contain select-none"
+                  draggable={false}
+                />
+              ) : (
+                <Image
+                  src="/favicon.png"
+                  alt="Krypt Logo"
+                  width={150}
+                  height={150}
+                  className="h-30 w-50 object-contain select-none"
+                  draggable={false}
+                />
+              )}
             </div>
           </div>
 
@@ -186,7 +196,7 @@ export default function Sidebar({
                         variant="sidebar"
                         className={`flex items-center text-left truncate ${
                           note.id === selectedNoteId
-                            ? "bg-[var(--secondary)] text-[#E88F59]"
+                            ? "bg-[var(--secondary)] text-[var(--primary)]"
                             : "text-gray-800"
                         }`}
                         title={note.title}

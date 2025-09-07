@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "MindVault",
+  title: "Krypt",
   icons: "/favicon-2.png",
-  description: "Your intelligent knowledge base",
+  description: "Keep Recording Your Plans and Thoughts",
   authors: [
     {
       name: "Pierre",
@@ -26,7 +26,8 @@ export const metadata: Metadata = {
     "knowledge base",
     "AI",
     "intelligent",
-    "mind vault",
+    "krypt",
+    "Keep Recording Your Plans and Thoughts",
     "personal knowledge management",
   ],
 };

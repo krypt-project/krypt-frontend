@@ -18,7 +18,7 @@ export default function Features() {
           {/* Planet */}
           <div className="pb-16 md:pb-20" data-aos="zoom-y-out">
             <div className="text-center">
-              <div className="relative inline-flex rounded-full before:absolute before:inset-0 before:-z-10 before:scale-[.75] before:animate-[pulse_4s_cubic-bezier(.4,0,.6,1)_infinite] before:bg-gradient-to-b before:from-[var(--background-2)] before:to-[var(--primary)] before:blur-3xl before:rounded-full">
+              <div className="relative inline-flex rounded-full before:absolute before:inset-0 before:-z-10 before:scale-[1.25] before:animate-[pulse_4s_cubic-bezier(.4,0,.6,1)_infinite] before:bg-gradient-to-b before:from-[var(--background-2)] before:to-[var(--primary)] before:blur-3xl before:rounded-full">
                 <Image
                   className="rounded-full"
                   src={PlanetImg}

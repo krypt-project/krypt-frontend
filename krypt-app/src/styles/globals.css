@@ -12,10 +12,10 @@
   --background: #ffffff;
   --foreground: #171717;
   --border: #cbd5e1;
-  --primary: #F24413;
+  --primary: #00b0cf;
   --secondary: #e6e6e6;
-  --background-2: #DE9151;
-  --background-3: #BC5D2E;
+  --background-2: #5554dc;
+  --background-3: #3232d0;
 }
 
 @media (prefers-color-scheme: light) {

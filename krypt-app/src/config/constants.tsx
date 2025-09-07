@@ -4,8 +4,8 @@
 export const HERO_CONTENT = {
   title: "Your ideas, connected and organized",
   description:
-    "Mindvault is your intelligent knowledge base - capture, link, and resurface insights effortlessly. Built for thinkers, creators, and lifelong learners.",
-  primaryCta: "Try Mindvault Free",
+    "Krypt is your intelligent knowledge base - capture, link, and resurface insights effortlessly. Built for thinkers, creators, and lifelong learners.",
+  primaryCta: "Try Krypt for Free",
   secondaryCta: "Learn More",
   placeholder: "Demo App",
 };
@@ -76,7 +76,7 @@ export const FEATURES_LIST: {
 }
 export const TESTIMONIAL = {
   quote:
-    "“MindVault m'aide à capturer mes idées, à structurer ma pensée, et à revenir facilement sur ce qui compte. ",
+    "Krypt m'aide à capturer mes idées, à structurer ma pensée, et à revenir facilement sur ce qui compte. ",
   emphasized: "C'est littéralement mon second cerveau.",
   author: "Pierre Roche",
   role: "Cognitive Coach",
@@ -92,7 +92,7 @@ export const FOOTER = {
   },
   company: {
     title: "Company",
-    links: ["About Mindvault", "Careers", "Privacy & Terms", "Contact"],
+    links: ["About Krypt", "Careers", "Privacy & Terms", "Contact"],
   },
   resources: {
     title: "Resources",
@@ -105,8 +105,8 @@ export const FOOTER = {
     linkedinLabel: "LinkedIn",
   },
   copyright: {
-    alt: "Mindvault Logo",
-    text: `© ${new Date().getFullYear()} Mindvault - All rights reserved.`,
+    alt: "Krypt Logo",
+    text: `© ${new Date().getFullYear()} Krypt - All rights reserved.`,
   },
 };
 
