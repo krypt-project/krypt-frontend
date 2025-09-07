@@ -16,7 +16,7 @@ export default function Testimonial() {
                 src={TestimonialImg}
                 width={48}
                 height={48}
-                alt="MindVault testimonial"
+                alt="Krypt testimonial"
               />
             </div>
             <p className="text-2xl font-bold text-gray-900">

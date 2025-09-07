@@ -37,7 +37,7 @@ export default function Footer({ border = false }: { border?: boolean }) {
       {/* Glow + background */}
       <div className="relative -mt-16 h-60 w-full" aria-hidden="true">
         <div className="pointer-events-none absolute -mt-6 left-1/2 -translate-x-1/2 text-[256px] font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-[var(--background-2)] to-[var(--primary)] opacity-10">
-          Mindvault
+          Krypt
         </div>
         <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 translate-y-2/3">
           <div className="h-256 w-512 rounded-full bg-gradient-to-r from-[var(--background-2)] to-[var(--primary)] blur-[150px] opacity-35"></div>
