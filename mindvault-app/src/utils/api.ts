@@ -1,7 +1,13 @@
 export async function apiFetch(path: string, options: RequestInit = {}) {
   const token = localStorage.getItem("token");
 
-  const res = await fetch(`http://localhost:8080/api${path}`, {
+  const backend_url = process.env.NEXT_PUBLIC_BACKEND_URL;
+
+  if (!backend_url) {
+    throw new Error("La variable BACKEND_URL n'est pas définie");
+  }
+
+  const res = await fetch(`${backend_url}${path}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",

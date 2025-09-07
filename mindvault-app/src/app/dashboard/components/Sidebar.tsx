@@ -51,8 +51,14 @@ export default function Sidebar({
     try {
       const token = localStorage.getItem("token");
       if (!token) throw new Error("No token found");
+      
+      const logoutUrl = process.env.NEXT_PUBLIC_LOGOUT_URL;
 
-      const response = await fetch("http://localhost:8080/api/auth/logout", {
+      if (!logoutUrl) {
+        throw new Error("La variable NEXT_PUBLIC_LOGOUT_URL n'est pas définie");
+      }
+
+      const response = await fetch(logoutUrl, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
