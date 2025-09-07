@@ -1,7 +1,7 @@
 # krypt-frontend | Next.js + TypeScript + TailwindCSS
 
 <p align="center">
-  <img src="image.png" alt="Landing page screenshot" width="800">
+  <img src="image.png" alt="Landing page screenshot" width="400">
 </p>
 
 ---
