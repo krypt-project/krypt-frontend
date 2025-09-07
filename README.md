@@ -1,6 +1,7 @@
 # mindvault-frontend | Next.js + TypeScript + TailwindCSS
 
-![Landing page screenshot](image.png)
+![Landing page screenshot](<img width="467" height="1079" alt="Capture d'écran 2025-09-07 173334" src="https://github.com/user-attachments/assets/9201d672-c462-4b0a-9048-50dd3bf073d8" />
+)
 
 > Example interface of the landing page including Hero, Features, CTA, and Footer sections.
 
