@@ -1,13 +1,16 @@
-import Header from "@/components/landing-page/Header";
-import Hero from "@/components/landing-page/Hero";
-import Features from "@/components/landing-page/Features";
-import Testimonials from "@/components/landing-page/Testimonials";
-import CTA from "@/components/landing-page/CTA";
-import Footer from "@/components/landing-page/Footer";
+import Header from "@/app/landing/components/Header";
+import Hero from "@/app/landing/components/Hero";
+import Features from "@/app/landing/components/Features";
+import Testimonials from "@/app/landing/components/Testimonials";
+import CTA from "@/app/landing/components/CTA";
+import Footer from "@/app/landing/components/Footer";
+
+/* Style */
+import "@/styles/landing.css";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col justify-between overflow-hidden">
+    <div className="relative min-h-screen flex flex-col justify-between overflow-hidden overflow-x-hidden">
       <Header />
       <Hero />
       <Features />
