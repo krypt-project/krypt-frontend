@@ -17,16 +17,31 @@ export default function Loader({ variant = "inline", size = 24 }: LoaderProps) {
         "w-fit h-fit": !isGlobal,
       })}
     >
-      <motion.div
-        className="rounded-full border-2 border-[var(--primary)] border-t-transparent"
-        style={{ width: dimension, height: dimension }}
-        animate={{ rotate: 360 }}
-        transition={{
-          repeat: Infinity,
-          ease: "linear",
-          duration: 1,
-        }}
-      />
+      {isGlobal ? (
+        <div className="bg-[var(--background)] rounded-2xl shadow-xl p-8 flex items-center justify-center">
+          <motion.div
+            className="rounded-full border-2 border-[var(--primary)] border-t-transparent"
+            style={{ width: dimension, height: dimension }}
+            animate={{ rotate: 360 }}
+            transition={{
+              repeat: Infinity,
+              ease: "linear",
+              duration: 1,
+            }}
+          />
+        </div>
+      ) : (
+        <motion.div
+          className="rounded-full border-2 border-[var(--primary)] border-t-transparent"
+          style={{ width: dimension, height: dimension }}
+          animate={{ rotate: 360 }}
+          transition={{
+            repeat: Infinity,
+            ease: "linear",
+            duration: 1,
+          }}
+        />
+      )}
     </div>
   );
 }
