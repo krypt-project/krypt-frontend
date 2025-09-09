@@ -4,21 +4,25 @@ import { useState, useEffect } from "react";
 import { apiAIFetch } from "@/utils/api";
 
 import { useEditor, EditorContent } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Bold from "@tiptap/extension-bold";
-import Italic from "@tiptap/extension-italic";
-import Underline from "@tiptap/extension-underline";
-import BulletList from "@tiptap/extension-bullet-list";
-import OrderedList from "@tiptap/extension-ordered-list";
-import ListItem from "@tiptap/extension-list-item";
-import TaskList from "@tiptap/extension-task-list";
-import TaskItem from "@tiptap/extension-task-item";
-import Blockquote from "@tiptap/extension-blockquote";
-import CodeBlock from "@tiptap/extension-code-block";
-import Heading from "@tiptap/extension-heading";
-import HorizontalRule from "@tiptap/extension-horizontal-rule";
+import { StarterKit } from "@tiptap/starter-kit";
+import { Bold } from "@tiptap/extension-bold";
+import { Italic } from "@tiptap/extension-italic";
+import { Underline } from "@tiptap/extension-underline";
+import { BulletList } from "@tiptap/extension-bullet-list";
+import { OrderedList } from "@tiptap/extension-ordered-list";
+import { ListItem } from "@tiptap/extension-list-item";
+import { TaskList } from "@tiptap/extension-task-list";
+import { TaskItem } from "@tiptap/extension-task-item";
+import { Blockquote } from "@tiptap/extension-blockquote";
+import { CodeBlock } from "@tiptap/extension-code-block";
+import { Heading } from "@tiptap/extension-heading";
+import { HorizontalRule } from "@tiptap/extension-horizontal-rule";
 import { TextStyle } from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
+import { Table } from "@tiptap/extension-table";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableCell } from "@tiptap/extension-table-cell";
+import { TableHeader } from "@tiptap/extension-table-header";
 
 import Button from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input";
@@ -39,6 +43,8 @@ import {
   Code,
   Minus,
   Palette,
+  TableIcon,
+  Plus,
 } from "lucide-react";
 
 export default function EditorArea({
@@ -66,6 +72,12 @@ export default function EditorArea({
       CodeBlock,
       Heading.configure({ levels: [1, 2, 3] }),
       HorizontalRule,
+      Table.configure({
+        resizable: true,
+      }),
+      TableRow,
+      TableCell,
+      TableHeader,
     ],
     content: content || "<p>Start writing...</p>",
     onUpdate: ({ editor }) => {
@@ -203,6 +215,33 @@ export default function EditorArea({
           )}
           {toolbarButton(
             () => editor.chain().focus().setHorizontalRule().run(),
+            <Minus size={16} />
+          )}
+
+          {/* Tableau */}
+          {toolbarButton(
+            () =>
+              editor
+                ?.chain()
+                .focus()
+                .insertTable({ rows: 2, cols: 2, withHeaderRow: true })
+                .run(),
+            <TableIcon size={16} />
+          )}
+          {toolbarButton(
+            () => editor.chain().focus().addRowAfter().run(),
+            <Plus size={16} />
+          )}
+          {toolbarButton(
+            () => editor.chain().focus().deleteRow().run(),
+            <Minus size={16} />
+          )}
+          {toolbarButton(
+            () => editor.chain().focus().addColumnAfter().run(),
+            <Plus size={16} />
+          )}
+          {toolbarButton(
+            () => editor.chain().focus().deleteColumn().run(),
             <Minus size={16} />
           )}
 
