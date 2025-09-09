@@ -48,6 +48,7 @@ export default function EditorArea({
   content: string;
   onChange: (content: string) => void;
 }) {
+
   function debounce<F extends (...args: Parameters<F>) => void>(
     func: F,
     timeout = 300
@@ -60,12 +61,14 @@ export default function EditorArea({
       }, timeout);
     };
   }
+
   const debouncedOnChange = debounce(
     (editor: Editor, onChange: (value: string) => void) => {
       onChange(editor.getHTML());
     },
     300
   );
+  
   const editor = useEditor({
     extensions: [
       StarterKit,
