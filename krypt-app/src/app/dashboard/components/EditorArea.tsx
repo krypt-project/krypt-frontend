@@ -19,10 +19,8 @@ import { Heading } from "@tiptap/extension-heading";
 import { HorizontalRule } from "@tiptap/extension-horizontal-rule";
 import { TextStyle } from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
-import { Table } from "@tiptap/extension-table";
-import { TableRow } from "@tiptap/extension-table-row";
-import { TableCell } from "@tiptap/extension-table-cell";
-import { TableHeader } from "@tiptap/extension-table-header";
+import { TableKit, TableCell } from "@tiptap/extension-table";
+import { Gapcursor } from "@tiptap/extensions";
 
 import Button from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input";
@@ -46,6 +44,24 @@ import {
   TableIcon,
   Plus,
 } from "lucide-react";
+
+const CustomTableCell = TableCell.extend({
+  addAttributes() {
+    return {
+      ...this.parent?.(),
+      backgroundColor: {
+        default: null,
+        parseHTML: (element) => element.getAttribute("data-background-color"),
+        renderHTML: (attributes) => ({
+          "data-background-color": attributes.backgroundColor,
+          style: attributes.backgroundColor
+            ? `background-color: ${attributes.backgroundColor}`
+            : "",
+        }),
+      },
+    };
+  },
+});
 
 export default function EditorArea({
   content,
@@ -72,19 +88,15 @@ export default function EditorArea({
       CodeBlock,
       Heading.configure({ levels: [1, 2, 3] }),
       HorizontalRule,
-      Table.configure({
-        resizable: true,
-      }),
-      TableRow,
-      TableCell,
-      TableHeader,
+      Gapcursor,
+      TableKit.configure({ table: { resizable: true }, tableCell: false }),
+      CustomTableCell,
     ],
     content: content || "<p>Start writing...</p>",
-    onUpdate: ({ editor }) => {
-      onChange(editor.getHTML());
-    },
+    onUpdate: ({ editor }) => onChange(editor.getHTML()),
     immediatelyRender: false,
   });
+
   const [popupOpen, setPopupOpen] = useState(false);
   const [popupPos, setPopupPos] = useState({ x: 0, y: 0 });
   const [generatedTags, setGeneratedTags] = useState<Record<string, number>>(
@@ -93,9 +105,7 @@ export default function EditorArea({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (editor && content !== "") {
-      editor.commands.setContent(content);
-    }
+    if (editor && content !== "") editor.commands.setContent(content);
   }, [editor, content]);
 
   if (!editor) return null;
@@ -103,15 +113,17 @@ export default function EditorArea({
   const toolbarButton = (
     command: () => void,
     icon: React.ReactNode,
-    active = false
+    active = false,
+    disabled = false
   ) => (
     <Button
       onClick={command}
       variant="outlined"
-      className={`border-[var(--border)] ${
+      disabled={disabled}
+      className={`border-[var(--border)] p-2 rounded-md flex items-center justify-center transition ${
         active
           ? "bg-[var(--primary)] text-white hover:bg-[var(--primary)] hover:text-gray-900"
-          : "hover:bg-gray-200 text-gray-900"
+          : "bg-white hover:bg-gray-100 text-gray-900"
       }`}
     >
       {icon}
@@ -126,7 +138,6 @@ export default function EditorArea({
 
   const insertTagsAsText = (tags: { tag: string; score: number }[]) => {
     if (!editor || !tags) return;
-
     tags.forEach(({ tag }) => {
       editor.chain().focus().insertTag(tag.replace(/\s+/g, "")).run();
     });
@@ -134,7 +145,6 @@ export default function EditorArea({
 
   const handleGenerateTags = async () => {
     setLoading(true);
-
     try {
       const data = await apiAIFetch("/generate-tags", {
         method: "POST",
@@ -151,13 +161,14 @@ export default function EditorArea({
   };
 
   return (
-    <>
-      <div
-        className="flex flex-col flex-1 bg-[var(--secondary)] overflow-hidden"
-        onContextMenu={handleRightClick}
-      >
-        {/* Toolbar */}
-        <div className="border-b border-gray-300 p-2 flex gap-2 flex-wrap bg-gray-50">
+    <div
+      className="flex flex-col flex-1 bg-[var(--secondary)] overflow-hidden"
+      onContextMenu={handleRightClick}
+    >
+      {/* Toolbar */}
+      <div className="border-b border-gray-200 p-3 flex gap-4 flex-wrap bg-gray-50 shadow-sm">
+        {/* Texte */}
+        <div className="flex items-center gap-1 bg-white rounded-lg shadow px-2 py-1">
           {toolbarButton(
             () => editor.chain().focus().toggleBold().run(),
             <BoldIcon size={16} />,
@@ -173,6 +184,25 @@ export default function EditorArea({
             <UnderlineIcon size={16} />,
             editor.isActive("underline")
           )}
+          <label className="p-1 rounded-md border border-gray-200 hover:bg-gray-100 cursor-pointer flex items-center">
+            <Palette size={18} />
+            <Input
+              type="color"
+              className="w-6 h-6 p-0 border-none bg-transparent cursor-pointer"
+              onInput={(e) =>
+                editor
+                  .chain()
+                  .focus()
+                  .extendMarkRange("textStyle")
+                  .setColor((e.target as HTMLInputElement).value)
+                  .run()
+              }
+            />
+          </label>
+        </div>
+
+        {/* Listes */}
+        <div className="flex items-center gap-1 bg-white rounded-lg shadow px-2 py-1">
           {toolbarButton(
             () => editor.chain().focus().toggleBulletList().run(),
             <ListIcon size={16} />,
@@ -188,6 +218,10 @@ export default function EditorArea({
             <CheckSquare size={16} />,
             editor.isActive("taskList")
           )}
+        </div>
+
+        {/* Titres */}
+        <div className="flex items-center gap-1 bg-white rounded-lg shadow px-2 py-1">
           {toolbarButton(
             () => editor.chain().focus().toggleHeading({ level: 1 }).run(),
             <Heading1 size={16} />,
@@ -203,6 +237,10 @@ export default function EditorArea({
             <Heading3 size={16} />,
             editor.isActive("heading", { level: 3 })
           )}
+        </div>
+
+        {/* Bloc / Code */}
+        <div className="flex items-center gap-1 bg-white rounded-lg shadow px-2 py-1">
           {toolbarButton(
             () => editor.chain().focus().toggleBlockquote().run(),
             <Quote size={16} />,
@@ -217,24 +255,18 @@ export default function EditorArea({
             () => editor.chain().focus().setHorizontalRule().run(),
             <Minus size={16} />
           )}
+        </div>
 
-          {/* Tableau */}
+        {/* Table */}
+        <div className="flex items-center gap-1 bg-white rounded-lg shadow px-2 py-1">
           {toolbarButton(
             () =>
               editor
-                ?.chain()
+                .chain()
                 .focus()
-                .insertTable({ rows: 2, cols: 2, withHeaderRow: true })
+                .insertTable({ rows: 3, cols: 3, withHeaderRow: true })
                 .run(),
             <TableIcon size={16} />
-          )}
-          {toolbarButton(
-            () => editor.chain().focus().addRowAfter().run(),
-            <Plus size={16} />
-          )}
-          {toolbarButton(
-            () => editor.chain().focus().deleteRow().run(),
-            <Minus size={16} />
           )}
           {toolbarButton(
             () => editor.chain().focus().addColumnAfter().run(),
@@ -244,40 +276,32 @@ export default function EditorArea({
             () => editor.chain().focus().deleteColumn().run(),
             <Minus size={16} />
           )}
-
-          {/* Color picker */}
-          <label className="p-2 rounded-full border border-[var(--border)] hover:bg-gray-200 flex items-center gap-1 cursor-pointer">
-            <Palette size={24} />
-            <Input
-              type="color"
-              onInput={(e) =>
-                editor
-                  .chain()
-                  .focus()
-                  .extendMarkRange("textStyle")
-                  .setColor((e.target as HTMLInputElement).value)
-                  .run()
-              }
-            />
-          </label>
+          {toolbarButton(
+            () => editor.chain().focus().addRowAfter().run(),
+            <Plus size={16} />
+          )}
+          {toolbarButton(
+            () => editor.chain().focus().deleteRow().run(),
+            <Minus size={16} />
+          )}
         </div>
-
-        {/* Zone d'édition */}
-        <EditorContent
-          editor={editor}
-          className="flex-1 px-12 py-12 tiptap prose max-w-none [&_.ProseMirror]:focus:outline-none w-[70%] mx-auto bg-white shadow-lg overflow-y-scroll"
-        />
-
-        {/* Popup d'accès rapide */}
-        <QuickAccessPopup
-          isOpen={popupOpen}
-          x={popupPos.x}
-          y={popupPos.y}
-          onClose={() => setPopupOpen(false)}
-          onGenerateTags={handleGenerateTags}
-          loading={loading}
-        />
       </div>
-    </>
+
+      {/* Zone d'édition */}
+      <EditorContent
+        editor={editor}
+        className="flex-1 px-12 py-12 tiptap prose max-w-none [&_.ProseMirror]:focus:outline-none w-[70%] mx-auto bg-white shadow-lg overflow-y-scroll"
+      />
+
+      {/* Popup d'accès rapide */}
+      <QuickAccessPopup
+        isOpen={popupOpen}
+        x={popupPos.x}
+        y={popupPos.y}
+        onClose={() => setPopupOpen(false)}
+        onGenerateTags={handleGenerateTags}
+        loading={loading}
+      />
+    </div>
   );
 }
