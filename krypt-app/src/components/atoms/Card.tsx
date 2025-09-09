@@ -1,6 +1,7 @@
 import { cn } from "@/utils/cn";
 import { ReactNode } from "react";
 import Button from "@/components/atoms/Button";
+import { Check } from "lucide-react";
 
 type CardProps = {
   children?: ReactNode;
@@ -11,6 +12,7 @@ type CardProps = {
   price?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  features?: string[];
 };
 
 export function Card({
@@ -22,6 +24,7 @@ export function Card({
   price,
   ctaLabel,
   ctaHref,
+  features,
 }: CardProps) {
   const base =
     "relative rounded-2xl border backdrop-blur-md transition-shadow flex flex-col";
@@ -33,7 +36,7 @@ export function Card({
       "hover:border-[var(--primary)] hover:shadow-lg hover:shadow-[var(--primary)]/20 hover:scale-[1.02] transition-transform duration-300"
     ),
     pricing:
-      "bg-white border-gray-100 shadow-lg hover:shadow-xl p-8 text-center",
+      "bg-white border-gray-100 shadow-lg hover:shadow-xl p-8 text-center flex flex-col",
     ghost: "bg-transparent border-transparent shadow-none",
     auth: "bg-white border-gray-200 shadow-md p-8 text-center",
   };
@@ -64,12 +67,24 @@ export function Card({
         </div>
       )}
 
+      {/* Features avec check vert */}
+      {variant === "pricing" && features && (
+        <ul className="mb-6 space-y-2 text-left">
+          {features.map((feature, idx) => (
+            <li key={idx} className="flex items-center gap-2">
+              <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+              <span className="text-gray-700">{feature}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+
       {/* Custom content */}
-      {children && <div className="flex-1">{children}</div>}
+      {children && <div className="mt-auto">{children}</div>} 
 
       {/* CTA */}
       {ctaLabel && ctaHref && (
-        <div className="mt-6">
+        <div className="mt-auto">
           <Button
             href={ctaHref}
             variant={variant === "feature" ? "outlined" : "gradient"}
