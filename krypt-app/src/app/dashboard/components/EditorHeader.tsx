@@ -37,6 +37,9 @@ export default function EditorHeader({
     }
   };
 
+  const isEdit = tab === "edit";
+  const isPreview = tab === "preview";
+  
   return (
     <header className="flex items-center px-14 py-3 bg-white">
       <div className="flex-1 flex items-center gap-2">
@@ -64,28 +67,31 @@ export default function EditorHeader({
       </div>
 
       <nav className="flex space-x-4">
-        <Button
-          onClick={() => setTab("edit")}
-          variant="outlined"
-          className={`py-0 px-3 ${
-            tab === "edit"
-              ? "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-white py-2 hover:opacity-90"
-              : "hover:bg-indigo-100 text-gray-700"
-          }`}
-        >
-          Edit
-        </Button>
-        <Button
-          onClick={() => setTab("preview")}
-          variant="outlined"
-          className={`py-0 px-3 ${
-            tab === "preview"
-              ? "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-white py-2 hover:opacity-90"
-              : "hover:bg-indigo-100 text-gray-700"
-          }`}
-        >
-          Preview
-        </Button>
+        {tab === "preview" ? (
+          <Button
+            onClick={() => setTab("edit")}
+            variant="outlined"
+            className={`w-[90px] py-0 px-3 justify-center ${
+              isEdit
+                ? "hover:bg-indigo-100 text-gray-700"
+                : "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-white py-2 hover:opacity-90"
+            }`}
+          >
+            Edit
+          </Button>
+        ) : (
+          <Button
+            onClick={() => setTab("preview")}
+            variant="outlined"
+            className={`w-[90px] py-0 px-3 justify-center ${
+              isPreview
+                ? "hover:bg-indigo-100 text-gray-700"
+                : "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-white py-2 hover:opacity-90"
+            }`}
+          >
+            Preview
+          </Button>
+        )}
       </nav>
     </header>
   );
