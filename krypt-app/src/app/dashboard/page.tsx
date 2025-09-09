@@ -116,24 +116,24 @@ export default function DashboardPage() {
     }
   };
 
-  const handleDeleteNote = async () => {
-    if (!confirm("Are you sure you want to delete this note?")) return;
+  const handleDeleteNote = async (noteId: number) => {
+  if (!confirm("Are you sure you want to delete this note?")) return;
 
-    try {
-      const note = notes.find((n) => n.id === selectedNoteId);
-      if (!note) return;
+  try {
+    await apiFetch(`/notes/${noteId}`, {
+      method: "DELETE",
+    });
 
-      await apiFetch(`/notes/${note.id}`, {
-        method: "DELETE",
-      });
+    setNotes((prev) => prev.filter((n) => n.id !== noteId));
 
-      setNotes((prev) => prev.filter((n) => n.id !== note.id));
+    if (selectedNoteId === noteId) {
       setSelectedNoteId(null);
       setTab("edit");
-    } catch (err) {
-      console.error("Failed to delete note", err);
     }
-  };
+  } catch (err) {
+    console.error("Failed to delete note", err);
+  }
+};
 
   return (
     <div className="flex h-screen bg-gray-50 text-gray-900">

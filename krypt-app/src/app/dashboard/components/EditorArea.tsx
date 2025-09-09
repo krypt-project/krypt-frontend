@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { apiAIFetch } from "@/utils/api";
 
 import { useEditor, EditorContent } from "@tiptap/react";
@@ -79,6 +79,12 @@ export default function EditorArea({
     {}
   );
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (editor && content !== "") {
+      editor.commands.setContent(content);
+    }
+  }, [editor, content]);
 
   if (!editor) return null;
 
