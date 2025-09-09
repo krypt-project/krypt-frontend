@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { apiAIFetch } from "@/utils/api";
 
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, Editor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Bold from "@tiptap/extension-bold";
 import Italic from "@tiptap/extension-italic";
@@ -48,6 +48,24 @@ export default function EditorArea({
   content: string;
   onChange: (content: string) => void;
 }) {
+  function debounce<F extends (...args: Parameters<F>) => void>(
+    func: F,
+    timeout = 300
+  ) {
+    let timer: ReturnType<typeof setTimeout>;
+    return (...args: Parameters<F>): void => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func(...args);
+      }, timeout);
+    };
+  }
+  const debouncedOnChange = debounce(
+    (editor: Editor, onChange: (value: string) => void) => {
+      onChange(editor.getHTML());
+    },
+    300
+  );
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -69,7 +87,7 @@ export default function EditorArea({
     ],
     content: content || "<p>Start writing...</p>",
     onUpdate: ({ editor }) => {
-      onChange(editor.getHTML());
+      debouncedOnChange(editor, onChange);
     },
     immediatelyRender: false,
   });
@@ -81,8 +99,9 @@ export default function EditorArea({
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (editor && content !== "") {
+    if (editor && content !== editor.getHTML()) {
       editor.commands.setContent(content);
+      editor.commands.focus("end");
     }
   }, [editor, content]);
 
@@ -145,7 +164,7 @@ export default function EditorArea({
         onContextMenu={handleRightClick}
       >
         {/* Toolbar */}
-        <div className="border-b border-gray-300 p-2 flex gap-2 flex-wrap bg-gray-50">
+        <div className="border-b border-gray-300 p-2 flex gap-2 flex-wrap bg-gray-50 justify-center">
           {toolbarButton(
             () => editor.chain().focus().toggleBold().run(),
             <BoldIcon size={16} />,

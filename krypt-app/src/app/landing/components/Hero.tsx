@@ -13,7 +13,7 @@ export default function Hero() {
               data-aos="zoom-y-out"
               data-aos-delay={150}
             >
-              {HERO_CONTENT.title.split(", ").map((line, idx) => (
+              {HERO_CONTENT.title.split(",").map((line, idx) => (
                 <span key={idx}>
                   {line}
                   {idx === 0 && <br className="max-lg:hidden" />}
