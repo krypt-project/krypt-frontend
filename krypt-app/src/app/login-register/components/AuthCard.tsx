@@ -17,6 +17,23 @@ export default function AuthCard({
   setIsLogin: (value: boolean) => void;
 }) {
   const [loading, setLoading] = useState(false);
+  const [waitingForEmailVerification, setWaitingForEmailVerification] =
+    useState(false);
+
+  const checkEmailVerification = async (email: string) => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_VERIFY_URL}?email=${email}`
+      );
+      if (!res.ok) return false;
+
+      const data = await res.json();
+      return data.verified;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+  };
 
   const handleRegister = async (formData: {
     firstName: string;
@@ -28,10 +45,10 @@ export default function AuthCard({
       setLoading(true);
 
       const registerUrl = process.env.NEXT_PUBLIC_REGISTER_URL;
-      
-      if (!registerUrl) {
-        throw new Error("La variable NEXT_PUBLIC_REGISTER_URL n'est pas définie");
-      }
+      if (!registerUrl)
+        throw new Error(
+          "La variable NEXT_PUBLIC_REGISTER_URL n'est pas définie"
+        );
 
       const response = await fetch(registerUrl, {
         method: "POST",
@@ -43,6 +60,17 @@ export default function AuthCard({
 
       const data = await response.json();
       console.log("Registration successful:", data.message);
+
+      setWaitingForEmailVerification(true);
+
+      const interval = setInterval(async () => {
+        const verified = await checkEmailVerification(formData.email);
+        if (verified) {
+          clearInterval(interval);
+          setWaitingForEmailVerification(false);
+          router.push("/billing");
+        }
+      }, 5000);
     } catch (err) {
       console.error(err);
     } finally {
@@ -86,11 +114,18 @@ export default function AuthCard({
 
   return (
     <>
-      {loading && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-          <Loader variant="global" size={24} />
+      {(loading || waitingForEmailVerification) && (
+        <div className="fixed inset-0 bg-black/30 flex flex-col items-center justify-center z-50">
+          <Loader variant="global" size={40} />
+          {waitingForEmailVerification && (
+            <Loader
+              variant="global"
+              message="Please check your email and click the verification link..."
+            />
+          )}
         </div>
       )}
+
       <Card
         variant="auth"
         title={isLogin ? "Login" : "Register"}
