@@ -1,28 +1,36 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import Button from "@/components/atoms/Button";
+import { Card } from "@/components/atoms/Card";
 
 export default function AccountVerifiedPage() {
   const router = useRouter();
 
   return (
-    <main className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="max-w-md w-full bg-white p-8 rounded-2xl shadow-lg border border-gray-200 text-center">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[var(--background-2)]/10 to-[var(--primary)]/25 px-4">
+      <Card variant="auth" className="max-w-md w-full p-8 text-center">
         <h1 className="text-2xl font-bold text-green-600 mb-4">
           Account Verified !
         </h1>
         <p className="text-gray-700 mb-6">
-          Your email address has been confirmed. You can now access your
-          dashboard.
+          Your email address has been confirmed. You can now continue the
+          registration process on the previous page.
         </p>
 
-        <button
-          onClick={() => router.push("/dashboard")}
-          className="bg-gradient-to-tr from-[#D56434] to-[#6D66E7] hover:from-[#D56434]/90 hover:to-[#6D66E7]/90 text-white font-medium px-5 py-2 rounded-lg shadow-md transition cursor-pointer"
+        <Button
+          variant="gradient"
+          onClick={() => {
+            window.close();
+
+            setTimeout(() => {
+              if (!window.closed) router.push("/");
+            }, 100);
+          }}
         >
-          Access Dashboard
-        </button>
-      </div>
-    </main>
+          Close this page
+        </Button>
+      </Card>
+    </div>
   );
 }
