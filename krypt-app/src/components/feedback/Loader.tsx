@@ -4,9 +4,14 @@ import clsx from "clsx";
 interface LoaderProps {
   variant?: "inline" | "global";
   size?: number;
+  message?: string;
 }
 
-export default function Loader({ variant = "inline", size = 24 }: LoaderProps) {
+export default function Loader({
+  variant = "inline",
+  size = 24,
+  message,
+}: LoaderProps) {
   const isGlobal = variant === "global";
   const dimension = isGlobal ? 40 : size;
 
@@ -18,7 +23,7 @@ export default function Loader({ variant = "inline", size = 24 }: LoaderProps) {
       })}
     >
       {isGlobal ? (
-        <div className="bg-[var(--background)] rounded-2xl shadow-xl p-8 flex items-center justify-center">
+        <div className="bg-[var(--background)] rounded-2xl shadow-xl p-8 flex flex-col items-center justify-center">
           <motion.div
             className="rounded-full border-2 border-[var(--primary)] border-t-transparent"
             style={{ width: dimension, height: dimension }}
@@ -29,6 +34,7 @@ export default function Loader({ variant = "inline", size = 24 }: LoaderProps) {
               duration: 1,
             }}
           />
+          {message && <p className="mt-4 text-black text-center">{message}</p>}
         </div>
       ) : (
         <motion.div
