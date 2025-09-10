@@ -110,9 +110,69 @@ export const FOOTER = {
   },
 };
 
-{ /*Dashboard Page Content */ }
+/* Billing Page */
+export const PLANS = [
+  {
+    roleType: "STUDENT",
+    maxStorageGB: 5,
+    aiQuota: 1000,
+    pricePerMonth: "0.00",
+    features: [
+      "Free plan",
+      "5 GB storage",
+      "1000 AI requests/month",
+      "Recharge available",
+    ],
+  },
+  {
+    roleType: "INDIVIDUAL",
+    maxStorageGB: 20,
+    aiQuota: 5000,
+    pricePerMonth: "9.99",
+    features: ["20 GB storage", "5000 AI requests/month", "Recharge available"],
+  },
+  {
+    roleType: "PROFESSIONAL",
+    maxStorageGB: 50,
+    aiQuota: 20000,
+    pricePerMonth: "19.99",
+    features: [
+      "50 GB storage",
+      "20000 AI requests/month",
+      "Priority support",
+      "Modules available",
+    ],
+  },
+  {
+    roleType: "COMPANIES",
+    maxStorageGB: 500,
+    aiQuota: 100000,
+    pricePerMonth: null,
+    features: [
+      "Custom storage and quotas",
+      "Multi-user management",
+      "API access",
+      "SSO",
+      "Reporting",
+      "Dedicated support",
+      "Modules available",
+    ],
+  },
+];
+
+{
+  /*Dashboard Page Content */
+}
 export const mockNotes = [
-  { id: 1, title: "Note 1", content: "# Hello from note 1\nSome **markdown** content." },
-  { id: 2, title: "Note 2", content: "## Note 2 content\n- List item 1\n- List item 2" },
+  {
+    id: 1,
+    title: "Note 1",
+    content: "# Hello from note 1\nSome **markdown** content.",
+  },
+  {
+    id: 2,
+    title: "Note 2",
+    content: "## Note 2 content\n- List item 1\n- List item 2",
+  },
   { id: 3, title: "Note 3", content: "Simple text for note 3." },
 ];

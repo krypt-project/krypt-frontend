@@ -37,7 +37,6 @@ export default function Header() {
                 href="/login-register?mode=register"
                 variant="gradient"
                 size="sm"
-                rounded
               >
                 Register
               </Button>

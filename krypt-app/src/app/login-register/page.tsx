@@ -19,7 +19,7 @@ function LoginRegisterContent() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[var(--background-2)]/10 to-[var(--primary)]/25 px-4">
-      <Button href="/" variant="outlined" className="absolute top-4 left-4">
+      <Button href="/" variant="outlined" className="absolute top-4 left-4 z-10">
         <ArrowLeft />
         Back to Home
       </Button>

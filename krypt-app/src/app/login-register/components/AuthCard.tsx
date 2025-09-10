@@ -8,6 +8,7 @@ import RegisterForm from "./RegisterForm";
 import { Card } from "@/components/atoms/Card";
 import Button from "@/components/atoms/Button";
 import Loader from "@/components/feedback/Loader";
+import Stepper from "@/components/feedback/Stepper";
 
 export default function AuthCard({
   isLogin,
@@ -17,6 +18,23 @@ export default function AuthCard({
   setIsLogin: (value: boolean) => void;
 }) {
   const [loading, setLoading] = useState(false);
+  const [waitingForEmailVerification, setWaitingForEmailVerification] =
+    useState(false);
+
+  const checkEmailVerification = async (email: string) => {
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_VERIFY_URL}?email=${email}`
+      );
+      if (!res.ok) return false;
+
+      const data = await res.json();
+      return data.verified;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
+  };
 
   const handleRegister = async (formData: {
     firstName: string;
@@ -28,10 +46,10 @@ export default function AuthCard({
       setLoading(true);
 
       const registerUrl = process.env.NEXT_PUBLIC_REGISTER_URL;
-      
-      if (!registerUrl) {
-        throw new Error("La variable NEXT_PUBLIC_REGISTER_URL n'est pas définie");
-      }
+      if (!registerUrl)
+        throw new Error(
+          "La variable NEXT_PUBLIC_REGISTER_URL n'est pas définie"
+        );
 
       const response = await fetch(registerUrl, {
         method: "POST",
@@ -43,6 +61,17 @@ export default function AuthCard({
 
       const data = await response.json();
       console.log("Registration successful:", data.message);
+
+      setWaitingForEmailVerification(true);
+
+      const interval = setInterval(async () => {
+        const verified = await checkEmailVerification(formData.email);
+        if (verified) {
+          clearInterval(interval);
+          setWaitingForEmailVerification(false);
+          router.push("/billing");
+        }
+      }, 5000);
     } catch (err) {
       console.error(err);
     } finally {
@@ -86,50 +115,64 @@ export default function AuthCard({
 
   return (
     <>
-      {loading && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-          <Loader variant="global" size={24} />
-        </div>
-      )}
-      <Card
-        variant="auth"
-        title={isLogin ? "Login" : "Register"}
-        className="w-full max-w-md"
-      >
-        {/* Form */}
-        {isLogin ? (
-          <LoginForm onSubmit={handleLogin} />
-        ) : (
-          <RegisterForm onSubmit={handleRegister} />
-        )}
-
-        {/* switch login/register */}
-        <div className="text-center mt-6 text-sm text-gray-600">
-          {isLogin ? (
-            <>
-              Don&apos;t have an account yet ?{" "}
-              <Button
-                onClick={() => setIsLogin(false)}
-                variant="link"
-                className="text-[var(--primary)] hover:underline font-medium cursor-pointer"
-              >
-                Registration
-              </Button>
-            </>
-          ) : (
-            <>
-              Already have an account ?{" "}
-              <Button
-                onClick={() => setIsLogin(true)}
-                variant="link"
-                className="text-[var(--primary)] hover:underline font-medium"
-              >
-                Login
-              </Button>
-            </>
+      {(loading || waitingForEmailVerification) && (
+        <div className="fixed inset-0 bg-black/30 flex flex-col items-center justify-center z-50">
+          <Loader variant="global" size={40} />
+          {waitingForEmailVerification && (
+            <Loader
+              variant="global"
+              message="Please check your email and click the verification link..."
+            />
           )}
         </div>
-      </Card>
+      )}
+      {!isLogin && (
+        <div className="w-full absolute top-4 flex justify-center">
+          <Stepper currentStep={waitingForEmailVerification ? 2 : 1} />
+        </div>
+      )}
+
+      <div className="flex flex-col items-center w-full">
+        <Card
+          variant="auth"
+          title={isLogin ? "Login" : "Register"}
+          className="w-full max-w-md mt-4"
+        >
+          {/* Form */}
+          {isLogin ? (
+            <LoginForm onSubmit={handleLogin} />
+          ) : (
+            <RegisterForm onSubmit={handleRegister} />
+          )}
+
+          {/* switch login/register */}
+          <div className="text-center mt-6 text-sm text-gray-600">
+            {isLogin ? (
+              <>
+                Don&apos;t have an account yet ?{" "}
+                <Button
+                  onClick={() => setIsLogin(false)}
+                  variant="link"
+                  className="text-[var(--primary)] hover:underline font-medium cursor-pointer"
+                >
+                  Registration
+                </Button>
+              </>
+            ) : (
+              <>
+                Already have an account ?{" "}
+                <Button
+                  onClick={() => setIsLogin(true)}
+                  variant="link"
+                  className="text-[var(--primary)] hover:underline font-medium"
+                >
+                  Login
+                </Button>
+              </>
+            )}
+          </div>
+        </Card>
+      </div>
     </>
   );
 }
