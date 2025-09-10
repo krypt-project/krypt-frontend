@@ -16,6 +16,13 @@
   --secondary: #ececec;
   --background-2: #5554dc;
   --background-3: #3232d0;
+
+  --text-dark: #171717;
+  --text-light: #f5f5f5;
+
+  --warning: #ffb400;
+  --error: #ff4d4f;
+  --success: #28c76f;
 }
 
 @media (prefers-color-scheme: light) {
@@ -34,6 +41,31 @@ body {
   padding: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Badge */
+.glowing-warning {
+  background-color: var(--warning);
+  color: var(--text-dark);
+  font-weight: 600;
+  animation: glow-warning 1.5s infinite alternate;
+  padding: 0.5rem 1rem;
+}
+
+.glowing-error {
+  background-color: var(--error);
+  color: var(--text-dark);
+  font-weight: 600;
+  animation: glow-error 1.5s infinite alternate;
+  padding: 0.5rem 1rem;
+}
+
+.glowing-success {
+  background-color: var(--success);
+  color: var(--text-dark);
+  font-weight: 600;
+  animation: glow-success 1.5s infinite alternate;
+  padding: 0.5rem 1rem;
 }
 
 /* Animations */
@@ -60,5 +92,47 @@ body {
 
   50% {
     transform: translateY(-5px);
+  }
+}
+
+@keyframes glow-warning {
+  0% {
+    box-shadow: 0 0 5px var(--warning), 0 0 10px var(--warning), 0 0 20px var(--warning);
+  }
+
+  50% {
+    box-shadow: 0 0 15px var(--warning), 0 0 30px var(--warning), 0 0 45px var(--warning);
+  }
+
+  100% {
+    box-shadow: 0 0 5px var(--warning), 0 0 10px var(--warning), 0 0 20px var(--warning);
+  }
+}
+
+@keyframes glow-error {
+  0% {
+    box-shadow: 0 0 5px var(--error), 0 0 10px var(--error), 0 0 20px var(--error);
+  }
+
+  50% {
+    box-shadow: 0 0 15px var(--error), 0 0 30px var(--error), 0 0 45px var(--error);
+  }
+
+  100% {
+    box-shadow: 0 0 5px var(--error), 0 0 10px var(--error), 0 0 20px var(--error);
+  }
+}
+
+@keyframes glow-success {
+  0% {
+    box-shadow: 0 0 5px var(--success), 0 0 10px var(--success), 0 0 20px var(--success);
+  }
+
+  50% {
+    box-shadow: 0 0 15px var(--success), 0 0 30px var(--success), 0 0 45px var(--success);
+  }
+
+  100% {
+    box-shadow: 0 0 5px var(--success), 0 0 10px var(--success), 0 0 20px var(--success);
   }
 }
