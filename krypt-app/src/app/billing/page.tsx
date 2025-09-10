@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import BillingCard from "./components/BillingCard";
 import BillingModal from "./components/BillingModal";
 import { PLANS } from "@/config/constants";
+import Stepper from "@/components/feedback/Stepper";
 
 export default function BillingPage() {
   const [selectedPlan, setSelectedPlan] = useState<string | null>(null);
@@ -20,12 +21,16 @@ export default function BillingPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[var(--background-2)]/10 to-[var(--primary)]/25 px-4">
-      <Button href="/" variant="outlined" className="absolute top-4 left-4">
+      <Button href="/" variant="outlined" className="absolute top-4 left-4 z-10">
         <ArrowLeft />
         Back to Home
       </Button>
-
-      <h1 className="text-4xl font-bold mb-12 text-center">Choose Your Plan</h1>
+      <div className="w-full absolute top-4 flex justify-center">
+        <Stepper currentStep={3} />
+      </div>
+      <h1 className="text-4xl font-bold mb-12 text-center mt-4">
+        Choose Your Plan
+      </h1>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 w-full max-w-6xl items-stretch">
         {PLANS.map((plan) => (
