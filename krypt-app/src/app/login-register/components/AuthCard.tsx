@@ -8,6 +8,7 @@ import RegisterForm from "./RegisterForm";
 import { Card } from "@/components/atoms/Card";
 import Button from "@/components/atoms/Button";
 import Loader from "@/components/feedback/Loader";
+import Stepper from "@/components/feedback/Stepper";
 
 export default function AuthCard({
   isLogin,
@@ -125,46 +126,53 @@ export default function AuthCard({
           )}
         </div>
       )}
-
-      <Card
-        variant="auth"
-        title={isLogin ? "Login" : "Register"}
-        className="w-full max-w-md"
-      >
-        {/* Form */}
-        {isLogin ? (
-          <LoginForm onSubmit={handleLogin} />
-        ) : (
-          <RegisterForm onSubmit={handleRegister} />
-        )}
-
-        {/* switch login/register */}
-        <div className="text-center mt-6 text-sm text-gray-600">
-          {isLogin ? (
-            <>
-              Don&apos;t have an account yet ?{" "}
-              <Button
-                onClick={() => setIsLogin(false)}
-                variant="link"
-                className="text-[var(--primary)] hover:underline font-medium cursor-pointer"
-              >
-                Registration
-              </Button>
-            </>
-          ) : (
-            <>
-              Already have an account ?{" "}
-              <Button
-                onClick={() => setIsLogin(true)}
-                variant="link"
-                className="text-[var(--primary)] hover:underline font-medium"
-              >
-                Login
-              </Button>
-            </>
-          )}
+      {!isLogin && (
+        <div className="w-full absolute top-4 flex justify-center">
+          <Stepper currentStep={waitingForEmailVerification ? 2 : 1} />
         </div>
-      </Card>
+      )}
+
+      <div className="flex flex-col items-center w-full">
+        <Card
+          variant="auth"
+          title={isLogin ? "Login" : "Register"}
+          className="w-full max-w-md mt-4"
+        >
+          {/* Form */}
+          {isLogin ? (
+            <LoginForm onSubmit={handleLogin} />
+          ) : (
+            <RegisterForm onSubmit={handleRegister} />
+          )}
+
+          {/* switch login/register */}
+          <div className="text-center mt-6 text-sm text-gray-600">
+            {isLogin ? (
+              <>
+                Don&apos;t have an account yet ?{" "}
+                <Button
+                  onClick={() => setIsLogin(false)}
+                  variant="link"
+                  className="text-[var(--primary)] hover:underline font-medium cursor-pointer"
+                >
+                  Registration
+                </Button>
+              </>
+            ) : (
+              <>
+                Already have an account ?{" "}
+                <Button
+                  onClick={() => setIsLogin(true)}
+                  variant="link"
+                  className="text-[var(--primary)] hover:underline font-medium"
+                >
+                  Login
+                </Button>
+              </>
+            )}
+          </div>
+        </Card>
+      </div>
     </>
   );
 }
