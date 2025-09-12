@@ -22,8 +22,8 @@ import Color from "@tiptap/extension-color";
 
 import Button from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input";
-import QuickAccessPopup from "@/app/dashboard/components/QuickAccessPopup";
-import Tag from "@/app/dashboard/components/extensions/Tag";
+import QuickAccessPopup from "@/app/dashboard/components/editor/QuickAccessPopup";
+import Tag from "@/app/dashboard/components/editor/extensions/Tag";
 
 import {
   Bold as BoldIcon,

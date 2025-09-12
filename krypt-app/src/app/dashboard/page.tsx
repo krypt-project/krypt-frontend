@@ -4,29 +4,48 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { PlusIcon } from "lucide-react";
 
-import Sidebar from "@/app/dashboard/components/Sidebar";
-import EditorHeader from "@/app/dashboard/components/EditorHeader";
-import EditorArea from "@/app/dashboard/components/EditorArea";
+import SidebarNotes from "@/app/dashboard/components/SidebarNotes";
+import ActivityBar from "./components/ActivityBar";
+import EditorHeader from "@/app/dashboard/components/editor/EditorHeader";
+import EditorArea from "@/app/dashboard/components/editor/EditorArea";
 import Button from "@/components/atoms/Button";
 import { apiFetch } from "@/utils/api";
 import { useAutoSaveNote } from "@/hooks/useAutoSaveNote";
 
+import { User, File } from "lucide-react";
+
 /* Style */
 import "@/styles/dashboard.css";
 import "@/styles/editor.css";
+import SidebarSettings from "./components/SidebarSettings";
 
 type Note = {
   id: number;
   title: string;
   content: string;
 };
+type Activity = "home" | "notes" | "settings" | null;
 
 export default function DashboardPage() {
   const router = useRouter();
-
   const [notes, setNotes] = useState<Note[]>([]);
   const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
+  const [settings] = useState([
+    {
+      id: 1,
+      title: "Profile",
+      description: "Manage your profile settings",
+      icon: <User size={16} className="mr-2 text-[var(--text-dark)]" />,
+    },
+    {
+      id: 2,
+      title: "Account",
+      description: "Account related settings",
+      icon: <File size={16} className="mr-2 text-[var(--text-dark)]" />,
+    },
+  ]);
   const [tab, setTab] = useState<"edit" | "preview">("edit");
+  const [activity, setActivity] = useState<Activity>(null);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -63,11 +82,6 @@ export default function DashboardPage() {
     } catch (err) {
       console.error("Failed to create note", err);
     }
-  };
-
-  const handleHomeClick = () => {
-    setSelectedNoteId(null);
-    setTab("edit");
   };
 
   const handleSelectNote = (id: number) => {
@@ -117,37 +131,71 @@ export default function DashboardPage() {
   };
 
   const handleDeleteNote = async (noteId: number) => {
-  if (!confirm("Are you sure you want to delete this note?")) return;
+    if (!confirm("Are you sure you want to delete this note?")) return;
 
-  try {
-    await apiFetch(`/notes/${noteId}`, {
-      method: "DELETE",
-    });
+    try {
+      await apiFetch(`/notes/${noteId}`, {
+        method: "DELETE",
+      });
 
-    setNotes((prev) => prev.filter((n) => n.id !== noteId));
+      setNotes((prev) => prev.filter((n) => n.id !== noteId));
 
-    if (selectedNoteId === noteId) {
-      setSelectedNoteId(null);
-      setTab("edit");
+      if (selectedNoteId === noteId) {
+        setSelectedNoteId(null);
+        setTab("edit");
+      }
+    } catch (err) {
+      console.error("Failed to delete note", err);
     }
-  } catch (err) {
-    console.error("Failed to delete note", err);
-  }
-};
+  };
+
+  const handleSelectActivity = (next: Activity) => {
+    setActivity(next);
+
+    if (next === "home") {
+      setSelectedNoteId(null);
+    }
+    if (next === "settings") {
+      setSelectedNoteId(null);
+    }
+  };
+
+  const handleSelectSetting = (id: number) => {
+    alert(`Selected setting ID: ${id}`);
+  };
 
   return (
     <div className="flex h-screen bg-gray-50 text-gray-900">
-      <Sidebar
-        notes={notes}
-        selectedNoteId={selectedNoteId}
-        onSelectNote={handleSelectNote}
-        onCreateNote={handleCreateNote}
-        onHomeClick={handleHomeClick}
-        onDeleteNote={handleDeleteNote}
-      />
+      {/* Permanent left bar */}
+      <ActivityBar active={activity} onSelect={handleSelectActivity} />
 
+      {/* Sidebar only if an activity is selected */}
+      {activity === "notes" && (
+        <SidebarNotes
+          notes={notes}
+          selectedNoteId={selectedNoteId}
+          onSelectNote={handleSelectNote}
+          onCreateNote={handleCreateNote}
+          onDeleteNote={handleDeleteNote}
+        />
+      )}
+      {activity === "settings" && (
+        <SidebarSettings
+          settings={settings}
+          onSelectSetting={handleSelectSetting}
+        />
+      )}
+      {/* ... */}
+
+      {/* Main content */}
       <main className="flex-1 flex flex-col bg-[var(--secondary)] overflow-hidden">
-        {!selectedNote ? (
+        {activity === "home" && (
+          <div className="flex flex-col items-center justify-center flex-1 px-6">
+            <h2 className="text-3xl font-semibold mb-4">Welcome to Krypt</h2>
+          </div>
+        )}
+
+        {activity === "notes" && !selectedNote && (
           <div className="flex flex-col items-center justify-center flex-1 px-6">
             <h2 className="text-3xl font-semibold mb-4">
               Open a note or create one
@@ -161,7 +209,9 @@ export default function DashboardPage() {
               Create a new note
             </Button>
           </div>
-        ) : (
+        )}
+
+        {activity === "notes" && selectedNote && (
           <>
             <EditorHeader
               title={selectedNote.title}
@@ -181,6 +231,12 @@ export default function DashboardPage() {
               />
             )}
           </>
+        )}
+
+        {activity === "settings" && (
+          <div className="flex flex-col items-center justify-center flex-1 px-6">
+            <h2 className="text-3xl font-semibold mb-4">Choose a setting</h2>
+          </div>
         )}
       </main>
     </div>
