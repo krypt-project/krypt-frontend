@@ -36,12 +36,12 @@ export default function SidebarSettings({
 
       <div className="relative">
         <aside
-          className={`flex flex-col bg-white border-r border-gray-200 transition-all duration-300 ${
+          className={`flex flex-col bg-[var(--background)] border-r border-[var(--border)] transition-all duration-300 ${
             collapsed ? "w-26" : "w-64"
           } min-h-screen`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200">
+          <div className="flex items-center justify-between px-4 h-17 border-b border-[var(--border)]">
             <h2 className="text-lg font-semibold">Settings</h2>
           </div>
           {/* Menu */}
@@ -49,7 +49,7 @@ export default function SidebarSettings({
             {/* Searchbar */}
             <div className="mb-4">
               <div
-                className={`flex items-center bg-gray-100 rounded-md px-3 py-3 ${
+                className={`flex items-center bg-[var(--secondary)] rounded-md px-3 py-3 ${
                   collapsed ? "hidden" : "block"
                 }`}
               >
