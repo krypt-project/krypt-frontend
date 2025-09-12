@@ -36,8 +36,8 @@ export default function SidebarSettings({
 
       <div className="relative">
         <aside
-          className={`flex flex-col bg-[var(--background)] border-r border-[var(--border)] transition-all duration-300 ${
-            collapsed ? "w-26" : "w-64"
+          className={`flex flex-col bg-[var(--background)] border-r border-[var(--border)] transition-all duration-300 overflow-hidden ${
+            collapsed ? "w-0 border-none" : "w-64"
           } min-h-screen`}
         >
           {/* Header */}
