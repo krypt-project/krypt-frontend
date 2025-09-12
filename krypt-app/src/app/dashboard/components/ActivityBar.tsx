@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Home, FileText, Settings, LogOut } from "lucide-react";
 
 import Button from "@/components/atoms/Button";
@@ -52,10 +53,21 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
 
   return (
     <div className="w-16 bg-[var(--background)] text-[var(--text-dark)] flex flex-col items-center py-2 space-y-4 border-r border-gray-200">
+      <div className="flex items-center justify-center h-15 border-b border-[var(--border)] w-full">
+        <Image
+          src="/favicon-2.png"
+          alt="Krypt Logo"
+          width={50}
+          height={50}
+          className="mb-2"
+        />
+      </div>
       <Button
         onClick={() => onSelect("home")}
         variant="sidebar"
-        className={`p-2 ${active === "home" ? "bg-[var(--secondary)] text-[var(--primary)]" : ""}`}
+        className={`p-2 ${
+          active === "home" ? "bg-[var(--secondary)] text-[var(--primary)]" : ""
+        }`}
         title="Home"
       >
         <Home size={20} />
@@ -64,7 +76,11 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
       <Button
         onClick={() => onSelect("notes")}
         variant="sidebar"
-        className={`p-2 ${active === "notes" ? "bg-[var(--secondary)] text-[var(--primary)]" : ""}`}
+        className={`p-2 ${
+          active === "notes"
+            ? "bg-[var(--secondary)] text-[var(--primary)]"
+            : ""
+        }`}
         title="Notes"
       >
         <FileText size={20} />
@@ -73,7 +89,11 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
       <Button
         onClick={() => onSelect("settings")}
         variant="sidebar"
-        className={`p-2 ${active === "settings" ? "bg-[var(--secondary)] text-[var(--primary)]" : ""}`}
+        className={`p-2 ${
+          active === "settings"
+            ? "bg-[var(--secondary)] text-[var(--primary)]"
+            : ""
+        }`}
         title="Settings"
       >
         <Settings size={20} />
