@@ -5,13 +5,7 @@ import { useState } from "react";
 import Button from "@/components/atoms/Button";
 import Loader from "@/components/feedback/Loader";
 
-import {
-  Search,
-  ChevronLeft,
-  File,
-  Plus,
-  Trash,
-} from "lucide-react";
+import { Search, ChevronLeft, File, Plus, Trash } from "lucide-react";
 
 type Note = {
   id: number;
@@ -44,14 +38,15 @@ export default function SidebarNotes({
           <Loader variant="global" size={24} />
         </div>
       )}
+
       <div className="relative">
         <aside
-          className={`flex flex-col bg-white border-r border-gray-200 transition-all duration-300 ${
+          className={`flex flex-col bg-[var(--background)] border-r border-[var(--border)] transition-all duration-300 ${
             collapsed ? "w-24" : "w-64"
           } min-h-screen`}
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-2 border-b border-gray-200">
+          <div className="flex items-center justify-between px-4 h-17 border-b border-[var(--border)]">
             <h2 className="text-lg font-semibold">Notes</h2>
           </div>
           {/* Menu */}
@@ -59,7 +54,7 @@ export default function SidebarNotes({
             {/* Searchbar */}
             <div className="mb-4">
               <div
-                className={`flex items-center bg-gray-100 rounded-md px-3 py-3 ${
+                className={`flex items-center bg-[var(--secondary)] rounded-md px-3 py-3 ${
                   collapsed ? "hidden" : "block"
                 }`}
               >
