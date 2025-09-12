@@ -66,7 +66,7 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
         onClick={() => onSelect("home")}
         variant="sidebar"
         className={`p-2 ${
-          active === "home" ? "bg-[var(--secondary)] text-[var(--primary)]" : ""
+          active === "home" || active === null ? "bg-[var(--secondary)] text-[var(--primary)]" : ""
         }`}
         title="Home"
       >
