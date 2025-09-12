@@ -52,7 +52,7 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
   };
 
   return (
-    <div className="w-16 bg-[var(--background)] text-[var(--text-dark)] flex flex-col items-center py-2 space-y-4 border-r border-gray-200">
+    <div className="w-16 bg-[var(--background)] text-[var(--text-dark)] flex flex-col items-center py-2 space-y-4 border-r border-[var(--border)]">
       <div className="flex items-center justify-center h-15 border-b border-[var(--border)] w-full">
         <Image
           src="/favicon-2.png"
@@ -86,26 +86,28 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
         <FileText size={20} />
       </Button>
 
-      <Button
-        onClick={() => onSelect("settings")}
-        variant="sidebar"
-        className={`p-2 ${
-          active === "settings"
-            ? "bg-[var(--secondary)] text-[var(--primary)]"
-            : ""
-        }`}
-        title="Settings"
-      >
-        <Settings size={20} />
-      </Button>
-      <Button
-        onClick={logout}
-        variant="sidebar"
-        className={`p-2 text-[var(--error)] bg-[var(--error)]/20`}
-        title="Logout"
-      >
-        <LogOut size={20} />
-      </Button>
+      <div className="mt-auto flex flex-col items-center space-y-4 mb-7">
+        <Button
+          onClick={() => onSelect("settings")}
+          variant="sidebar"
+          className={`p-2 ${
+            active === "settings"
+              ? "bg-[var(--secondary)] text-[var(--primary)]"
+              : ""
+          }`}
+          title="Settings"
+        >
+          <Settings size={20} />
+        </Button>
+        <Button
+          onClick={logout}
+          variant="sidebar"
+          className={`p-2 text-[var(--error)] bg-[var(--error)]/20`}
+          title="Logout"
+        >
+          <LogOut size={20} />
+        </Button>
+      </div>
     </div>
   );
 }
