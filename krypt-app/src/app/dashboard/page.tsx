@@ -18,6 +18,7 @@ import { User, File } from "lucide-react";
 import "@/styles/dashboard.css";
 import "@/styles/editor.css";
 import SidebarSettings from "./components/SidebarSettings";
+import HomeDashboard from "./components/home/HomeDashboard";
 
 type Note = {
   id: number;
@@ -189,11 +190,9 @@ export default function DashboardPage() {
 
       {/* Main content */}
       <main className="flex-1 flex flex-col bg-[var(--secondary)] overflow-hidden">
-        {activity === "home" && (
-          <div className="flex flex-col items-center justify-center flex-1 px-6">
-            <h2 className="text-3xl font-semibold mb-4">Welcome to Krypt</h2>
-          </div>
-        )}
+        {activity === "home" || activity === null ? (
+          <HomeDashboard notes={notes} onSelectNote={handleSelectNote} />
+        ) : null}
 
         {activity === "notes" && !selectedNote && (
           <div className="flex flex-col items-center justify-center flex-1 px-6">
