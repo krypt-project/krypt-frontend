@@ -149,6 +149,17 @@ export default function DashboardPage() {
     }
   };
 
+  const handleSelectActivity = (next: Activity) => {
+    setActivity(next);
+
+    if (next === "home") {
+      setSelectedNoteId(null);
+    }
+    if (next === "settings") {
+      setSelectedNoteId(null);
+    }
+  };
+
   const handleSelectSetting = (id: number) => {
     alert(`Selected setting ID: ${id}`);
   };
@@ -156,7 +167,7 @@ export default function DashboardPage() {
   return (
     <div className="flex h-screen bg-gray-50 text-gray-900">
       {/* Permanent left bar */}
-      <ActivityBar active={activity} onSelect={setActivity} />
+      <ActivityBar active={activity} onSelect={handleSelectActivity} />
 
       {/* Sidebar only if an activity is selected */}
       {activity === "notes" && (
@@ -178,7 +189,13 @@ export default function DashboardPage() {
 
       {/* Main content */}
       <main className="flex-1 flex flex-col bg-[var(--secondary)] overflow-hidden">
-        {!selectedNote ? (
+        {activity === "home" && (
+          <div className="flex flex-col items-center justify-center flex-1 px-6">
+            <h2 className="text-3xl font-semibold mb-4">Welcome to Krypt</h2>
+          </div>
+        )}
+
+        {activity === "notes" && !selectedNote && (
           <div className="flex flex-col items-center justify-center flex-1 px-6">
             <h2 className="text-3xl font-semibold mb-4">
               Open a note or create one
@@ -192,7 +209,9 @@ export default function DashboardPage() {
               Create a new note
             </Button>
           </div>
-        ) : (
+        )}
+
+        {activity === "notes" && selectedNote && (
           <>
             <EditorHeader
               title={selectedNote.title}
@@ -212,6 +231,12 @@ export default function DashboardPage() {
               />
             )}
           </>
+        )}
+
+        {activity === "settings" && (
+          <div className="flex flex-col items-center justify-center flex-1 px-6">
+            <h2 className="text-3xl font-semibold mb-4">Choose a setting</h2>
+          </div>
         )}
       </main>
     </div>
