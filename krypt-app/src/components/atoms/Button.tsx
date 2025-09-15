@@ -1,10 +1,11 @@
 import Link from "next/link";
 import { cn } from "@/utils/cn";
 import { Loader2 } from "lucide-react";
+import { warning } from "framer-motion";
 
 type ButtonProps = {
   children: React.ReactNode;
-  variant?: "default" | "outlined" | "gradient" | "link" | "sidebar";
+  variant?: "default" | "outlined" | "gradient" | "link" | "sidebar" | "error" | "warning" | "success";
   size?: "sm" | "md" | "lg";
   rounded?: boolean;
   loading?: boolean;
@@ -44,6 +45,9 @@ export default function Button({
       "bg-gradient-to-r from-[var(--background-2)] to-[var(--primary)] text-white hover:opacity-90",
     link: "text-sm text-gray-500 hover:text-black transition-colors focus:outline-none focus:ring-0",
     sidebar: "p-2 rounded hover:bg-gray-200 transition cursor-pointer",
+    error: "bg-[var(--error)] text-white hover:opacity-90",
+    warning: "bg-[var(--warning)] text-white hover:opacity-90",
+    success: "bg-[var(--success)] text-white hover:opacity-90",
   };
 
   // Sizes
