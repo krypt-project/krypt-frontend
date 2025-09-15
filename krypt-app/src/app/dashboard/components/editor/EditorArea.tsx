@@ -48,7 +48,6 @@ export default function EditorArea({
   content: string;
   onChange: (content: string) => void;
 }) {
-
   function debounce<F extends (...args: Parameters<F>) => void>(
     func: F,
     timeout = 300
@@ -68,7 +67,7 @@ export default function EditorArea({
     },
     300
   );
-  
+
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -99,6 +98,7 @@ export default function EditorArea({
   const [generatedTags, setGeneratedTags] = useState<Record<string, number>>(
     {}
   );
+  const [generatedSummary, setGeneratedSummary] = useState<string>("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -142,6 +142,12 @@ export default function EditorArea({
     });
   };
 
+  const insertSummaryAsText = (summary: string) => {
+    if (!editor || !summary) return;
+
+    editor.chain().focus().insertContent(summary).run();
+  };
+
   const handleGenerateTags = async () => {
     setLoading(true);
 
@@ -152,6 +158,29 @@ export default function EditorArea({
       });
       setGeneratedTags(data || {});
       insertTagsAsText(data || {});
+      setPopupOpen(false);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGenerateSummary = async () => {
+    setLoading(true);
+
+    try {
+      const data = await apiAIFetch("/generate-summary", {
+        method: "POST",
+        body: JSON.stringify({ text: editor?.getText() || "" }),
+      });
+
+      const summaryText = data?.summary || "";
+
+      if (summaryText) {
+        insertSummaryAsText(`\n\n<h2>Résumé :</h2>\n${summaryText}`);
+      }
+
       setPopupOpen(false);
     } catch (err) {
       console.error(err);
@@ -258,6 +287,7 @@ export default function EditorArea({
           y={popupPos.y}
           onClose={() => setPopupOpen(false)}
           onGenerateTags={handleGenerateTags}
+          onGenerateSummary={handleGenerateSummary}
           loading={loading}
         />
       </div>
