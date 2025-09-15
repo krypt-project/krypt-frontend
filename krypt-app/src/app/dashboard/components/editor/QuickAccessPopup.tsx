@@ -10,6 +10,7 @@ interface QuickAccessPopupProps {
   y: number;
   onClose: () => void;
   onGenerateTags: () => void;
+  onGenerateSummary: () => void;
   loading?: boolean;
 }
 
@@ -19,6 +20,7 @@ export default function QuickAccessPopup({
   y,
   onClose,
   onGenerateTags,
+  onGenerateSummary,
   loading = false,
 }: QuickAccessPopupProps) {
   if (!isOpen) return null;
@@ -37,8 +39,16 @@ export default function QuickAccessPopup({
       >
         {loading ? <Loader variant="inline" size={24} /> : "Generate Tags"}
       </Button>
+      <Button
+        onClick={onGenerateSummary}
+        variant="outlined"
+        className="w-full mb-1 flex items-center justify-center"
+        disabled={loading}
+      >
+        {loading ? <Loader variant="inline" size={24} /> : "Generate Summary"}
+      </Button>
 
-      <Button onClick={onClose} variant="default" className="w-full">
+      <Button onClick={onClose} variant="error" className="w-full mt-2 flex items-center justify-center">
         Close
       </Button>
     </div>
