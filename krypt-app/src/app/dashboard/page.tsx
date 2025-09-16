@@ -2,23 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { PlusIcon } from "lucide-react";
+import { User, Palette, PlusIcon } from "lucide-react";
 
 import SidebarNotes from "@/app/dashboard/components/SidebarNotes";
 import ActivityBar from "./components/ActivityBar";
 import EditorHeader from "@/app/dashboard/components/editor/EditorHeader";
 import EditorArea from "@/app/dashboard/components/editor/EditorArea";
 import Button from "@/components/atoms/Button";
+import SidebarSettings from "./components/SidebarSettings";
+import HomeDashboard from "./components/home/HomeDashboard";
 import { apiFetch } from "@/utils/api";
 import { useAutoSaveNote } from "@/hooks/useAutoSaveNote";
-
-import { User, File } from "lucide-react";
+import AccountSettings from "./components/settings/AccountSettings";
 
 /* Style */
 import "@/styles/dashboard.css";
 import "@/styles/editor.css";
-import SidebarSettings from "./components/SidebarSettings";
-import HomeDashboard from "./components/home/HomeDashboard";
+import AppearanceSettings from "./components/settings/AppearanceSettings";
 
 type Note = {
   id: number;
@@ -31,18 +31,21 @@ export default function DashboardPage() {
   const router = useRouter();
   const [notes, setNotes] = useState<Note[]>([]);
   const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
+  const [selectedSettingId, setSelectedSettingId] = useState<number | null>(
+    null
+  );
   const [settings] = useState([
     {
       id: 1,
-      title: "Profile",
+      title: "Account",
       description: "Manage your profile settings",
       icon: <User size={16} className="mr-2 text-[var(--text-dark)]" />,
     },
     {
       id: 2,
-      title: "Account",
-      description: "Account related settings",
-      icon: <File size={16} className="mr-2 text-[var(--text-dark)]" />,
+      title: "Appearance",
+      description: "Customize your application",
+      icon: <Palette size={16} className="mr-2 text-[var(--text-dark)]" />,
     },
   ]);
   const [tab, setTab] = useState<"edit" | "preview">("edit");
@@ -162,11 +165,11 @@ export default function DashboardPage() {
   };
 
   const handleSelectSetting = (id: number) => {
-    alert(`Selected setting ID: ${id}`);
+    setSelectedSettingId(id);
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 text-gray-900">
+    <div className="flex h-screen bg-gray-50 text-gray-900 overflow-hidden">
       {/* Permanent left bar */}
       <ActivityBar active={activity} onSelect={handleSelectActivity} />
 
@@ -233,8 +236,21 @@ export default function DashboardPage() {
         )}
 
         {activity === "settings" && (
-          <div className="flex flex-col items-center justify-center flex-1 px-6">
-            <h2 className="text-3xl font-semibold mb-4">Choose a setting</h2>
+          <div className="flex-1 flex flex-col">
+            {!selectedSettingId ? (
+              <div className="flex flex-col items-center justify-center flex-1 px-6">
+                <h2 className="text-3xl font-semibold mb-4">
+                  Choose a setting
+                </h2>
+              </div>
+            ) : (
+              <div className="flex-1 overflow-y-auto">
+                {selectedSettingId === null && <AccountSettings />}
+                {selectedSettingId === 1 && <AccountSettings />}
+                {selectedSettingId === 2 && <AppearanceSettings />}
+                {/* ... */}
+              </div>
+            )}
           </div>
         )}
       </main>
