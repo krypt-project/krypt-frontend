@@ -171,13 +171,19 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
             }
             position="right"
           >
-            <Image
-              src={user.avatarUrl || "/profil.png"}
-              className="w-13 h-13 rounded-full cursor-pointer"
-              alt="User Avatar"
-              width={50}
-              height={50}
-            />
+            {user.avatarUrl ? (
+              <Image
+                src={user.avatarUrl}
+                alt={`${user.firstName} ${user.lastName}`}
+                className="rounded-full object-cover border-2 border-[var(--border)] cursor-pointer"
+                fill
+              />
+            ) : (
+              <div className="w-13 h-13 rounded-full bg-[var(--border)] flex items-center justify-center text-md font-bold text-[var(--text-light)] cursor-pointer">
+                {user.firstName[0]}
+                {user.lastName[0]}
+              </div>
+            )}
           </Popup>
         </div>
       )}
