@@ -5,12 +5,12 @@ import { FEATURES_HEADER, FEATURES_LIST } from "@/config/constants";
 
 export default function Features() {
   return (
-    <section className="relative before:absolute before:inset-0 before:-z-20 before:bg-gray-950">
+    <section className="relative before:absolute before:inset-0 before:-z-20 before:bg-[var(--background)]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="py-12 md:py-20">
           {/* Section header */}
           <div className="mx-auto max-w-3xl pb-16 text-center md:pb-20">
-            <h2 className="text-3xl font-bold text-white md:text-4xl">
+            <h2 className="text-3xl font-bold text-[var(--text-dark)] md:text-4xl">
               {FEATURES_HEADER.title}
             </h2>
           </div>

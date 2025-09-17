@@ -5,11 +5,11 @@ import { FooterSocials } from "@/components/molecules/FooterSocials";
 
 export default function Footer({ border = false }: { border?: boolean }) {
   return (
-    <footer className="text-sm text-gray-400">
+    <footer className="text-sm text-[var(--text-secondary)]">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div
           className={`grid gap-10 py-8 sm:grid-cols-12 md:py-12 ${
-            border ? "border-t border-white/10" : ""
+            border ? "border-t border-[var(--border)]/10" : ""
           }`}
         >
           <FooterBranding

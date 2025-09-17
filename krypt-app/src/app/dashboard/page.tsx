@@ -169,7 +169,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 text-gray-900 overflow-hidden">
+    <div className="flex h-screen bg-[var(--background)] text-[var(--text-dark)] overflow-hidden">
       {/* Permanent left bar */}
       <ActivityBar active={activity} onSelect={handleSelectActivity} />
 
@@ -205,7 +205,7 @@ export default function DashboardPage() {
             <Button
               onClick={handleCreateNote}
               variant="default"
-              className="bg-green-600 text-white px-6 py-3 hover:bg-green-700"
+              className="bg-[var(--success)] text-[var(--text-light)] px-6 py-3 hover:bg-[var(--success)]/80"
             >
               <PlusIcon className="mr-2 w-5" />
               Create a new note
@@ -228,7 +228,7 @@ export default function DashboardPage() {
               />
             ) : (
               <div
-                className="flex-1 px-12 py-12 tiptap prose max-w-none [&_.ProseMirror]:focus:outline-none w-[70%] mx-auto bg-white shadow-lg overflow-y-scroll"
+                className="flex-1 px-12 py-12 tiptap prose max-w-none [&_.ProseMirror]:focus:outline-none w-[70%] mx-auto bg-[var(--background)] shadow-lg overflow-y-scroll"
                 dangerouslySetInnerHTML={{ __html: selectedNote.content }}
               />
             )}

@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import Button from "@/components/atoms/Button";
 import Loader from "@/components/feedback/Loader";
+import Input from "@/components/atoms/Input";
 
 import { Search, ChevronLeft, File, Plus, Trash } from "lucide-react";
 
@@ -34,7 +35,7 @@ export default function SidebarNotes({
   return (
     <>
       {loading && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-[var(--background)] flex items-center justify-center z-50">
           <Loader variant="global" size={24} />
         </div>
       )}
@@ -54,16 +55,14 @@ export default function SidebarNotes({
             {/* Searchbar */}
             <div className="mb-4">
               <div
-                className={`flex items-center bg-[var(--secondary)] rounded-md px-3 py-3 ${
+                className={`flex items-center rounded-md px-3 py-3 ${
                   collapsed ? "hidden" : "block"
                 }`}
               >
-                <Search size={16} className="text-gray-500" />
                 {!collapsed && (
-                  <input
+                  <Input
                     type="text"
-                    placeholder="Search notes..."
-                    className="ml-2 bg-transparent focus:outline-none w-full text-sm"
+                    placeholder="Search notes ..."
                   />
                 )}
               </div>
@@ -76,21 +75,21 @@ export default function SidebarNotes({
                 className="pl-2 mt-2 max-h-[calc(100vh-180px)] overflow-y-visible"
               >
                 <li className="mb-1 flex justify-between items-center">
-                  <span className="font-semibold text-gray-700">
+                  <span className="font-semibold text-[var(--text-dark)]">
                     Your notes
                   </span>
                   <Button
                     onClick={onCreateNote}
                     variant="sidebar"
                     aria-label="Create new note"
-                    className="hover:bg-green-200 text-green-600"
+                    className="hover:bg-[var(--success)]/50 text-[var(--success)] hover:text-[var(--text-dark)]"
                     title="Create new note"
                   >
                     <Plus size={16} />
                   </Button>
                 </li>
                 {notes.length === 0 && (
-                  <li className="px-2 py-1 text-sm text-gray-500 italic">
+                  <li className="px-2 py-1 text-sm text-[var(--text-secondary)] italic">
                     No notes yet
                   </li>
                 )}
@@ -105,7 +104,7 @@ export default function SidebarNotes({
                       className={`flex items-center text-left truncate ${
                         note.id === selectedNoteId
                           ? "bg-[var(--secondary)] text-[var(--primary)]"
-                          : "text-gray-800"
+                          : "text-[var(--text-dark)]"
                       }`}
                       title={note.title}
                     >
@@ -117,7 +116,7 @@ export default function SidebarNotes({
                     <Button
                       onClick={() => onDeleteNote(note.id)}
                       variant="sidebar"
-                      className="ml-2 opacity-0 group-hover:opacity-100 text-red-500 hover:bg-red-100"
+                      className="ml-2 opacity-0 group-hover:opacity-100 text-[var(--error)] hover:bg-[var(--error)]/50 hover:text-[var(--text-dark)]"
                       title="Delete note"
                     >
                       <Trash size={16} />
