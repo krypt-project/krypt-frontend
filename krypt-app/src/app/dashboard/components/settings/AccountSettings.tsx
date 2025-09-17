@@ -5,6 +5,7 @@ import Button from "@/components/atoms/Button";
 import { apiFetch } from "@/utils/api";
 import Loader from "@/components/feedback/Loader";
 import Image from "next/image";
+import { Card } from "@/components/atoms/Card";
 
 export default function AccountSettings() {
   const [loading, setLoading] = useState(false);
@@ -61,7 +62,11 @@ export default function AccountSettings() {
   };
 
   if (!user)
-    return <div className="text-center mt-10 text-gray-500">Loading...</div>;
+    return (
+      <div className="text-center mt-10 text-[var(--text-secondary)]">
+        Loading...
+      </div>
+    );
 
   return (
     <div className="flex-1 p-8 max-w-3xl mx-auto">
@@ -69,9 +74,9 @@ export default function AccountSettings() {
         Account Settings
       </h1>
 
-      <div className="bg-[var(--background)] shadow-md rounded-lg p-6 space-y-6 flex flex-col items-center">
+      <Card variant="default">
         {/* Avatar */}
-        <div className="relative w-24 h-24 mb-6">
+        <div className="flex relative w-full h-24 mb-6 justify-center">
           {user.avatarUrl ? (
             <Image
               src={user.avatarUrl}
@@ -80,7 +85,7 @@ export default function AccountSettings() {
               fill
             />
           ) : (
-            <div className="w-24 h-24 rounded-full bg-[var(--border)] flex items-center justify-center text-xl font-bold text-[var(--text-light)]">
+            <div className="w-24 h-24 rounded-full bg-[var(--border)] flex items-center justify-center text-xl font-bold text-[var(--text-dark)]">
               {user.firstName[0]}
               {user.lastName[0]}
             </div>
@@ -90,7 +95,7 @@ export default function AccountSettings() {
         {/* Form Fields */}
         <div className="w-full space-y-4">
           <div className="flex flex-col">
-            <label className="mb-2 text-sm font-semibold text-gray-700">
+            <label className="mb-2 text-sm font-semibold text-[var(--text-secondary)]">
               First Name
             </label>
             <input
@@ -103,7 +108,7 @@ export default function AccountSettings() {
           </div>
 
           <div className="flex flex-col">
-            <label className="mb-2 text-sm font-semibold text-gray-700">
+            <label className="mb-2 text-sm font-semibold text-[var(--text-secondary)]">
               Last Name
             </label>
             <input
@@ -116,7 +121,7 @@ export default function AccountSettings() {
           </div>
 
           <div className="flex flex-col">
-            <label className="mb-2 text-sm font-semibold text-gray-700">
+            <label className="mb-2 text-sm font-semibold text-[var(--text-secondary)]">
               Email
             </label>
             <input
@@ -135,7 +140,7 @@ export default function AccountSettings() {
             </Button>
           </div>
         </div>
-      </div>
+      </Card>
     </div>
   );
 }
