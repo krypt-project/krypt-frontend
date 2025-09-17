@@ -30,15 +30,15 @@ export function Card({
     "relative rounded-2xl border backdrop-blur-md transition-shadow flex flex-col";
 
   const variants = {
-    default: "bg-white border-gray-200 shadow-sm p-6",
+    default: "bg-[var(--background)] border-[var(--border)] shadow-sm p-6",
     feature: cn(
-      "bg-gray-900/30 border-white/10 text-gray-300 p-6 md:p-10",
-      "hover:border-[var(--primary)] hover:shadow-lg hover:shadow-[var(--primary)]/20 hover:scale-[1.02] transition-transform duration-300"
+      "bg-[var(--background)]/10 border-[var(--border)] text-[var(--secondary)] p-6 md:p-10",
+      "hover:border-[var(--primary)] hover:shadow-lg hover:shadow-[var(--primary)] hover:scale-[1.02] transition-transform duration-300"
     ),
     pricing:
-      "bg-white border-gray-100 shadow-lg hover:shadow-xl p-8 text-center flex flex-col",
+      "bg-[var(--background)] border-[var(--border)] shadow-lg hover:shadow-xl p-8 text-center flex flex-col",
     ghost: "bg-transparent border-transparent shadow-none",
-    auth: "bg-white border-gray-200 shadow-md p-8 text-center",
+    auth: "bg-[var(--background)] border-[var(--border)] shadow-md p-8 text-center",
   };
 
   return (
