@@ -10,7 +10,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, className, type, ...props }, ref) => {
     const baseClasses =
-      "rounded-xl border border-[var(--border)] bg-[var(--text-light)] text-[var(--text-dark)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--border)] focus:border-[var(--border)]";
+      "rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text-dark)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--border)] focus:border-[var(--border)]";
 
     const typeClasses =
       type === "color"
