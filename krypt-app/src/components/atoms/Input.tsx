@@ -10,7 +10,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ label, error, className, type, ...props }, ref) => {
     const baseClasses =
-      "rounded-xl border border-gray-300 bg-white/80 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-[var(--border)] focus:border-[var(--border)]";
+      "rounded-xl border border-[var(--border)] bg-[var(--text-light)] text-[var(--text-dark)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--border)] focus:border-[var(--border)]";
 
     const typeClasses =
       type === "color"
@@ -20,7 +20,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={cn("flex flex-col w-full", className)}>
         {label && (
-          <label className="mb-1 text-sm font-medium text-gray-700 dark:text-gray-300">
+          <label className="mb-1 text-sm font-medium text-[var(--text-secondary)]">
             {label}
           </label>
         )}
@@ -31,10 +31,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           className={cn(
             baseClasses,
             typeClasses,
-            error && "border-red-500 focus:ring-red-500"
+            error && "border-[var(--error)] focus:ring-[var(--error)]"
           )}
         />
-        {error && <span className="mt-1 text-xs text-red-500">{error}</span>}
+        {error && <span className="mt-1 text-xs text-[var(--error)]">{error}</span>}
       </div>
     );
   }
