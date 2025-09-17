@@ -41,7 +41,7 @@ export default function EditorHeader({
   const isPreview = tab === "preview";
   
   return (
-    <header className="flex items-center px-14 py-3 bg-white">
+    <header className="flex items-center h-17 border-b border-[var(--border)] px-14 py-3 bg-[var(--background)]">
       <div className="flex-1 flex items-center gap-2">
         {editingTitle ? (
           <Input
@@ -58,7 +58,7 @@ export default function EditorHeader({
             <Button
               onClick={() => setEditingTitle(true)}
               variant="sidebar"
-              className="ml-2 text-yellow-600 hover:bg-yellow-200 p-1"
+              className="ml-2 text-[var(--warning)] hover:bg-[var(--warning)]/50 p-1"
             >
               <Edit2 size={16} />
             </Button>
@@ -73,8 +73,8 @@ export default function EditorHeader({
             variant="outlined"
             className={`w-[90px] py-0 px-3 justify-center ${
               isEdit
-                ? "hover:bg-indigo-100 text-gray-700"
-                : "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-white py-2 hover:opacity-90"
+                ? "hover:bg-indigo-100 text-[var(--text-dark)]"
+                : "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-[var(--text-dark)] py-2 hover:opacity-90"
             }`}
           >
             Edit
@@ -85,8 +85,8 @@ export default function EditorHeader({
             variant="outlined"
             className={`w-[90px] py-0 px-3 justify-center ${
               isPreview
-                ? "hover:bg-indigo-100 text-gray-700"
-                : "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-white py-2 hover:opacity-90"
+                ? "hover:bg-indigo-100 text-[var(--text-dark)]"
+                : "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-[var(--text-dark)] py-2 hover:opacity-90"
             }`}
           >
             Preview
