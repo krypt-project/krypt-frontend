@@ -10,7 +10,7 @@ export default function Testimonial() {
         <div className="py-12 md:py-20">
           <div className="space-y-3 text-center">
             <div className="relative inline-flex">
-              <Quote className="absolute -left-6 -top-2 h-8 w-8 text-gray-300" />
+              <Quote className="absolute -left-6 -top-2 h-8 w-8 text-[var(--primary)]" />
               <Image
                 className="rounded-full"
                 src={TestimonialImg}
@@ -19,14 +19,14 @@ export default function Testimonial() {
                 alt="Krypt testimonial"
               />
             </div>
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-2xl font-bold text-[var(--text-dark)]">
               {TESTIMONIAL.quote}
-              <em className="italic text-gray-500">{TESTIMONIAL.emphasized}</em>
+              <em className="italic text-[var(--text-secondary)]">{TESTIMONIAL.emphasized}</em>
               ”
             </p>
-            <div className="text-sm font-medium text-gray-500">
-              <span className="text-gray-700">{TESTIMONIAL.author}</span>{" "}
-              <span className="text-gray-400">/</span>{" "}
+            <div className="text-sm font-medium text-[var(--text-secondary)]">
+              <span className="text-[var(--text-secondary)]">{TESTIMONIAL.author}</span>{" "}
+              <span className="text-[var(--text-secondary)]">/</span>{" "}
               <span className="text-[var(--primary)]">{TESTIMONIAL.role}</span>
             </div>
           </div>
