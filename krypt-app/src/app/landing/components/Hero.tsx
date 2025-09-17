@@ -23,7 +23,7 @@ export default function Hero() {
 
             <div className="mx-auto max-w-3xl">
               <p
-                className="mb-8 text-lg text-gray-700"
+                className="mb-8 text-lg text-[var(--text-secondary)]"
                 data-aos="zoom-y-out"
                 data-aos-delay={300}
               >
