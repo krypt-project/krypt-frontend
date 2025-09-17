@@ -27,7 +27,7 @@ export default function QuickAccessPopup({
 
   return (
     <div
-      className="absolute bg-white border border-[var(--border)] rounded-xl shadow-lg p-2 z-50"
+      className="absolute bg-[var(--background)] border border-[var(--border)] rounded-xl shadow-lg p-2 z-50"
       style={{ top: y, left: x, minWidth: 150 }}
       onMouseLeave={onClose}
     >
