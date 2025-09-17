@@ -25,6 +25,8 @@ import Input from "@/components/atoms/Input";
 import QuickAccessPopup from "@/app/dashboard/components/editor/QuickAccessPopup";
 import Tag from "@/app/dashboard/components/editor/extensions/Tag";
 
+import "@/styles/editor.css";
+
 import {
   Bold as BoldIcon,
   Italic as ItalicIcon,
@@ -120,8 +122,8 @@ export default function EditorArea({
       variant="outlined"
       className={`border-[var(--border)] ${
         active
-          ? "bg-[var(--primary)] text-white hover:bg-[var(--primary)] hover:text-gray-900"
-          : "hover:bg-gray-200 text-gray-900"
+          ? "bg-[var(--primary)] text-[var(--text-dark)] hover:bg-[var(--primary)]"
+          : "hover:bg-[var(--background)] text-[var(--text-dark)]"
       }`}
     >
       {icon}
@@ -196,7 +198,7 @@ export default function EditorArea({
         onContextMenu={handleRightClick}
       >
         {/* Toolbar */}
-        <div className="border-b border-gray-300 p-2 flex gap-2 flex-wrap bg-gray-50 justify-center">
+        <div className="border-b border-[var(--border)] p-2 flex gap-2 flex-wrap bg-[var(--secondary)] justify-center">
           {toolbarButton(
             () => editor.chain().focus().toggleBold().run(),
             <BoldIcon size={16} />,
@@ -258,7 +260,7 @@ export default function EditorArea({
           )}
 
           {/* Color picker */}
-          <label className="p-2 rounded-full border border-[var(--border)] hover:bg-gray-200 flex items-center gap-1 cursor-pointer">
+          <label className="p-2 rounded-full border border-[var(--border)] hover:bg-[var(--background)] transition flex items-center gap-1 cursor-pointer">
             <Palette size={24} />
             <Input
               type="color"
@@ -277,7 +279,7 @@ export default function EditorArea({
         {/* Zone d'édition */}
         <EditorContent
           editor={editor}
-          className="flex-1 px-12 py-12 tiptap prose max-w-none [&_.ProseMirror]:focus:outline-none w-[70%] mx-auto bg-white shadow-lg overflow-y-scroll"
+          className="flex-1 px-12 py-12 tiptap max-w-none w-[70%] mx-auto bg-[var(--background)] shadow-lg overflow-y-scroll"
         />
 
         {/* Popup d'accès rapide */}
