@@ -149,7 +149,7 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
           <Button
             onClick={logout}
             variant="sidebar"
-            className={`p-2 text-[var(--error)] bg-[var(--error)]/20`}
+            className={`p-2 text-[var(--text-dark)] bg-[var(--error)]/50 hover:text-[var(--error)]`}
             title="Logout"
           >
             <LogOut size={20} />
@@ -166,7 +166,7 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
                 <p className="font-semibold">
                   {user.firstName} {user.lastName}
                 </p>
-                <p className="text-sm text-gray-500">{user.email}</p>
+                <p className="text-sm text-[var(--text-secondary)]">{user.email}</p>
               </div>
             }
             position="right"
@@ -179,7 +179,7 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
                 fill
               />
             ) : (
-              <div className="w-13 h-13 rounded-full bg-[var(--border)] flex items-center justify-center text-md font-bold text-[var(--text-light)] cursor-pointer">
+              <div className="w-13 h-13 rounded-full bg-[var(--border)] flex items-center justify-center text-md font-bold text-[var(--text-dark)] cursor-pointer">
                 {user.firstName[0]}
                 {user.lastName[0]}
               </div>
