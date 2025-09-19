@@ -24,7 +24,7 @@ type Props = {
 export function ChatBotInterface({ isOpen, onClose }: Props) {
   return (
     <div
-      className={`fixed top-1/2 -translate-y-1/2 right-0 h-[80%] rounded-tl-xl rounded-bl-xl border-l border-t border-b border-[var(--border)] w-[40%] bg-[var(--background)] text-[var(--text-dark)] shadow-xl z-50 transform transition-transform duration-300 ${
+      className={`fixed top-1/2 -translate-y-1/2 right-0 h-[86%] rounded-tl-xl rounded-bl-xl border-l border-t border-b border-[var(--border)] w-[40%] bg-[var(--background)] text-[var(--text-dark)] shadow-xl z-50 transform transition-transform duration-300 ${
         isOpen ? "translate-x-0" : "translate-x-full"
       }`}
     >
@@ -64,7 +64,7 @@ export function ChatBotInterface({ isOpen, onClose }: Props) {
       </div>
 
       {/* Chat Zone */}
-      <div className="flex-1 h-[67%] overflow-y-scroll p-4 space-y-3">
+      <div className="flex-1 h-[66%] overflow-y-scroll p-4 space-y-3">
         {/* Exemple de messages */}
         <div className="flex items-start gap-3">
           <BotMessageSquare size={20} />
@@ -131,14 +131,26 @@ export function ChatBotInterface({ isOpen, onClose }: Props) {
       </div>
 
       {/* Send Zone */}
-      <div className="flex p-4 border-t border-[var(--border)] gap-2 justify-center">
-        <div className="w-full max-w-[80%]">
-          <Input placeholder="Ask something ..." />
+      <div className="flex flex-col p-4 border-t border-[var(--border)] justify-center gap-2">
+        <div className="flex flex-row gap-2">
+          <div className="w-full max-w-[100%]">
+            <Input placeholder="Ask something ..." />
+          </div>
+          <div className="flex align-middle justify-center">
+            <Button variant="success">
+              <Send size={18} className="text-[var(--text-light)]" />
+            </Button>
+          </div>
         </div>
-        <div className="flex align-middle justify-center">
-          <Button variant="success">
-            <Send size={18} className="text-[var(--text-light)]" />
-          </Button>
+        <div className="flex justify-center">
+          <p className="text-[.7rem]">
+            KRYPTOR peut commettre des erreurs. Il est recommandé de vérifier
+            les informations importantes. Voir les{" "}
+            <a href="#" className="underline">
+              conditions d&apos;utilisation
+            </a>{" "}
+            des données.
+          </p>
         </div>
       </div>
     </div>
