@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Home, FileText, Settings, LogOut } from "lucide-react";
 
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 
 type Activity = "home" | "notes" | "settings";
 
@@ -66,7 +66,9 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
         onClick={() => onSelect("home")}
         variant="sidebar"
         className={`p-2 ${
-          active === "home" || active === null ? "bg-[var(--secondary)] text-[var(--primary)]" : ""
+          active === "home" || active === null
+            ? "bg-[var(--secondary)] text-[var(--primary)]"
+            : ""
         }`}
         title="Home"
       >

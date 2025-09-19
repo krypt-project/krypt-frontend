@@ -1,4 +1,4 @@
-import { Card } from "@/components/atoms/Card";
+import { Card } from "@/components/atoms/Card/Card";
 import { LucideIcon } from "lucide-react";
 
 type FeatureCardProps = {

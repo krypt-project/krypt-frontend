@@ -1,4 +1,4 @@
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import Image from "next/image";
 import icon from "@/app/favicon.png";
 

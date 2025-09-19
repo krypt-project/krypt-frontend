@@ -8,7 +8,7 @@ import SidebarNotes from "@/app/dashboard/components/SidebarNotes";
 import ActivityBar from "./components/ActivityBar";
 import EditorHeader from "@/app/dashboard/components/editor/EditorHeader";
 import EditorArea from "@/app/dashboard/components/editor/EditorArea";
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import { apiFetch } from "@/utils/api";
 import { useAutoSaveNote } from "@/hooks/useAutoSaveNote";
 

@@ -69,7 +69,7 @@ export default function Button({
 
   const classes = cn(
     baseStyles,
-    variant === "link" ? "focus:outline-none focus:ring-0" : variants[variant],
+    variant === "link" ? variants.link : variants[variant],
     sizes[size],
     shape,
     isDisabled ? "opacity-50 cursor-not-allowed" : "",

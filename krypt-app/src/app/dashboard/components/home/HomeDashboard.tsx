@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { FileText, Database, Zap } from "lucide-react";
-import { Card } from "@/components/atoms/Card";
+import { Card } from "@/components/atoms/Card/Card";
 import {
   RadialBarChart,
   RadialBar,

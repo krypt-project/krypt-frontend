@@ -1,5 +1,5 @@
 import { HERO_CONTENT } from "@/config/constants";
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import Image from "next/image";
 
 export default function Hero() {

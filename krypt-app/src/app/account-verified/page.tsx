@@ -1,8 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import Button from "@/components/atoms/Button";
-import { Card } from "@/components/atoms/Card";
+import Button from "@/components/atoms/Button/Button";
+import { Card } from "@/components/atoms/Card/Card";
 
 export default function AccountVerifiedPage() {
   const router = useRouter();

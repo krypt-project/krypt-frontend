@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import Loader from "@/components/feedback/Loader";
 
 import { Search, ChevronLeft, File, Plus, Trash } from "lucide-react";

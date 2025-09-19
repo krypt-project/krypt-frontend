@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import Input from "@/components/atoms/Input";
 
 export default function RegisterForm({
