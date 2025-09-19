@@ -41,12 +41,13 @@ export default function Button({
     outlined:
       "border border-[var(--border)] text-[var(--foreground)] bg-[var(--background)]/70 hover:bg-[var(--secondary)]",
     gradient:
-      "bg-gradient-to-r from-[var(--background-2)] to-[var(--primary)] text-[var(--text-light)] hover:opacity-90",
+      "bg-gradient-to-r from-[var(--background-2)] to-[var(--primary)] text-[#f5f5f5] hover:opacity-90",
     link: "text-sm text-[var(--text-secondary)] hover:text-[var(--text-dark)] transition-colors focus:outline-none focus:ring-0",
     sidebar: "p-2 rounded hover:bg-[var(--border)]/50 transition cursor-pointer",
     error: "bg-[var(--error)] text-[var(--text-light)] hover:opacity-90",
     warning: "bg-[var(--warning)] text-[var(--text-light)] hover:opacity-90",
     success: "bg-[var(--success)] text-[var(--text-light)] hover:opacity-90",
+    select: "border border-[var(--border)] text-[var(--foreground)] bg-[var(--background)]/70 hover:bg-[var(--secondary)]",
   };
 
   // Sizes

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { User, Palette, PlusIcon } from "lucide-react";
+import { User, Palette, PlusIcon, BotMessageSquare } from "lucide-react";
 
 import SidebarNotes from "@/app/dashboard/components/SidebarNotes";
 import ActivityBar from "./components/ActivityBar";
@@ -19,6 +19,7 @@ import AccountSettings from "./components/settings/AccountSettings";
 import "@/styles/dashboard.css";
 import "@/styles/editor.css";
 import AppearanceSettings from "./components/settings/AppearanceSettings";
+import { ChatBotInterface } from "@/components/molecules/ChatBotInterface";
 
 type Note = {
   id: number;
@@ -50,6 +51,7 @@ export default function DashboardPage() {
   ]);
   const [tab, setTab] = useState<"edit" | "preview">("edit");
   const [activity, setActivity] = useState<Activity>(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -172,6 +174,16 @@ export default function DashboardPage() {
     <div className="flex h-screen bg-[var(--background)] text-[var(--text-dark)] overflow-hidden">
       {/* Permanent left bar */}
       <ActivityBar active={activity} onSelect={handleSelectActivity} />
+      {/* Chat Bot Button */}
+      <button
+        onClick={() => setIsChatOpen(true)}
+        className="absolute right-4 bottom-4 bg-[var(--primary)] p-4 rounded-full shadow-lg cursor-pointer hover:opacity-90 z-50"
+      >
+        <BotMessageSquare className="text-[var(--text-light)]" />
+      </button>
+
+      {/* Chat Bot Panel */}
+      <ChatBotInterface isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
       {/* Sidebar only if an activity is selected */}
       {activity === "notes" && (
