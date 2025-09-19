@@ -10,7 +10,7 @@ interface BadgeProps {
   className?: string;
   link?: string;
   onClick?: () => void;
-  selectable?: boolean; // permet d’activer le mode "toggle"
+  selectable?: boolean;
 }
 
 export default function Badge({
