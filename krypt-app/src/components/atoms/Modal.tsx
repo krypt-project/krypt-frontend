@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import { cn } from "@/utils/cn";
 import { X } from "lucide-react";
 

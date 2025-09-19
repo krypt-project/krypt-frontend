@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo } from "react";
-import { FileText, Database, Zap, Pointer } from "lucide-react";
-import { Card } from "@/components/atoms/Card";
+import { FileText, Database, Zap } from "lucide-react";
+import { Card } from "@/components/atoms/Card/Card";
 import {
   RadialBarChart,
   RadialBar,

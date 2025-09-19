@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Home, FileText, Settings, LogOut } from "lucide-react";
 
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import Popup from "@/components/atoms/Popup";
 
 type Activity = "home" | "notes" | "settings";
@@ -98,6 +98,18 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
           className="mb-2"
         />
       </div>
+      <Button
+        onClick={() => onSelect("home")}
+        variant="sidebar"
+        className={`p-2 ${
+          active === "home" || active === null
+            ? "bg-[var(--secondary)] text-[var(--primary)]"
+            : ""
+        }`}
+        title="Home"
+      >
+        <Home size={20} />
+      </Button>
 
       <Popup content={<span>Home</span>} position="right">
         <Button

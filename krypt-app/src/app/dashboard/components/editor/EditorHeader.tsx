@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Edit2 } from "lucide-react";
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import Input from "@/components/atoms/Input";
 
 export default function EditorHeader({
@@ -39,7 +39,7 @@ export default function EditorHeader({
 
   const isEdit = tab === "edit";
   const isPreview = tab === "preview";
-  
+
   return (
     <header className="flex items-center h-17 border-b border-[var(--border)] px-14 py-3 bg-[var(--background)]">
       <div className="flex-1 flex items-center gap-2">

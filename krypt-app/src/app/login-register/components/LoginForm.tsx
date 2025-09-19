@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import Input from "@/components/atoms/Input";
 
 export default function LoginForm({
@@ -33,7 +33,11 @@ export default function LoginForm({
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      <Button type="submit" variant="gradient" className="w-full justify-center">
+      <Button
+        type="submit"
+        variant="gradient"
+        className="w-full justify-center"
+      >
         Login
       </Button>
     </form>

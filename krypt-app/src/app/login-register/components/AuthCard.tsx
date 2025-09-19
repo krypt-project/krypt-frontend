@@ -5,8 +5,8 @@ import { useRouter } from "next/navigation";
 
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
-import { Card } from "@/components/atoms/Card";
-import Button from "@/components/atoms/Button";
+import { Card } from "@/components/atoms/Card/Card";
+import Button from "@/components/atoms/Button/Button";
 import Loader from "@/components/feedback/Loader";
 import Stepper from "@/components/feedback/Stepper";
 

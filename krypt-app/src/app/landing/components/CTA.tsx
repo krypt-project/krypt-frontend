@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { ArrowRight } from "lucide-react";
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import image from "@/app/favicon.png";
 
 export default function Cta() {

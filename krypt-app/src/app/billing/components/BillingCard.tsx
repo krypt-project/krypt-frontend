@@ -1,8 +1,8 @@
 "use client";
 
 import { FC } from "react";
-import { Card } from "@/components/atoms/Card";
-import Button from "@/components/atoms/Button";
+import { Card } from "@/components/atoms/Card/Card";
+import Button from "@/components/atoms/Button/Button";
 
 interface BillingCardProps {
   roleType: string;
@@ -18,13 +18,12 @@ const BillingCard: FC<BillingCardProps> = ({
   onSelect,
 }) => {
   return (
-    <Card
-      variant="pricing"
-      title={roleType}
-      price={price}
-      features={features}
-    >
-      <Button variant="gradient" onClick={onSelect} className="w-full mt-auto justify-center">
+    <Card variant="pricing" title={roleType} price={price} features={features}>
+      <Button
+        variant="gradient"
+        onClick={onSelect}
+        className="w-full mt-auto justify-center"
+      >
         Select
       </Button>
     </Card>

@@ -2,7 +2,7 @@
 
 import { FC } from "react";
 import Modal from "@/components/atoms/Modal";
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 
 interface BillingModalProps {
   isOpen: boolean;

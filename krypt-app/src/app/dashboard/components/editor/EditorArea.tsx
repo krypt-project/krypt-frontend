@@ -20,7 +20,7 @@ import HorizontalRule from "@tiptap/extension-horizontal-rule";
 import { TextStyle } from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import Input from "@/components/atoms/Input";
 import QuickAccessPopup from "@/app/dashboard/components/editor/QuickAccessPopup";
 import Tag from "@/app/dashboard/components/editor/extensions/Tag";

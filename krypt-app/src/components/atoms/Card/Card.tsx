@@ -1,6 +1,6 @@
 import { cn } from "@/utils/cn";
 import { ReactNode } from "react";
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import { Check } from "lucide-react";
 
 type CardProps = {
@@ -80,7 +80,7 @@ export function Card({
       )}
 
       {/* Custom content */}
-      {children && <div className="mt-auto">{children}</div>} 
+      {children && <div className="mt-auto">{children}</div>}
 
       {/* CTA */}
       {ctaLabel && ctaHref && (

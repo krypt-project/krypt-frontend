@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import { ArrowLeft } from "lucide-react";
 import BillingCard from "./components/BillingCard";
 import BillingModal from "./components/BillingModal";
@@ -21,7 +21,11 @@ export default function BillingPage() {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-[var(--background-2)]/10 to-[var(--primary)]/25 px-4">
-      <Button href="/" variant="outlined" className="absolute top-4 left-4 z-10">
+      <Button
+        href="/"
+        variant="outlined"
+        className="absolute top-4 left-4 z-10"
+      >
         <ArrowLeft />
         Back to Home
       </Button>
