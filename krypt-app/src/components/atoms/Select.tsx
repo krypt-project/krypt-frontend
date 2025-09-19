@@ -53,7 +53,7 @@ export function Select({
       <div
         className={`absolute left-0 right-0 mt-1 bg-[var(--background)] border border-[var(--border)] rounded-lg shadow-lg z-10 overflow-hidden transform transition-all duration-300 ${
           isOpen
-            ? "max-h-60 opacity-100 scale-100"
+            ? "max-h-65 opacity-100 scale-100"
             : "max-h-0 opacity-0 scale-95 pointer-events-none"
         }`}
       >

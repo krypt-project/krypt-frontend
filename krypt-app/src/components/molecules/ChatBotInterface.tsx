@@ -11,6 +11,9 @@ const chats = [
   { value: "chat1", label: "Hello World !" },
   { value: "chat2", label: "Edition d'une note" },
   { value: "chat3", label: "Changement de theme" },
+  { value: "chat4", label: "Génération de tags" },
+  { value: "chat5", label: "Changement de photo de profile" },
+  { value: "chat6", label: "Génération de note" },
 ];
 
 type Props = {
