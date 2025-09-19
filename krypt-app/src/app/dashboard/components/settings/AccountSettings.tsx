@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 import { apiFetch } from "@/utils/api";
 import Loader from "@/components/feedback/Loader";
 import Image from "next/image";
-import { Card } from "@/components/atoms/Card";
+import { Card } from "@/components/atoms/Card/Card";
 
 export default function AccountSettings() {
   const [loading, setLoading] = useState(false);

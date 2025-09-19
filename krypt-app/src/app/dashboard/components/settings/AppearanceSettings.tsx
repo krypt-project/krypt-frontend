@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Button from "@/components/atoms/Button";
+import Button from "@/components/atoms/Button/Button";
 
 type Theme = "light" | "dark";
 

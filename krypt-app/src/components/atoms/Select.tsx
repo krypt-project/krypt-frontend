@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
-import Button from "./Button";
+import Button from "./Button/Button";
 
 type Option = {
   value: string;

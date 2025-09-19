@@ -98,19 +98,6 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
           className="mb-2"
         />
       </div>
-      <Button
-        onClick={() => onSelect("home")}
-        variant="sidebar"
-        className={`p-2 ${
-          active === "home" || active === null
-            ? "bg-[var(--secondary)] text-[var(--primary)]"
-            : ""
-        }`}
-        title="Home"
-      >
-        <Home size={20} />
-      </Button>
-
       <Popup content={<span>Home</span>} position="right">
         <Button
           onClick={() => onSelect("home")}
