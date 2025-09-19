@@ -30,15 +30,15 @@ export function Card({
     "relative rounded-2xl border backdrop-blur-md transition-shadow flex flex-col";
 
   const variants = {
-    default: "bg-white border-gray-200 shadow-sm p-6",
+    default: "bg-[var(--background)] border-[var(--border)] shadow-sm p-6",
     feature: cn(
-      "bg-gray-900/30 border-white/10 text-gray-300 p-6 md:p-10",
-      "hover:border-[var(--primary)] hover:shadow-lg hover:shadow-[var(--primary)]/20 hover:scale-[1.02] transition-transform duration-300"
+      "bg-[var(--background)]/10 border-[var(--border)] text-[var(--secondary)] p-6 md:p-10",
+      "hover:border-[var(--primary)] hover:shadow-lg hover:shadow-[var(--primary)] hover:scale-[1.02] transition-transform duration-300"
     ),
     pricing:
-      "bg-white border-gray-100 shadow-lg hover:shadow-xl p-8 text-center flex flex-col",
+      "bg-[var(--background)] border-[var(--border)] shadow-lg hover:shadow-xl p-8 text-center flex flex-col",
     ghost: "bg-transparent border-transparent shadow-none",
-    auth: "bg-white border-gray-200 shadow-md p-8 text-center",
+    auth: "bg-[var(--background)] border-[var(--border)] shadow-md p-8 text-center",
   };
 
   return (
@@ -54,7 +54,7 @@ export function Card({
         </h3>
       )}
       {description && (
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+        <p className="text-sm text-[var(--text-secondary)] mb-4">
           {description}
         </p>
       )}
@@ -62,8 +62,8 @@ export function Card({
       {/* Pricing */}
       {variant === "pricing" && price && (
         <div className="mb-6">
-          <span className="text-4xl font-bold text-gray-900">{price}</span>
-          <span className="text-gray-500 text-sm"> /mo</span>
+          <span className="text-4xl font-bold text-[var(--text-dark)]">{price}</span>
+          <span className="text-[var(--text-secondary)] text-sm"> /mo</span>
         </div>
       )}
 
@@ -72,8 +72,8 @@ export function Card({
         <ul className="mb-6 space-y-2 text-left">
           {features.map((feature, idx) => (
             <li key={idx} className="flex items-center gap-2">
-              <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
-              <span className="text-gray-700">{feature}</span>
+              <Check className="w-5 h-5 text-[var(--success)] flex-shrink-0" />
+              <span className="text-[var(--text-secondary)]">{feature}</span>
             </li>
           ))}
         </ul>

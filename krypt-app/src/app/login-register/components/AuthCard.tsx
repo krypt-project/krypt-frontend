@@ -116,7 +116,7 @@ export default function AuthCard({
   return (
     <>
       {(loading || waitingForEmailVerification) && (
-        <div className="fixed inset-0 bg-black/30 flex flex-col items-center justify-center z-50">
+        <div className="fixed inset-0 bg-[var(--background)] flex flex-col items-center justify-center z-50">
           <Loader variant="global" size={40} />
           {waitingForEmailVerification && (
             <Loader
@@ -146,7 +146,7 @@ export default function AuthCard({
           )}
 
           {/* switch login/register */}
-          <div className="text-center mt-6 text-sm text-gray-600">
+          <div className="text-center mt-6 text-sm text-[var(--text-secondary)]">
             {isLogin ? (
               <>
                 Don&apos;t have an account yet ?{" "}

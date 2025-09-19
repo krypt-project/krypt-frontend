@@ -65,22 +65,22 @@ export default function HomeDashboard({
   return (
     <div className="flex flex-col flex-1 p-8 space-y-8 overflow-y-auto">
       {/* Title */}
-      <h2 className="text-3xl font-semibold">Welcome back 👋</h2>
+      <h2 className="text-3xl font-semibold">Welcome back</h2>
 
       {/* Metrics with charts */}
       <div className="w-auto flex sm:grid-cols-3 gap-6">
         {/* Tokens */}
-        <Card className="flex items-center justify-between align-middle p-6">
-          <div className="flex items-center justify-center align-middle space-x-4">
-            <Zap className="text-yellow-500" />
+        <Card className="flex items-center justify-between align-middle p-6 hover:bg-[var(--background)]/50 transition cursor-pointer">
+          <div className="flex items-center justify-center align-middle space-x-4 cursor-pointer">
+            <Zap className="text-[var(--warning)]" />
             <div>
-              <p className="text-sm text-gray-500">AI Tokens Remaining</p>
+              <p className="text-sm text-[var(--text-secondary)]">AI Tokens Remaining</p>
               <p className="text-lg font-semibold">
                 {tokensRemaining.toLocaleString()}
               </p>
             </div>
           </div>
-          <div className="w-auto h-20 mt-2">
+          <div className="w-auto h-20 mt-2 cursor-pointer">
             <ResponsiveContainer>
               <RadialBarChart
                 cx="50%"
@@ -89,25 +89,26 @@ export default function HomeDashboard({
                 outerRadius="100%"
                 barSize={10}
                 data={tokensData}
+                className="cursor-pointer"
               >
-                <RadialBar dataKey="value" fill="#facc15" cornerRadius={5} />
+                <RadialBar dataKey="value" fill="var(--warning)" stroke="var(--border)" cornerRadius={5} />
               </RadialBarChart>
             </ResponsiveContainer>
           </div>
         </Card>
 
         {/* Storage */}
-        <Card className="flex items-center justify-between p-6">
-          <div className="flex items-center space-x-4">
-            <Database className="text-violet-500" />
+        <Card className="flex items-center justify-between p-6 hover:bg-[var(--background)]/50 transition cursor-pointer">
+          <div className="flex items-center space-x-4 cursor-pointer">
+            <Database className="text-[var(--background-2)]" />
             <div>
-              <p className="text-sm text-gray-500">Storage Used</p>
+              <p className="text-sm text-[var(--text-secondary)]">Storage Used</p>
               <p className="text-lg font-semibold">
                 {storageUsed} GB / {storageTotal} GB
               </p>
             </div>
           </div>
-          <div className="w-auto h-20 mt-2">
+          <div className="w-auto h-20 mt-2 cursor-pointer">
             <ResponsiveContainer>
               <PieChart>
                 <Pie
@@ -117,9 +118,11 @@ export default function HomeDashboard({
                   outerRadius="100%"
                   startAngle={90}
                   endAngle={-270}
+                  stroke="var(--border)"
+                  className="cursor-pointer"
                 >
-                  <Cell fill="#8b5cf6" />
-                  <Cell fill="#e5e7eb" />
+                  <Cell fill="var(--background-2)" />
+                  <Cell fill="var(--background)" />
                 </Pie>
               </PieChart>
             </ResponsiveContainer>
@@ -127,23 +130,24 @@ export default function HomeDashboard({
         </Card>
 
         {/* Notes trend */}
-        <Card className="flex flex-col justify-between p-6 w-100">
-          <div className="flex items-center space-x-4 mb-4">
-            <FileText className="text-blue-500" />
+        <Card className="flex flex-col justify-between p-6 w-100 hover:bg-[var(--background)]/50 transition cursor-pointer">
+          <div className="flex items-center space-x-4 mb-4 cursor-pointer">
+            <FileText className="text-[var(--success)]" />
             <div>
-              <p className="text-sm text-gray-500">Total Notes</p>
+              <p className="text-sm text-[var(--text-secondary)]">Total Notes</p>
               <p className="text-lg font-semibold">{notes.length}</p>
             </div>
           </div>
-          <div className="w-full h-20">
+          <div className="w-full h-20 cursor-pointer">
             <ResponsiveContainer>
               <LineChart data={notesTrendData}>
                 <Line
                   type="monotone"
                   dataKey="notes"
-                  stroke="#3b82f6"
+                  stroke="var(--success)"
                   strokeWidth={2}
                   dot={false}
+                  className="cursor-pointer"
                 />
               </LineChart>
             </ResponsiveContainer>
@@ -159,13 +163,13 @@ export default function HomeDashboard({
             <button
               key={note.id}
               onClick={() => onSelectNote(note.id)}
-              className="w-full bg-white text-left p-4 rounded-lg shadow hover:bg-gray-50 transition"
+              className="w-full bg-[var(--background)] border border-[var(--border)] text-left p-4 rounded-lg shadow hover:bg-[var(--background)]/50 transition cursor-pointer"
             >
               <p className="font-medium">{note.title}</p>
-              <p className="text-sm text-gray-500 truncate">
+              <p className="text-sm text-[var(--text-secondary)] truncate">
                 {note.content.replace(/<[^>]+>/g, "").slice(0, 80)}...
               </p>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-[var(--text-secondary)] mt-1">
                 Last updated:{" "}
                 {note.updatedAt
                   ? new Date(note.updatedAt).toLocaleString()
@@ -175,7 +179,7 @@ export default function HomeDashboard({
           ))}
 
           {recentNotes.length === 0 && (
-            <p className="text-gray-500">No recent notes yet.</p>
+            <p className="text-[var(--text-secondary)]">No recent notes yet.</p>
           )}
         </div>
       </div>

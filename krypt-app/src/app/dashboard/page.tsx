@@ -2,23 +2,24 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { PlusIcon } from "lucide-react";
+import { User, Palette, PlusIcon, BotMessageSquare } from "lucide-react";
 
 import SidebarNotes from "@/app/dashboard/components/SidebarNotes";
 import ActivityBar from "./components/ActivityBar";
 import EditorHeader from "@/app/dashboard/components/editor/EditorHeader";
 import EditorArea from "@/app/dashboard/components/editor/EditorArea";
 import Button from "@/components/atoms/Button/Button";
+import SidebarSettings from "./components/SidebarSettings";
+import HomeDashboard from "./components/home/HomeDashboard";
 import { apiFetch } from "@/utils/api";
 import { useAutoSaveNote } from "@/hooks/useAutoSaveNote";
-
-import { User, File } from "lucide-react";
+import AccountSettings from "./components/settings/AccountSettings";
 
 /* Style */
 import "@/styles/dashboard.css";
 import "@/styles/editor.css";
-import SidebarSettings from "./components/SidebarSettings";
-import HomeDashboard from "./components/home/HomeDashboard";
+import AppearanceSettings from "./components/settings/AppearanceSettings";
+import { ChatBotInterface } from "@/components/molecules/ChatBotInterface";
 
 type Note = {
   id: number;
@@ -31,22 +32,26 @@ export default function DashboardPage() {
   const router = useRouter();
   const [notes, setNotes] = useState<Note[]>([]);
   const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
+  const [selectedSettingId, setSelectedSettingId] = useState<number | null>(
+    null
+  );
   const [settings] = useState([
     {
       id: 1,
-      title: "Profile",
+      title: "Account",
       description: "Manage your profile settings",
       icon: <User size={16} className="mr-2 text-[var(--text-dark)]" />,
     },
     {
       id: 2,
-      title: "Account",
-      description: "Account related settings",
-      icon: <File size={16} className="mr-2 text-[var(--text-dark)]" />,
+      title: "Appearance",
+      description: "Customize your application",
+      icon: <Palette size={16} className="mr-2 text-[var(--text-dark)]" />,
     },
   ]);
   const [tab, setTab] = useState<"edit" | "preview">("edit");
   const [activity, setActivity] = useState<Activity>(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -162,13 +167,23 @@ export default function DashboardPage() {
   };
 
   const handleSelectSetting = (id: number) => {
-    alert(`Selected setting ID: ${id}`);
+    setSelectedSettingId(id);
   };
 
   return (
-    <div className="flex h-screen bg-gray-50 text-gray-900">
+    <div className="flex h-screen bg-[var(--background)] text-[var(--text-dark)] overflow-hidden">
       {/* Permanent left bar */}
       <ActivityBar active={activity} onSelect={handleSelectActivity} />
+      {/* Chat Bot Button */}
+      <button
+        onClick={() => setIsChatOpen(true)}
+        className="absolute right-4 bottom-4 bg-[var(--primary)] p-4 rounded-full shadow-lg cursor-pointer hover:opacity-90 z-50"
+      >
+        <BotMessageSquare className="text-[var(--text-light)]" />
+      </button>
+
+      {/* Chat Bot Panel */}
+      <ChatBotInterface isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
       {/* Sidebar only if an activity is selected */}
       {activity === "notes" && (
@@ -202,7 +217,7 @@ export default function DashboardPage() {
             <Button
               onClick={handleCreateNote}
               variant="default"
-              className="bg-green-600 text-white px-6 py-3 hover:bg-green-700"
+              className="bg-[var(--success)] text-[var(--text-light)] px-6 py-3 hover:bg-[var(--success)]/80"
             >
               <PlusIcon className="mr-2 w-5" />
               Create a new note
@@ -225,7 +240,7 @@ export default function DashboardPage() {
               />
             ) : (
               <div
-                className="flex-1 px-12 py-12 tiptap prose max-w-none [&_.ProseMirror]:focus:outline-none w-[70%] mx-auto bg-white shadow-lg overflow-y-scroll"
+                className="flex-1 px-12 py-12 tiptap prose max-w-none [&_.ProseMirror]:focus:outline-none w-[70%] mx-auto bg-[var(--background)] shadow-lg overflow-y-scroll"
                 dangerouslySetInnerHTML={{ __html: selectedNote.content }}
               />
             )}
@@ -233,8 +248,21 @@ export default function DashboardPage() {
         )}
 
         {activity === "settings" && (
-          <div className="flex flex-col items-center justify-center flex-1 px-6">
-            <h2 className="text-3xl font-semibold mb-4">Choose a setting</h2>
+          <div className="flex-1 flex flex-col">
+            {!selectedSettingId ? (
+              <div className="flex flex-col items-center justify-center flex-1 px-6">
+                <h2 className="text-3xl font-semibold mb-4">
+                  Choose a setting
+                </h2>
+              </div>
+            ) : (
+              <div className="flex-1 overflow-y-auto">
+                {selectedSettingId === null && <AccountSettings />}
+                {selectedSettingId === 1 && <AccountSettings />}
+                {selectedSettingId === 2 && <AppearanceSettings />}
+                {/* ... */}
+              </div>
+            )}
           </div>
         )}
       </main>

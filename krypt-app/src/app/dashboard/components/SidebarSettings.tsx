@@ -4,6 +4,7 @@ import { useState } from "react";
 
 import Button from "@/components/atoms/Button/Button";
 import Loader from "@/components/feedback/Loader";
+import Input from "@/components/atoms/Input";
 
 import { Search, ChevronLeft } from "lucide-react";
 
@@ -29,7 +30,7 @@ export default function SidebarSettings({
   return (
     <>
       {loading && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-[var(--background)] flex items-center justify-center z-50">
           <Loader variant="global" size={24} />
         </div>
       )}
@@ -49,17 +50,13 @@ export default function SidebarSettings({
             {/* Searchbar */}
             <div className="mb-4">
               <div
-                className={`flex items-center bg-[var(--secondary)] rounded-md px-3 py-3 ${
+                className={`flex items-center rounded-md px-3 py-3 ${
                   collapsed ? "hidden" : "block"
                 }`}
               >
-                <Search size={16} className="text-gray-500" />
+                <Search size={16} className="text-[var(--text-secondary)]" />
                 {!collapsed && (
-                  <input
-                    type="text"
-                    placeholder="Search settings..."
-                    className="ml-2 bg-transparent focus:outline-none w-full text-sm"
-                  />
+                  <Input type="text" placeholder="Search settings ..." />
                 )}
               </div>
             </div>

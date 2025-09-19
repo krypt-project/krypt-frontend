@@ -32,7 +32,7 @@ const socials: Social[] = [
 export function FooterSocials() {
   return (
     <div className="space-y-2 sm:col-span-6 md:col-span-3 lg:col-span-2">
-      <h3 className="text-black font-medium">Follow us</h3>
+      <h3 className="text-[var(--text-dark)] font-medium">Follow us</h3>
       <div className="flex gap-3">
         {socials.map((s) => (
           <Link

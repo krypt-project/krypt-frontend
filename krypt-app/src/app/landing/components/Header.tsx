@@ -12,7 +12,7 @@ export default function Header() {
 
       <header className="fixed top-2 z-30 w-full md:top-6">
         <div className="mx-auto max-w-6xl px-4 sm:px-6">
-          <div className="relative flex h-14 items-center justify-between gap-3 rounded-2xl bg-white/80 backdrop-blur-[20px] px-3 shadow-lg shadow-black/[0.03] border border-[#cbd5e1]">
+          <div className="relative flex h-14 items-center justify-between gap-3 rounded-2xl bg-[var(--background)]/80 backdrop-blur-[20px] px-3 shadow-lg shadow-black/[0.03] border border-[var(--border)]">
             {/* Logo */}
             <div className="flex flex-1 items-center">
               <Image

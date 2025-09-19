@@ -8,7 +8,7 @@ export default function Cta() {
     <section className="relative z-10">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div
-          className="relative overflow-hidden rounded-2xl text-center shadow-xl before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-2xl before:bg-gray-950"
+          className="relative overflow-hidden rounded-2xl text-center shadow-xl before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-2xl before:bg-[#010409]"
           data-aos="zoom-y-out"
         >
           {/* Glow */}
@@ -38,7 +38,7 @@ export default function Cta() {
 
           {/* CTA Content */}
           <div className="px-4 py-12 md:px-12 md:py-20">
-            <h2 className="mb-6 border-y [border-image:linear-gradient(to_right,transparent,#464646,transparent)1] py-4 text-3xl font-bold text-white md:mb-12 md:text-4xl">
+            <h2 className="mb-6 border-y [border-image:linear-gradient(to_right,transparent,#464646,transparent)1] py-4 text-3xl font-bold text-[#f5f5f5] md:mb-12 md:text-4xl">
               Ready to build your second brain ?
             </h2>
 

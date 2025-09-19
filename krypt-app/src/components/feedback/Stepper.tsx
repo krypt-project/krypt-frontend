@@ -29,7 +29,7 @@ export default function Stepper({ currentStep }: StepperProps) {
                 {
                   "bg-[var(--success)]/15 border-[var(--success)]/30 text-[var(--success)]": isCompleted,
                   "bg-[var(--primary)]/15 border-[var(--primary)]/30 text-[var(--primary)]": isActive,
-                  "bg-[var(--background)] border-[var(--border)] text-gray-600":
+                  "bg-[var(--background)] border-[var(--border)] text-[var(--text-secondary)]":
                     !isCompleted && !isActive,
                 }
               )}
@@ -43,7 +43,7 @@ export default function Stepper({ currentStep }: StepperProps) {
 
             {index < steps.length - 1 && (
               <div
-                className={clsx("h-1 bg-[var(--border)] w-full mt-2 rounded", {
+                className={clsx("h-1 bg-[var(--foreground)] w-full mt-2 rounded", {
                   "bg-[var(--success)]/80": currentStep > step.id,
                 })}
               />

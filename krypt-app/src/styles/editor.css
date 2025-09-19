@@ -2,50 +2,54 @@
 /* Editor Styles - editor.css */
 /* ========================== */
 .tiptap {
-    @apply prose;
-    line-height: 1.6;
+    line-height: 1.5;
     font-size: 1rem;
-    background-color: #ffffff;
-    color: #111111;
+    background-color: var(--background);
+    color: var(--text-dark);
     min-height: 200px;
     outline: none;
     padding: 1rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-radius: 0.5rem;
 }
 
+/* Paragraphs */
+.tiptap p {
+    margin: 0.5rem 0;
+    color: var(--text-dark);
+}
+
+/* Headings */
 .tiptap h1 {
     font-size: 2rem;
     font-weight: bold;
     margin: 1rem 0 0.5rem;
-    color: #111111;
+    color: var(--text-dark);
 }
 
 .tiptap h2 {
     font-size: 1.5rem;
     font-weight: bold;
     margin: 0.75rem 0 0.5rem;
-    color: #222222;
+    color: var(--text-dark);
 }
 
 .tiptap h3 {
     font-size: 1.25rem;
     font-weight: 600;
     margin: 0.5rem 0;
-    color: #333333;
+    color: var(--text-dark);
 }
 
-.tiptap p {
-    margin: 0.5rem 0;
-    color: #111111;
-}
-
+/* Horizontal rule */
 .tiptap hr {
     border: none;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid var(--border);
     margin: 1.5rem 0;
 }
 
+/* Lists */
 .tiptap ul {
     list-style-type: disc;
     padding-left: 1.5rem;
@@ -58,38 +62,47 @@
     margin: 0.5rem 0;
 }
 
+/* Blockquote */
 .tiptap blockquote {
-    border-left: 4px solid #ddd;
+    border-left: 4px solid var(--border);
     padding-left: 1rem;
-    color: #555555;
+    color: var(--text-dark);
     font-style: italic;
-    background-color: #fafafa;
+    background-color: var(--secondary);
     margin: 1rem 0;
     border-radius: 0.25rem;
 }
 
+/* Code blocks */
 .tiptap pre {
-    background: #f5f5f5;
+    background: var(--background);
     padding: 1rem;
     border-radius: 0.5rem;
     font-family: 'Fira Code', monospace;
     overflow-x: auto;
-    color: #111111;
+    color: var(--text-dark);
     box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
 }
 
-input[type="color"]::-webkit-color-swatch {
-  border-radius: 9999px;
-  border: none;
+/* Inline code */
+.tiptap code {
+    background-color: var(--secondary);
+    color: var(--text-dark);
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.25rem;
+    font-size: 0.9rem;
+    font-family: 'Fira Code', monospace;
 }
 
-input[type="color"]::-webkit-color-swatch-wrapper {
-  padding: 0;
+/* Links */
+.tiptap a {
+    color: var(--primary);
+    text-decoration: underline;
+    transition: color 0.2s ease;
 }
 
-input[type="color"]::-moz-color-swatch {
-  border-radius: 9999px;
-  border: none;
+.tiptap a:hover {
+    color: var(--background-2);
 }
 
 /* Task lists */
@@ -108,22 +121,37 @@ input[type="color"]::-moz-color-swatch {
     margin-right: 0.5rem;
 }
 
-/* AI */
+/* Badges / Tags */
 .badge-tag {
-  display: inline-block;
-  background-color: #f3f4f6;
-  color: #1f2937;
-  font-size: 0.85rem;
-  font-weight: 500;
-  padding: 0.2rem 0.6rem;
-  border-radius: 9999px;
-  margin: 0 0.25rem 0.25rem 0; 
-  white-space: nowrap;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
+    display: inline-block;
+    background-color: var(--secondary);
+    color: var(--text-dark);
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.2rem 0.6rem;
+    border-radius: 9999px;
+    margin: 0 0.25rem 0.25rem 0;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
 .badge-tag:hover {
-  background-color: #e5e7eb;
-  color: #111827;
+    background-color: var(--background);
+    color: var(--text-dark);
+}
+
+/* Color input (palette) */
+input[type="color"]::-webkit-color-swatch {
+    border-radius: 9999px;
+    border: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+input[type="color"]::-moz-color-swatch {
+    border-radius: 9999px;
+    border: none;
 }

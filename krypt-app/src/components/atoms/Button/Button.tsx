@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 
 type ButtonProps = {
   children: React.ReactNode;
-  variant?: "default" | "outlined" | "gradient" | "link" | "sidebar";
+  variant?: "default" | "outlined" | "gradient" | "link" | "sidebar" | "error" | "warning" | "success";
   size?: "sm" | "md" | "lg";
   rounded?: boolean;
   loading?: boolean;
@@ -37,13 +37,17 @@ export default function Button({
 
   // Variants
   const variants = {
-    default: "bg-[var(--primary)] text-white hover:bg-[var(--background-3)]",
+    default: "bg-[var(--primary)] text-[var(--text-light)] hover:bg-[var(--background-3)]",
     outlined:
       "border border-[var(--border)] text-[var(--foreground)] bg-[var(--background)]/70 hover:bg-[var(--secondary)]",
     gradient:
-      "bg-gradient-to-r from-[var(--background-2)] to-[var(--primary)] text-white hover:opacity-90",
-    link: "text-sm text-gray-500 hover:text-black transition-colors focus:outline-none focus:ring-0",
-    sidebar: "p-2 rounded hover:bg-gray-200 transition cursor-pointer",
+      "bg-gradient-to-r from-[var(--background-2)] to-[var(--primary)] text-[#f5f5f5] hover:opacity-90",
+    link: "text-sm text-[var(--text-secondary)] hover:text-[var(--text-dark)] transition-colors focus:outline-none focus:ring-0",
+    sidebar: "p-2 rounded hover:bg-[var(--border)]/50 transition cursor-pointer",
+    error: "bg-[var(--error)] text-[var(--text-light)] hover:opacity-90",
+    warning: "bg-[var(--warning)] text-[var(--text-light)] hover:opacity-90",
+    success: "bg-[var(--success)] text-[var(--text-light)] hover:opacity-90",
+    select: "border border-[var(--border)] text-[var(--foreground)] bg-[var(--background)]/70 hover:bg-[var(--secondary)]",
   };
 
   // Sizes

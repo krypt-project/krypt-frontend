@@ -3,6 +3,9 @@
 <p align="center">
   <img src="image.png" alt="Landing page screenshot" width="400">
 </p>
+<p align="center">
+  <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/b6bda25a-bf76-43eb-9911-585fcb82b76f" />
+</p>
 
 ---
 
