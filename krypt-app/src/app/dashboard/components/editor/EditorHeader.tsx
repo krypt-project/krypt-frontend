@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Edit2 } from "lucide-react";
 import Button from "@/components/atoms/Button/Button";
-import Input from "@/components/atoms/Input";
+import Input from "@/components/atoms/Input/Input";
 
 export default function EditorHeader({
   title,

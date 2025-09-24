@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Input component (auto-generated) rendering matches snapshot with minimal props 1`] = `
+<div>
+  <div
+    class="flex flex-col w-full"
+  >
+    <label
+      class="mb-1 text-sm font-medium text-[var(--text-secondary)]"
+    >
+      Name
+    </label>
+    <input
+      class="rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text-dark)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--border)] focus:border-[var(--border)] px-4 py-2"
+    />
+  </div>
+</div>
+`;
