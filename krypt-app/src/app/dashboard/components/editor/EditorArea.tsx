@@ -25,8 +25,6 @@ import Input from "@/components/atoms/Input";
 import QuickAccessPopup from "@/app/dashboard/components/editor/QuickAccessPopup";
 import Tag from "@/app/dashboard/components/editor/extensions/Tag";
 
-import "@/styles/editor.css";
-
 import {
   Bold as BoldIcon,
   Italic as ItalicIcon,
