@@ -95,7 +95,7 @@ export function ChatBotInterface({ isOpen, onClose }: Props) {
         </div>
         <div className="flex items-start gap-3">
           <BotMessageSquare size={20} />
-          <p className="flex-wrap bg-[var(--secondary)] px-3 py-2 max-w-[80%] w-auto rounded-2xl text-[var(--text-dark)]">
+          <span className="flex-wrap bg-[var(--secondary)] px-3 py-2 max-w-[80%] w-auto rounded-2xl text-[var(--text-dark)]">
             For sure ! <br />
             What color theme do you want ? (Click on your choice)
             <div className="flex gap-2 justify-center">
@@ -108,7 +108,7 @@ export function ChatBotInterface({ isOpen, onClose }: Props) {
                 Dark
               </Button>
             </div>
-          </p>
+          </span>
         </div>
         <div className="flex items-start gap-3">
           <BotMessageSquare size={20} />
