@@ -7,12 +7,22 @@ import Loader from "@/components/feedback/Loader";
 import Image from "next/image";
 import { Card } from "@/components/atoms/Card/Card";
 
+type Role = {
+  id: number;
+  roleType: string;
+  maxStorageGb: number;
+  aiQuota: number;
+  pricePerMonth?: number;
+  description: string;
+};
+
 export default function AccountSettings() {
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState<{
     firstName: string;
     lastName: string;
     email: string;
+    role: Role;
     avatarUrl?: string;
   } | null>(null);
   const [form, setForm] = useState({
@@ -138,6 +148,80 @@ export default function AccountSettings() {
             <Button onClick={handleSave} variant="success" disabled={loading}>
               {loading ? <Loader variant="inline" size={24} /> : "Save Changes"}
             </Button>
+          </div>
+        </div>
+
+        {/* Account */}
+        <div className="border-t border-[var(--border)] mt-10"></div>
+        <div className="w-full space-y-4 mt-10">
+          {/* User Plan */}
+          <div className="flex flex-col">
+            <label className="mb-2 text-sm font-semibold text-[var(--text-secondary)]">
+              Your Plan
+            </label>
+            <input
+              type="text"
+              name="plan"
+              value={user.role.roleType}
+              readOnly
+              className="p-3 border border-[var(--border)] rounded-md bg-[var(--background)] text-[var(--text-dark)] cursor-not-allowed focus:outline-none transition"
+            />
+          </div>
+
+          {/* Max Storage */}
+          <div className="flex flex-col">
+            <label className="mb-2 text-sm font-semibold text-[var(--text-secondary)]">
+              Max Storage
+            </label>
+            <input
+              type="text"
+              value={`${user.role.maxStorageGb} GB`}
+              readOnly
+              className="p-3 border border-[var(--border)] rounded-md bg-[var(--background)] text-[var(--text-dark)] cursor-not-allowed focus:outline-none transition"
+            />
+          </div>
+
+          {/* AI Quota */}
+          <div className="flex flex-col">
+            <label className="mb-2 text-sm font-semibold text-[var(--text-secondary)]">
+              AI Quota
+            </label>
+            <input
+              type="text"
+              value={user.role.aiQuota}
+              readOnly
+              className="p-3 border border-[var(--border)] rounded-md bg-[var(--background)] text-[var(--text-dark)] cursor-not-allowed focus:outline-none transition"
+            />
+          </div>
+
+          {/* Price */}
+          <div className="flex flex-col">
+            <label className="mb-2 text-sm font-semibold text-[var(--text-secondary)]">
+              Price / Month
+            </label>
+            <input
+              type="text"
+              value={
+                user.role.pricePerMonth !== undefined
+                  ? `$${user.role.pricePerMonth}`
+                  : "Free"
+              }
+              readOnly
+              className="p-3 border border-[var(--border)] rounded-md bg-[var(--background)] text-[var(--text-dark)] cursor-not-allowed focus:outline-none transition"
+            />
+          </div>
+
+          {/* Description */}
+          <div className="flex flex-col">
+            <label className="mb-2 text-sm font-semibold text-[var(--text-secondary)]">
+              Description
+            </label>
+            <textarea
+              value={user.role.description}
+              readOnly
+              className="p-3 border border-[var(--border)] rounded-md bg-[var(--background)] text-[var(--text-dark)] cursor-not-allowed focus:outline-none transition resize-none"
+              rows={3}
+            />
           </div>
         </div>
       </Card>
