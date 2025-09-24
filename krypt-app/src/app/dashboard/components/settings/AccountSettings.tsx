@@ -6,6 +6,15 @@ import { apiFetch } from "@/utils/api";
 import Loader from "@/components/feedback/Loader";
 import Image from "next/image";
 import { Card } from "@/components/atoms/Card/Card";
+import { FeatureCard } from "@/components/molecules/FeatureCard";
+import { LucideIcon } from "lucide-react";
+
+import {
+  MODULES_STUDENT,
+  MODULES_INDIVIDUAL,
+  MODULES_PROFESSIONAL,
+  MODULES_COMPANIES,
+} from "@/config/constants";
 
 type Role = {
   id: number;
@@ -14,6 +23,13 @@ type Role = {
   aiQuota: number;
   pricePerMonth?: number;
   description: string;
+};
+
+type Module = {
+  title: string;
+  desc: string;
+  icon: LucideIcon;
+  color: string;
 };
 
 export default function AccountSettings() {
@@ -30,6 +46,12 @@ export default function AccountSettings() {
     lastName: "",
     email: "",
   });
+  const MODULES_BY_ROLE: Record<string, Module[]> = {
+    STUDENT: MODULES_STUDENT,
+    INDIVIDUAL: MODULES_INDIVIDUAL,
+    PROFESSIONAL: MODULES_PROFESSIONAL,
+    COMPANY: MODULES_COMPANIES,
+  };
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -77,6 +99,8 @@ export default function AccountSettings() {
         Loading...
       </div>
     );
+
+  console.log("roleType:", user.role.roleType);
 
   return (
     <div className="flex-1 p-8 max-w-3xl mx-auto">
@@ -222,6 +246,17 @@ export default function AccountSettings() {
               className="p-3 border border-[var(--border)] rounded-md bg-[var(--background)] text-[var(--text-dark)] cursor-not-allowed focus:outline-none transition resize-none"
               rows={3}
             />
+          </div>
+
+          {/* Modules */}
+          <div className="border-t border-[var(--border)] mt-10"></div>
+          <div className="flex flex-col align-middle justify-center">
+            <h2 className="text-2xl mt-2 mb-4">Modules</h2>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-center">
+              {MODULES_BY_ROLE[user.role.roleType]?.map((feature, idx) => (
+                <FeatureCard key={idx} {...feature} />
+              ))}
+            </div>
           </div>
         </div>
       </Card>
