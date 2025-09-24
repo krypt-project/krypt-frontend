@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import Button from "@/components/atoms/Button/Button";
 import Loader from "@/components/feedback/Loader";
-import Input from "@/components/atoms/Input";
+import Input from "@/components/atoms/Input/Input";
 
 import { Search, ChevronLeft, File, Plus, Trash } from "lucide-react";
 
@@ -60,10 +60,7 @@ export default function SidebarNotes({
                 }`}
               >
                 {!collapsed && (
-                  <Input
-                    type="text"
-                    placeholder="Search notes ..."
-                  />
+                  <Input type="text" placeholder="Search notes ..." />
                 )}
               </div>
             </div>

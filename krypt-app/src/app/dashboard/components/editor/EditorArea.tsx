@@ -21,7 +21,7 @@ import { TextStyle } from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 
 import Button from "@/components/atoms/Button/Button";
-import Input from "@/components/atoms/Input";
+import Input from "@/components/atoms/Input/Input";
 import QuickAccessPopup from "@/app/dashboard/components/editor/QuickAccessPopup";
 import Tag from "@/app/dashboard/components/editor/extensions/Tag";
 

@@ -4,7 +4,7 @@ import React from "react";
 import { BotMessageSquare, Send, User, X, Sun, Moon } from "lucide-react";
 import Button from "../atoms/Button/Button";
 import Badge from "../atoms/Badge/Badge";
-import Input from "../atoms/Input";
+import Input from "../atoms/Input/Input";
 import { Select } from "../atoms/Select";
 
 const chats = [
