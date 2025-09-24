@@ -32,7 +32,9 @@ export default function AppearanceSettings() {
       <div className="bg-[var(--background)] shadow-md rounded-lg p-6 space-y-6">
         {/* Theme Selection */}
         <div className="flex flex-col space-y-2">
-          <label className="text-sm font-semibold text-gray-700">Theme</label>
+          <label className="text-sm font-semibold text-[var(--text-secondary)]">
+            Theme
+          </label>
           <div className="flex space-x-4 mt-2">
             <Button
               onClick={() => handleThemeChange("light")}
@@ -53,20 +55,25 @@ export default function AppearanceSettings() {
 
         {/* Accent Color Example */}
         <div className="flex flex-col space-y-2 mt-4">
-          <label className="text-sm font-semibold text-gray-700">
+          <label className="text-sm font-semibold text-[var(--text-secondary)]">
             Accent Color
           </label>
           <div className="flex space-x-2">
-            {["#6366F1", "#EC4899", "#10B981", "#F59E0B"].map((color) => (
-              <button
+            {["#00b0cf", "#cdac83", "#5554dc", "#86BAA1", "#B04071"].map((color) => (
+              <Button
                 key={color}
+                variant="outlined"
                 onClick={() => {
-                  document.documentElement.style.setProperty("--accent", color);
+                  document.documentElement.style.setProperty("--primary", color);
                   localStorage.setItem("accentColor", color);
                 }}
-                style={{ backgroundColor: color }}
-                className={`w-8 h-8 rounded-full border-2 border-gray-200 hover:scale-110 transition-transform`}
-              />
+                className="p-1"
+              >
+                <div
+                  className="w-6 h-6 rounded-full border-2 border-[var(--border)] hover:scale-110 cursor-pointer transition-transform"
+                  style={{ backgroundColor: color }}
+                />
+              </Button>
             ))}
           </div>
         </div>
