@@ -1,8 +1,32 @@
-import Button from "@/components/atoms/Button/Button";
-import Image from "next/image";
+"use client";
+
+import { useEffect, useState } from "react";
 import icon from "@/app/favicon.png";
 
+import Image from "next/image";
+import Button from "@/components/atoms/Button/Button";
+import { Sun, Moon } from "lucide-react";
+
+type Theme = "light" | "dark";
+
 export default function Header() {
+  const [theme, setTheme] = useState<Theme>("light");
+
+  // Load saved theme from localStorage
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") as Theme;
+    if (savedTheme) {
+      setTheme(savedTheme);
+      document.documentElement.setAttribute("data-theme", savedTheme);
+    }
+  }, []);
+
+  const handleThemeChange = (newTheme: Theme) => {
+    setTheme(newTheme);
+    document.documentElement.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
   return (
     <>
       {/* Background gradient blur */}
@@ -24,8 +48,26 @@ export default function Header() {
               />
             </div>
 
-            {/* Navigation */}
+            {/* Navigation + light mode */}
             <div className="flex flex-1 items-center justify-end gap-3">
+              {theme === "light" && (
+                <Button
+                  onClick={() => handleThemeChange("dark")}
+                  variant="outlined"
+                  title="Color scheme"
+                >
+                  <Moon size={16} />
+                </Button>
+              )}
+              {theme === "dark" && (
+                <Button
+                  onClick={() => handleThemeChange("light")}
+                  variant="outlined"
+                  title="Color scheme"
+                >
+                  <Sun size={16} />
+                </Button>
+              )}
               <Button
                 href="/login-register?mode=login"
                 variant="outlined"
