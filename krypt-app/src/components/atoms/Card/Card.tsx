@@ -32,7 +32,7 @@ export function Card({
   const variants = {
     default: "bg-[var(--background)] border-[var(--border)] shadow-sm p-6",
     feature: cn(
-      "bg-[var(--background)]/10 border-[var(--border)] text-[var(--secondary)] p-6 md:p-10",
+      "bg-[var(--background)] border-[var(--border)] text-[var(--secondary)] p-6 md:p-10",
       "hover:border-[var(--primary)] hover:shadow-lg hover:shadow-[var(--primary)] hover:scale-[1.02] transition-transform duration-300"
     ),
     pricing:
