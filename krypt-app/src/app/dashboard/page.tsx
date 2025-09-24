@@ -18,6 +18,7 @@ import AccountSettings from "./components/settings/AccountSettings";
 /* Style */
 import AppearanceSettings from "./components/settings/AppearanceSettings";
 import { ChatBotInterface } from "@/components/molecules/ChatBotInterface";
+import Marketplace from "./components/marketplace/MarketPlace";
 
 type Note = {
   id: number;
@@ -25,7 +26,7 @@ type Note = {
   content: string;
   modificationDate?: string;
 };
-type Activity = "home" | "notes" | "settings" | null;
+type Activity = "home" | "notes" | "settings" | "marketplace" | null;
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -163,6 +164,9 @@ export default function DashboardPage() {
     if (next === "settings") {
       setSelectedNoteId(null);
     }
+    if (next === "marketplace") {
+      setSelectedNoteId(null);
+    }
   };
 
   const handleSelectSetting = (id: number) => {
@@ -265,6 +269,12 @@ export default function DashboardPage() {
                 {/* ... */}
               </div>
             )}
+          </div>
+        )}
+
+        {activity === "marketplace" && (
+          <div className="flex flex-col overflow-y-scroll">
+            <Marketplace />
           </div>
         )}
       </main>
