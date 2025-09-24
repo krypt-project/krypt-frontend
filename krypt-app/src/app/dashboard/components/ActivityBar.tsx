@@ -9,6 +9,15 @@ import Popup from "@/components/atoms/Popup";
 
 type Activity = "home" | "notes" | "settings";
 
+type Role = {
+  id: number;
+  roleType: string;
+  maxStorageGb: number;
+  aiQuota: number;
+  pricePerMonth?: number;
+  description: string;
+};
+
 interface ActivityBarProps {
   active: Activity | null;
   onSelect: (activity: Activity) => void;
@@ -16,10 +25,20 @@ interface ActivityBarProps {
 
 export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<"online" | "offline" | "dnd" | "idle">(
+    "online"
+  );
+  const statusColors: Record<typeof status, string> = {
+    online: "bg-[var(--success)]",
+    offline: "bg-[var(--text-secondary)]",
+    dnd: "bg-[var(--error)]",
+    idle: "bg-[var(--warning)]",
+  };
   const [user, setUser] = useState<{
     firstName: string;
     lastName: string;
     email: string;
+    role: Role;
     avatarUrl?: string;
   } | null>(null);
   const logout = async () => {
@@ -165,24 +184,68 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
                 <p className="font-semibold">
                   {user.firstName} {user.lastName}
                 </p>
-                <p className="text-sm text-[var(--text-secondary)]">{user.email}</p>
+                <p className="text-sm text-[var(--text-secondary)]">
+                  {user.email}
+                </p>
+                <p className="text-sm text-[var(--primary)] mt-2">
+                  {user.role.roleType}
+                </p>
+
+                {/* Dropdown change status */}
+                <div className="flex gap-2 mt-2">
+                  <Button
+                    variant="outlined"
+                    onClick={() => setStatus("online")}
+                    className="text-[var(--success)]"
+                  >
+                    Online
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={() => setStatus("idle")}
+                    className="text-[var(--warning)]"
+                  >
+                    Idle
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={() => setStatus("dnd")}
+                    className="!text-[var(--error)]"
+                  >
+                    DND
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    onClick={() => setStatus("offline")}
+                    className="text-[var(--text-secondary)]"
+                  >
+                    Offline
+                  </Button>
+                </div>
               </div>
             }
             position="right"
           >
-            {user.avatarUrl ? (
-              <Image
-                src={user.avatarUrl}
-                alt={`${user.firstName} ${user.lastName}`}
-                className="rounded-full object-cover border-2 border-[var(--border)] cursor-pointer"
-                fill
+            <div className="relative w-13 h-13">
+              {user.avatarUrl ? (
+                <Image
+                  src={user.avatarUrl}
+                  alt={`${user.firstName} ${user.lastName} ${user.role.roleType}`}
+                  className="rounded-full object-cover border-2 border-[var(--border)] cursor-pointer"
+                  fill
+                />
+              ) : (
+                <div className="w-13 h-13 rounded-full bg-[var(--border)] flex items-center justify-center text-md font-bold text-[var(--text-dark)] cursor-pointer">
+                  {user.firstName[0]}
+                  {user.lastName[0]}
+                </div>
+              )}
+
+              {/* Status point */}
+              <span
+                className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-[var(--background)] ${statusColors[status]}`}
               />
-            ) : (
-              <div className="w-13 h-13 rounded-full bg-[var(--border)] flex items-center justify-center text-md font-bold text-[var(--text-dark)] cursor-pointer">
-                {user.firstName[0]}
-                {user.lastName[0]}
-              </div>
-            )}
+            </div>
           </Popup>
         </div>
       )}
