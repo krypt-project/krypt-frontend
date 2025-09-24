@@ -23,6 +23,7 @@ type Note = {
   id: number;
   title: string;
   content: string;
+  modificationDate?: string;
 };
 type Activity = "home" | "notes" | "settings" | null;
 
@@ -181,7 +182,10 @@ export default function DashboardPage() {
       </button>
 
       {/* Chat Bot Panel */}
-      <ChatBotInterface isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      <ChatBotInterface
+        isOpen={isChatOpen}
+        onClose={() => setIsChatOpen(false)}
+      />
 
       {/* Sidebar only if an activity is selected */}
       {activity === "notes" && (

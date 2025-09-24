@@ -20,7 +20,7 @@ type Note = {
   id: number;
   title: string;
   content: string;
-  updatedAt?: string;
+  modificationDate?: string;
 };
 
 interface HomeDashboardProps {
@@ -34,11 +34,11 @@ export default function HomeDashboard({
 }: HomeDashboardProps) {
   const recentNotes = useMemo(() => {
     return [...notes]
-      .sort((a, b) => {
-        const da = new Date(a.updatedAt || "").getTime();
-        const db = new Date(b.updatedAt || "").getTime();
-        return db - da;
-      })
+      .sort(
+        (a, b) =>
+          new Date(b.modificationDate || "").getTime() -
+          new Date(a.modificationDate || "").getTime()
+      )
       .slice(0, 5);
   }, [notes]);
 
@@ -53,7 +53,7 @@ export default function HomeDashboard({
     { name: "Free", value: 100 - storagePercent },
   ];
 
-  const tokensData = [{ name: "Tokens", value: 75 }]; // % bar
+  const tokensData = [{ name: "Tokens", value: 75 }];
   const notesTrendData = [
     { day: "Mon", notes: 2 },
     { day: "Tue", notes: 4 },
@@ -184,7 +184,7 @@ export default function HomeDashboard({
               </p>
               <p className="text-xs text-[var(--text-secondary)] mt-1">
                 Last updated:{" "}
-                {note.updatedAt ? <FormattedDate date={note.updatedAt} /> : "—"}
+                {note.modificationDate ? <FormattedDate date={note.modificationDate} /> : "—"}
               </p>
             </button>
           ))}
