@@ -164,6 +164,7 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
             <ShoppingCart size={20} />
           </Button>
         </Popup>
+        <div className="border-t border-[var(--border)] w-full" />
         <Popup content={<span>Settings</span>} position="right">
           <Button
             onClick={() => onSelect("settings")}
