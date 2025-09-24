@@ -5,9 +5,6 @@ import Testimonials from "@/app/landing/components/Testimonials";
 import CTA from "@/app/landing/components/CTA";
 import Footer from "@/app/landing/components/Footer";
 
-/* Style */
-import "@/styles/landing.css";
-
 export default function Home() {
   return (
     <div className="relative min-h-screen flex flex-col justify-between overflow-hidden overflow-x-hidden">
