@@ -14,6 +14,8 @@ import {
   Line,
 } from "recharts";
 
+import { FormattedDate } from "@/utils/FormateDate";
+
 type Note = {
   id: number;
   title: string;
@@ -74,7 +76,9 @@ export default function HomeDashboard({
           <div className="flex items-center justify-center align-middle space-x-4 cursor-pointer">
             <Zap className="text-[var(--warning)]" />
             <div>
-              <p className="text-sm text-[var(--text-secondary)]">AI Tokens Remaining</p>
+              <p className="text-sm text-[var(--text-secondary)]">
+                AI Tokens Remaining
+              </p>
               <p className="text-lg font-semibold">
                 {tokensRemaining.toLocaleString()}
               </p>
@@ -91,7 +95,12 @@ export default function HomeDashboard({
                 data={tokensData}
                 className="cursor-pointer"
               >
-                <RadialBar dataKey="value" fill="var(--warning)" stroke="var(--border)" cornerRadius={5} />
+                <RadialBar
+                  dataKey="value"
+                  fill="var(--warning)"
+                  stroke="var(--border)"
+                  cornerRadius={5}
+                />
               </RadialBarChart>
             </ResponsiveContainer>
           </div>
@@ -102,7 +111,9 @@ export default function HomeDashboard({
           <div className="flex items-center space-x-4 cursor-pointer">
             <Database className="text-[var(--background-2)]" />
             <div>
-              <p className="text-sm text-[var(--text-secondary)]">Storage Used</p>
+              <p className="text-sm text-[var(--text-secondary)]">
+                Storage Used
+              </p>
               <p className="text-lg font-semibold">
                 {storageUsed} GB / {storageTotal} GB
               </p>
@@ -134,7 +145,9 @@ export default function HomeDashboard({
           <div className="flex items-center space-x-4 mb-4 cursor-pointer">
             <FileText className="text-[var(--success)]" />
             <div>
-              <p className="text-sm text-[var(--text-secondary)]">Total Notes</p>
+              <p className="text-sm text-[var(--text-secondary)]">
+                Total Notes
+              </p>
               <p className="text-lg font-semibold">{notes.length}</p>
             </div>
           </div>
@@ -171,9 +184,7 @@ export default function HomeDashboard({
               </p>
               <p className="text-xs text-[var(--text-secondary)] mt-1">
                 Last updated:{" "}
-                {note.updatedAt
-                  ? new Date(note.updatedAt).toLocaleString()
-                  : "—"}
+                {note.updatedAt ? <FormattedDate date={note.updatedAt} /> : "—"}
               </p>
             </button>
           ))}
