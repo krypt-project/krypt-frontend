@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Home, FileText, Settings, LogOut } from "lucide-react";
+import { Home, FileText, Settings, LogOut, ShoppingCart } from "lucide-react";
 
 import Button from "@/components/atoms/Button/Button";
 import Popup from "@/components/atoms/Popup";
+import Marketplace from "./marketplace/MarketPlace";
 
-type Activity = "home" | "notes" | "settings";
+type Activity = "home" | "notes" | "settings" | "marketplace";
 
 type Role = {
   id: number;
@@ -149,6 +150,20 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
       <div className="border-t border-[var(--border)] w-full" />
 
       <div className="mt-auto pt-4 border-t border-[var(--border)] w-full flex flex-col items-center space-y-4 mb-7">
+        <Popup content={<span>Marketplace</span>} position="right">
+          <Button
+            onClick={() => onSelect("marketplace")}
+            variant="sidebar"
+            className={`p-2 ${
+              active === "marketplace"
+                ? "bg-[var(--secondary)] text-[var(--primary)]"
+                : ""
+            }`}
+            title="Marketplace"
+          >
+            <ShoppingCart size={20} />
+          </Button>
+        </Popup>
         <Popup content={<span>Settings</span>} position="right">
           <Button
             onClick={() => onSelect("settings")}
