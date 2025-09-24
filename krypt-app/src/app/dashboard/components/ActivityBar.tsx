@@ -146,8 +146,9 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
           <FileText size={20} />
         </Button>
       </Popup>
+      <div className="border-t border-[var(--border)] w-full" />
 
-      <div className="mt-auto flex flex-col items-center space-y-4 mb-7">
+      <div className="mt-auto pt-4 border-t border-[var(--border)] w-full flex flex-col items-center space-y-4 mb-7">
         <Popup content={<span>Settings</span>} position="right">
           <Button
             onClick={() => onSelect("settings")}
@@ -173,6 +174,7 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
             <LogOut size={20} />
           </Button>
         </Popup>
+        <div className="border-t border-[var(--border)] w-full" />
       </div>
 
       {/* User avatar with popup */}
