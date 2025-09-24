@@ -32,28 +32,29 @@ export default function Popup({
   };
 
   return (
-    <div
-      className="relative inline-block"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
-      {children}
+    <div className="relative inline-block">
+      {/* Parent wrapper pour le children */}
+      <div
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+      >
+        {children}
+      </div>
 
       {/* Popup avec transition */}
-      <div
-        className={`absolute z-50 ml-2 border border-[var(--border)] bg-[var(--background)] shadow-lg rounded-md p-2 
-          ${getPositionClasses()} 
-          ${className} 
-          transition-all duration-200 ease-out transform
-          ${
-            open
-              ? "opacity-100 scale-100"
-              : "opacity-0 scale-95 pointer-events-none"
-          }
-        `}
-      >
-        {content}
-      </div>
+      {open && (
+        <div
+          onMouseEnter={() => setOpen(true)}
+          onMouseLeave={() => setOpen(false)}
+          className={`absolute z-50 border border-[var(--border)] bg-[var(--background)] shadow-lg rounded-md p-2
+            ${getPositionClasses()} 
+            ${className} 
+            transition-all duration-200 ease-out transform overflow-y-auto max-h-25
+          `}
+        >
+          {content}
+        </div>
+      )}
     </div>
   );
 }
