@@ -27,7 +27,7 @@ export function Card({
   features,
 }: CardProps) {
   const base =
-    "relative rounded-2xl border backdrop-blur-md transition-shadow flex flex-col";
+    "relative rounded-2xl border backdrop-blur-md transition-shadow cursor-pointer flex flex-col";
 
   const variants = {
     default: "bg-[var(--background)] border-[var(--border)] shadow-sm p-6",
