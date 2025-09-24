@@ -176,3 +176,90 @@ export const mockNotes = [
   },
   { id: 3, title: "Note 3", content: "Simple text for note 3." },
 ];
+
+{
+  /* Modules */
+}
+import { Book, Bot, Users, Headphones, Cpu, Briefcase } from "lucide-react";
+
+export type Module = {
+  title: string;
+  desc: string;
+  color: string;
+  icon: LucideIcon;
+};
+
+export const MODULES_STUDENT: Module[] = [
+  {
+    title: "Notes",
+    desc: "Prise de notes simple et rapide avec synchronisation.",
+    color: "#222222",
+    icon: Book,
+  },
+  {
+    title: "Starter IA",
+    desc: "IA de base pour résumer, tagger et rechercher.",
+    color: "#222222",
+    icon: Bot,
+  },
+  {
+    title: "Support Communautaire",
+    desc: "Accédez à la communauté pour de l’aide et des conseils.",
+    color: "#222222",
+    icon: Users,
+  },
+];
+
+export const MODULES_INDIVIDUAL: Module[] = [
+  ...MODULES_STUDENT,
+  {
+    title: "Stockage étendu",
+    desc: "20 GB d’espace pour vos notes et documents.",
+    color: "#222222",
+    icon: Briefcase,
+  },
+];
+
+export const MODULES_PROFESSIONAL: Module[] = [
+  ...MODULES_INDIVIDUAL,
+  {
+    title: "IA Avancée",
+    desc: "IA plus puissante pour traiter de plus gros volumes de données.",
+    color: "#222222",
+    icon: Cpu,
+  },
+  {
+    title: "Support Prioritaire",
+    desc: "Accédez à un support client dédié.",
+    color: "#222222",
+    icon: Headphones,
+  },
+  {
+    title: "Modules à la demande",
+    desc: "Ajoutez des extensions (agenda, kanban, etc.).",
+    color: "#222222",
+    icon: Briefcase,
+  },
+];
+
+export const MODULES_COMPANIES: Module[] = [
+  ...MODULES_PROFESSIONAL,
+  {
+    title: "Collaboration",
+    desc: "Travaillez à plusieurs sur vos notes et projets.",
+    color: "#222222",
+    icon: Users,
+  },
+  {
+    title: "Rapports & Analytics",
+    desc: "Dashboards et statistiques d’utilisation.",
+    color: "#222222",
+    icon: Cpu,
+  },
+  {
+    title: "Intégrations API & SSO",
+    desc: "Connectez Krypt à vos outils existants.",
+    color: "#222222",
+    icon: Briefcase,
+  },
+];
