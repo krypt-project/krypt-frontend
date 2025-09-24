@@ -7,7 +7,7 @@ import Loader from "@/components/feedback/Loader";
 import Image from "next/image";
 import { Card } from "@/components/atoms/Card/Card";
 import { FeatureCard } from "@/components/molecules/FeatureCard";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, Plus } from "lucide-react";
 
 import {
   MODULES_STUDENT,
@@ -256,6 +256,13 @@ export default function AccountSettings() {
               {MODULES_BY_ROLE[user.role.roleType]?.map((feature, idx) => (
                 <FeatureCard key={idx} {...feature} />
               ))}
+              <Card variant="feature" className="p-6 md:p-10">
+                <h3 className="mb-3 flex flex-col items-center gap-2 text-lg font-semibold text-[var(--text-dark)]">
+                  <Plus size={20} />
+                  <span>View Modules</span>
+                </h3>
+                <p className="text-sm text-[var(--text-secondary)]">Purchase the Modules you need</p>
+              </Card>
             </div>
           </div>
         </div>

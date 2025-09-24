@@ -15,7 +15,7 @@ export function FeatureCard({
   desc,
 }: FeatureCardProps) {
   return (
-    <Card variant="feature" className="p-6 md:p-10">
+    <Card variant="feature" className="p-6 md:p-10 flex flex-col justify-start">
       <h3 className="mb-3 flex flex-col items-center gap-2 text-lg font-semibold text-[var(--text-dark)]">
         <Icon size={20} color={color} />
         <span>{title}</span>
