@@ -180,32 +180,51 @@ export const mockNotes = [
 {
   /* Modules */
 }
-import { Book, Bot, Users, Headphones, Cpu, Briefcase } from "lucide-react";
-
+import {
+  Book,
+  Bot,
+  Users,
+  Headphones,
+  Cpu,
+  Briefcase,
+  Calendar,
+  Layout,
+  Share2,
+  Shield,
+  Cloud,
+  Bell,
+  Globe,
+  MessageSquare,
+  FolderOpen,
+  BarChart,
+  Code,
+  Zap,
+} from "lucide-react";
 export type Module = {
   title: string;
   desc: string;
   color: string;
   icon: LucideIcon;
+  category?: string;
 };
 
 export const MODULES_STUDENT: Module[] = [
   {
     title: "Notes",
-    desc: "Prise de notes simple et rapide avec synchronisation.",
-    color: "#222222",
+    desc: "Quick and easy note-taking with synchronization.",
+    color: "#00b0cf",
     icon: Book,
   },
   {
     title: "Starter IA",
-    desc: "IA de base pour résumer, tagger et rechercher.",
-    color: "#222222",
+    desc: "Basic AI for summarizing, tagging, and searching.",
+    color: "#e45015",
     icon: Bot,
   },
   {
-    title: "Support Communautaire",
-    desc: "Accédez à la communauté pour de l’aide et des conseils.",
-    color: "#222222",
+    title: "Community Support",
+    desc: "Access the community for help and advice.",
+    color: "#28c76f",
     icon: Users,
   },
 ];
@@ -213,9 +232,9 @@ export const MODULES_STUDENT: Module[] = [
 export const MODULES_INDIVIDUAL: Module[] = [
   ...MODULES_STUDENT,
   {
-    title: "Stockage étendu",
-    desc: "20 GB d’espace pour vos notes et documents.",
-    color: "#222222",
+    title: "Extended storage",
+    desc: "20 GB of space for your notes and documents.",
+    color: "#5554dc",
     icon: Briefcase,
   },
 ];
@@ -223,21 +242,21 @@ export const MODULES_INDIVIDUAL: Module[] = [
 export const MODULES_PROFESSIONAL: Module[] = [
   ...MODULES_INDIVIDUAL,
   {
-    title: "IA Avancée",
-    desc: "IA plus puissante pour traiter de plus gros volumes de données.",
-    color: "#222222",
+    title: "Advanced AI",
+    desc: "More powerful AI to process larger volumes of data.",
+    color: "#ff7f4d",
     icon: Cpu,
   },
   {
-    title: "Support Prioritaire",
-    desc: "Accédez à un support client dédié.",
-    color: "#222222",
+    title: "Priority Support",
+    desc: "Access dedicated customer support.",
+    color: "#28c76f",
     icon: Headphones,
   },
   {
-    title: "Modules à la demande",
-    desc: "Ajoutez des extensions (agenda, kanban, etc.).",
-    color: "#222222",
+    title: "On-demand modules",
+    desc: "Add extensions (calendar, kanban, etc.).",
+    color: "#3232d0",
     icon: Briefcase,
   },
 ];
@@ -246,20 +265,163 @@ export const MODULES_COMPANIES: Module[] = [
   ...MODULES_PROFESSIONAL,
   {
     title: "Collaboration",
-    desc: "Travaillez à plusieurs sur vos notes et projets.",
-    color: "#222222",
+    desc: "Work together on your notes and projects.",
+    color: "#5554dc",
     icon: Users,
   },
   {
     title: "Rapports & Analytics",
-    desc: "Dashboards et statistiques d’utilisation.",
-    color: "#222222",
+    desc: "Dashboards and usage statistics.",
+    color: "#ffb400",
     icon: Cpu,
   },
   {
     title: "Intégrations API & SSO",
-    desc: "Connectez Krypt à vos outils existants.",
-    color: "#222222",
+    desc: "Connect Krypt to your existing tools.",
+    color: "#00b0cf",
     icon: Briefcase,
+  },
+];
+
+export const ALL_MODULES: Module[] = [
+  {
+    title: "Notes",
+    desc: "Quick and easy note-taking with synchronization.",
+    color: "#6366F1",
+    icon: Book,
+    category: "Notes",
+  },
+  {
+    title: "Starter IA",
+    desc: "Basic AI for summarizing, tagging, and searching.",
+    color: "#EC4899",
+    icon: Bot,
+    category: "AI",
+  },
+  {
+    title: "Community Support",
+    desc: "Access the community for help and advice.",
+    color: "#10B981",
+    icon: Users,
+    category: "Collaboration",
+  },
+  {
+    title: "Extended storage",
+    desc: "20 GB of space for your notes and documents.",
+    color: "#F59E0B",
+    icon: Briefcase,
+    category: "Storage",
+  },
+  {
+    title: "Advanced AI",
+    desc: "More powerful AI to process larger volumes of data.",
+    color: "#8B5CF6",
+    icon: Cpu,
+    category: "AI",
+  },
+  {
+    title: "Support Prioritaire",
+    desc: "Access dedicated customer support.",
+    color: "#EF4444",
+    icon: Headphones,
+    category: "Collaboration",
+  },
+  {
+    title: "Priority Support",
+    desc: "Add extensions (calendar, kanban, etc.).",
+    color: "#14B8A6",
+    icon: Layout,
+    category: "Other",
+  },
+  {
+    title: "Collaboration",
+    desc: "Work together on your notes and projects.",
+    color: "#0EA5E9",
+    icon: Share2,
+    category: "Collaboration",
+  },
+  {
+    title: "Reports & Analytics",
+    desc: "Dashboards and usage statistics.",
+    color: "#F97316",
+    icon: BarChart,
+    category: "Analytics",
+  },
+  {
+    title: "API & SSO Integrations",
+    desc: "Connect Krypt to your existing tools.",
+    color: "#22C55E",
+    icon: Code,
+    category: "Integrations",
+  },
+  {
+    title: "Calendar",
+    desc: "Schedule your tasks and meetings with an integrated calendar.",
+    color: "#3B82F6",
+    icon: Calendar,
+    category: "Other",
+  },
+  {
+    title: "Kanban",
+    desc: "Organize your projects with visual boards.",
+    color: "#EAB308",
+    icon: Layout,
+    category: "Other",
+  },
+  {
+    title: "Notifications",
+    desc: "Receive personalized reminders and alerts.",
+    color: "#F43F5E",
+    icon: Bell,
+    category: "Other",
+  },
+  {
+    title: "Cloud Backup",
+    desc: "Automatic backup of your data to the cloud.",
+    color: "#0EA5E9",
+    icon: Cloud,
+    category: "Storage",
+  },
+  {
+    title: "Advanced Security",
+    desc: "Multi-factor authentication and enhanced encryption.",
+    color: "#10B981",
+    icon: Shield,
+    category: "Other",
+  },
+  {
+    title: "Translation",
+    desc: "Automatic translation of your notes into multiple languages.",
+    color: "#6366F1",
+    icon: Globe,
+    category: "AI",
+  },
+  {
+    title: "Documents",
+    desc: "Store and manage your files and PDFs directly.",
+    color: "#6D28D9",
+    icon: FileText,
+    category: "Storage",
+  },
+  {
+    title: "Collaborative chat",
+    desc: "Chat with your coworkers in real time.",
+    color: "#DB2777",
+    icon: MessageSquare,
+    category: "Collaboration",
+  },
+  {
+    title: "File management",
+    desc: "Organize your notes and projects into folders.",
+    color: "#1D4ED8",
+    icon: FolderOpen,
+    category: "Storage",
+  },
+  {
+    title: "Automation",
+    desc: "Create automatic workflows with rules.",
+    color: "#E11D48",
+    icon: Zap,
+    category: "Other",
   },
 ];
