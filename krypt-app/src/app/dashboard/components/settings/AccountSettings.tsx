@@ -251,12 +251,12 @@ export default function AccountSettings() {
           {/* Modules */}
           <div className="border-t border-[var(--border)] mt-10"></div>
           <div className="flex flex-col align-middle justify-center">
-            <h2 className="text-2xl mt-2 mb-4">Modules</h2>
+            <h2 className="text-2xl mt-2 mb-4 font-bold">Modules</h2>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-center">
               {MODULES_BY_ROLE[user.role.roleType]?.map((feature, idx) => (
                 <FeatureCard key={idx} {...feature} />
               ))}
-              <Card variant="feature" className="p-6 md:p-10">
+              <Card variant="feature" className="border-[var(--success)] hover:border-[var(--success)] p-6 md:p-10">
                 <h3 className="mb-3 flex flex-col items-center gap-2 text-lg font-semibold text-[var(--text-dark)]">
                   <Plus size={20} />
                   <span>View Modules</span>
