@@ -1,20 +1,32 @@
 import { cn } from "@/utils/cn";
-import { InputHTMLAttributes, forwardRef } from "react";
+import { InputHTMLAttributes, TextareaHTMLAttributes, forwardRef } from "react";
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   label?: string;
   error?: string;
   className?: string;
+  variant?: "default" | "shadow";
+  multiline?: boolean;
 };
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, className, type, ...props }, ref) => {
+const Input = forwardRef<HTMLInputElement | HTMLTextAreaElement, InputProps>(
+  (
+    { label, error, className, type, variant = "default", multiline, ...props },
+    ref
+  ) => {
     const baseClasses =
-      "rounded-xl border border-[var(--border)] bg-[var(--background)] text-[var(--text-dark)] placeholder-[var(--text-secondary)] focus:outline-none focus:ring-1 focus:ring-[var(--border)] focus:border-[var(--border)]";
+      "rounded-xl bg-[var(--background)] text-[var(--text-dark)] placeholder-[var(--text-secondary)] focus:outline-none";
+
+    const variants = {
+      default:
+        "border border-[var(--border)] focus:ring-1 focus:ring-[var(--border)] focus:border-[var(--border)]",
+      shadow:
+        "shadow border-[var(--border)] focus:ring-1 focus:ring-[var(--border)] focus:border-[var(--border)]",
+    };
 
     const typeClasses =
       type === "color"
-        ? "cursor-pointer p-0 w-6 h-6 border-0 overflow-hidden focus:ring-0 focus:border-0 focus:outline-none focus:shadow-none"
+        ? "cursor-pointer p-0 w-6 h-6 border-0 overflow-hidden focus:ring-0"
         : "px-4 py-2";
 
     return (
@@ -24,17 +36,35 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             {label}
           </label>
         )}
-        <input
-          ref={ref}
-          type={type}
-          {...props}
-          className={cn(
-            baseClasses,
-            typeClasses,
-            error && "border-[var(--error)] focus:ring-[var(--error)]"
-          )}
-        />
-        {error && <span className="mt-1 text-xs text-[var(--error)]">{error}</span>}
+
+        {multiline ? (
+          <textarea
+            ref={ref as React.Ref<HTMLTextAreaElement>}
+            {...(props as TextareaHTMLAttributes<HTMLTextAreaElement>)}
+            className={cn(
+              baseClasses,
+              variants[variant],
+              "resize-none px-4 py-2 min-h-[2.5rem]",
+              error && "border-[var(--error)] focus:ring-[var(--error)]"
+            )}
+          />
+        ) : (
+          <input
+            ref={ref as React.Ref<HTMLInputElement>}
+            type={type}
+            {...(props as InputHTMLAttributes<HTMLInputElement>)}
+            className={cn(
+              baseClasses,
+              variants[variant],
+              typeClasses,
+              error && "border-[var(--error)] focus:ring-[var(--error)]"
+            )}
+          />
+        )}
+
+        {error && (
+          <span className="mt-1 text-xs text-[var(--error)]">{error}</span>
+        )}
       </div>
     );
   }
