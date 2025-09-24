@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import Button from "@/components/atoms/Button/Button";
 import Loader from "@/components/feedback/Loader";
-import Input from "@/components/atoms/Input";
+import Input from "@/components/atoms/Input/Input";
 
 import { Search, ChevronLeft } from "lucide-react";
 

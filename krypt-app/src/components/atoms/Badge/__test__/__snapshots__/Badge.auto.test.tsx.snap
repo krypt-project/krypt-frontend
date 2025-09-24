@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Badge component (auto-generated) rendering matches snapshot 1`] = `
+<div>
+  <span
+    class="cursor-pointer inline-flex items-center gap-1 text-sm px-3 py-1.5 rounded-full select-none transition-colors undefined bg-blue-100 text-blue-800"
+  >
+    Test
+  </span>
+</div>
+`;

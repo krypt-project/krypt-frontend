@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Button component (auto-generated) rendering matches snapshot 1`] = `
+<div>
+  <button
+    class="inline-flex items-center font-medium transition focus:outline-none cursor-pointer focus:ring-1 focus:ring-offset-1 bg-[var(--primary)] text-[var(--text-light)] hover:bg-[var(--background-3)] px-4 py-2 text-base rounded-xl"
+    type="button"
+  >
+    <span
+      class="flex items-center gap-2"
+    >
+      Snapshot
+    </span>
+  </button>
+</div>
+`;
