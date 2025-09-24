@@ -9,9 +9,7 @@
     min-height: 200px;
     outline: none;
     padding: 1rem;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
     transition: background-color 0.2s ease, color 0.2s ease;
-    border-radius: 0.5rem;
 }
 
 /* Paragraphs */
