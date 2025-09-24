@@ -16,8 +16,6 @@ import { useAutoSaveNote } from "@/hooks/useAutoSaveNote";
 import AccountSettings from "./components/settings/AccountSettings";
 
 /* Style */
-import "@/styles/dashboard.css";
-import "@/styles/editor.css";
 import AppearanceSettings from "./components/settings/AppearanceSettings";
 import { ChatBotInterface } from "@/components/molecules/ChatBotInterface";
 
@@ -248,7 +246,7 @@ export default function DashboardPage() {
         )}
 
         {activity === "settings" && (
-          <div className="flex-1 flex flex-col">
+          <div className="flex flex-col overflow-auto">
             {!selectedSettingId ? (
               <div className="flex flex-col items-center justify-center flex-1 px-6">
                 <h2 className="text-3xl font-semibold mb-4">
