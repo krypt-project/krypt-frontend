@@ -174,23 +174,19 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="flex h-screen bg-[var(--background)] text-[var(--text-dark)] overflow-hidden">
+    <div className="flex h-screen bg-[var(--background)] text-[var(--text-dark)] overflow-x-auto">
       {/* Permanent left bar */}
       <ActivityBar active={activity} onSelect={handleSelectActivity} />
-      {/* Chat Bot Button */}
       <button
         onClick={() => setIsChatOpen(true)}
-        className="absolute right-4 bottom-4 bg-[var(--primary)] p-4 rounded-full shadow-lg cursor-pointer hover:opacity-90 z-50"
+        className={`absolute right-4 bottom-4 bg-[var(--primary)] p-4 rounded-full shadow-lg cursor-pointer hover:opacity-90 z-50 ${
+          isChatOpen ? "hidden" : "block"
+        }`}
+        aria-expanded={isChatOpen}
+        aria-controls="chat-panel"
       >
         <BotMessageSquare className="text-[var(--text-light)]" />
       </button>
-
-      {/* Chat Bot Panel */}
-      <ChatBotInterface
-        isOpen={isChatOpen}
-        onClose={() => setIsChatOpen(false)}
-      />
-
       {/* Sidebar only if an activity is selected */}
       {activity === "notes" && (
         <SidebarNotes
@@ -210,13 +206,12 @@ export default function DashboardPage() {
       {/* ... */}
 
       {/* Main content */}
-      <main className="flex-1 flex flex-col bg-[var(--secondary)] overflow-hidden">
+      <main className="flex-1 flex flex-col h-full overflow-auto">
         {activity === "home" || activity === null ? (
           <HomeDashboard notes={notes} onSelectNote={handleSelectNote} />
         ) : null}
-
         {activity === "notes" && !selectedNote && (
-          <div className="flex flex-col items-center justify-center flex-1 px-6">
+          <div className="flex flex-col items-center justify-center flex-1 px-6 h-full">
             <h2 className="text-3xl font-semibold mb-4">
               Open a note or create one
             </h2>
@@ -230,33 +225,41 @@ export default function DashboardPage() {
             </Button>
           </div>
         )}
-
         {activity === "notes" && selectedNote && (
-          <>
+          <div className="flex-1 flex flex-col h-full">
             <EditorHeader
               title={selectedNote.title}
               tab={tab}
               setTab={setTab}
               onRename={handleRenameNote}
             />
-            {tab === "edit" ? (
-              <EditorArea
-                content={selectedNote.content}
-                onChange={handleContentChange}
-              />
-            ) : (
-              <div
-                className="flex-1 px-12 py-12 tiptap prose max-w-none [&_.ProseMirror]:focus:outline-none w-[70%] mx-auto bg-[var(--background)] shadow-lg overflow-y-scroll"
-                dangerouslySetInnerHTML={{ __html: selectedNote.content }}
-              />
-            )}
-          </>
-        )}
 
+            {/* Wrapper scrollable: centre l'éditeur et force une min-width */}
+            <div className="flex-1 overflow-auto">
+              <div className="min-w-[900px] max-w-none w-full mx-auto h-full">
+                {tab === "edit" ? (
+                  <div className="h-full">
+                    <EditorArea
+                      content={selectedNote.content}
+                      onChange={handleContentChange}
+                    />
+                  </div>
+                ) : (
+                  <div className="h-full overflow-y-auto tiptap prose w-full py-12">
+                    <div
+                      className="w-full"
+                      dangerouslySetInnerHTML={{ __html: selectedNote.content }}
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
         {activity === "settings" && (
-          <div className="flex flex-col overflow-auto">
+          <div className="flex flex-col overflow-auto h-full">
             {!selectedSettingId ? (
-              <div className="flex flex-col items-center justify-center flex-1 px-6">
+              <div className="flex flex-col items-center justify-center flex-1 px-6 h-full">
                 <h2 className="text-3xl font-semibold mb-4">
                   Choose a setting
                 </h2>
@@ -271,13 +274,30 @@ export default function DashboardPage() {
             )}
           </div>
         )}
-
         {activity === "marketplace" && (
-          <div className="flex flex-col overflow-y-scroll">
+          <div className="flex flex-col overflow-y-scroll h-full">
             <Marketplace />
           </div>
         )}
       </main>
+      {/* Chat panel */}
+      <aside
+        id="chat-panel"
+        className={`h-full bg-[var(--background)] border-l border-[rgba(0,0,0,0.06)] transition-all duration-300 ease-in-out overflow-y-auto ${
+          isChatOpen ? "w-[35%]" : "w-0"
+        } flex flex-col`}
+        style={{ top: 0, marginTop: 0, paddingTop: 0 }}
+        aria-hidden={!isChatOpen}
+      >
+        <div className="h-full w-full">
+          {isChatOpen && (
+            <ChatBotInterface
+              isOpen={isChatOpen}
+              onClose={() => setIsChatOpen(false)}
+            />
+          )}
+        </div>
+      </aside>
     </div>
   );
 }

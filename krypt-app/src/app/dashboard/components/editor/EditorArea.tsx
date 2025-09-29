@@ -192,7 +192,7 @@ export default function EditorArea({
   return (
     <>
       <div
-        className="flex flex-col flex-1 bg-[var(--secondary)] overflow-hidden"
+        className="flex flex-col flex-1 bg-[var(--secondary)] overflow-hidden h-full"
         onContextMenu={handleRightClick}
       >
         {/* Toolbar */}
@@ -275,10 +275,12 @@ export default function EditorArea({
         </div>
 
         {/* Zone d'édition */}
-        <EditorContent
-          editor={editor}
-          className="flex-1 px-12 py-12 tiptap max-w-none w-[70%] mx-auto bg-[var(--background)] shadow-lg overflow-y-scroll"
-        />
+        <div className="flex-1 overflow-y-auto h-full">
+          <EditorContent
+            editor={editor}
+            className="px-12 py-12 tiptap max-w-none w-[70%] mx-auto bg-[var(--background)] shadow-lg min-h-0"
+          />
+        </div>
 
         {/* Popup d'accès rapide */}
         <QuickAccessPopup

@@ -28,14 +28,14 @@ export function ChatBotInterface({ isOpen, onClose }: Props) {
 
   return (
     <div
-      className={`fixed top-1/2 -translate-y-1/2 right-0 h-[820px] rounded-tl-xl rounded-bl-xl border-l border-t border-b border-[var(--border)] w-[35%] bg-[var(--background)] text-[var(--text-dark)] shadow-xl z-50 transform transition-transform duration-300 ${
+      className={`fixed top-0 right-0 h-screen border border-[var(--border)] w-[35%] bg-[var(--background)] text-[var(--text-dark)] shadow-xl z-50 transform transition-transform duration-300 ${
         isOpen ? "translate-x-0" : "translate-x-full"
-      }`}
+      } flex flex-col`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-[var(--border)] ">
+      <div className="flex items-center justify-between p-2 border-b border-[var(--border)] h-17">
         <div className="flex items-center gap-2">
-          <BotMessageSquare />
+          <BotMessageSquare size={20} />
           <span className="font-semibold">KRYPTOR</span>
         </div>
 
@@ -70,7 +70,7 @@ export function ChatBotInterface({ isOpen, onClose }: Props) {
       {/* Chat Zone */}
       <div
         ref={chatZoneRef}
-        className="flex-1 h-[66%] overflow-y-scroll p-4 space-y-3 bg-[var(--secondary)] pb-5"
+        className="flex-1 overflow-y-scroll p-4 space-y-3 bg-[var(--secondary)] pb-5" // Remplace h-[66%] par flex-1
       >
         {/* Exemple de messages */}
         <div className="flex items-start gap-3 ">
@@ -129,7 +129,7 @@ export function ChatBotInterface({ isOpen, onClose }: Props) {
         </div>
         <div className="flex items-start gap-3 justify-end">
           <p className="flex-wrap bg-[var(--primary)]/30 px-3 py-2 max-w-[90%] w-auto rounded-2xl">
-             KRYPTOR peut commettre des erreurs. Il est recommandé de vérifier
+            KRYPTOR peut commettre des erreurs. Il est recommandé de vérifier
             les informations importantes. Voir les{" "}
             <a href="#" className="underline">
               conditions d&apos;utilisation
@@ -143,7 +143,7 @@ export function ChatBotInterface({ isOpen, onClose }: Props) {
       <div className="flex flex-col p-4 border-[var(--border)] justify-end gap-2">
         <div className="flex flex-row gap-2 items-end">
           {/* Wrapper is relative and provides a minimum height so the absolute Input
-              inside can be anchored to bottom and grow upward. */}
+          inside can be anchored to bottom and grow upward. */}
           <div className="w-full max-w-[100%] relative min-h-[2.5rem]">
             <Input
               placeholder="Pose ta question..."
