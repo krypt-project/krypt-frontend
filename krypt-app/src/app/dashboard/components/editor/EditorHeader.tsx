@@ -25,7 +25,7 @@ export default function EditorHeader({
   }, [title]);
 
   useEffect(() => {
-    if (editingTitle) inputRef.current?.focus();
+    if (editingTitle) inputRef.current?.select();
   }, [editingTitle]);
 
   const handleBlur = () => {
@@ -73,8 +73,8 @@ export default function EditorHeader({
             variant="outlined"
             className={`w-[90px] py-0 px-3 justify-center ${
               isEdit
-                ? "hover:bg-indigo-100 text-[var(--text-dark)]"
-                : "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-[var(--text-dark)] py-2 hover:opacity-90"
+                ? "hover:bg-indigo-100 text-[var(--text-light)]"
+                : "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-[var(--text-light)] py-2 hover:opacity-90"
             }`}
           >
             Edit
@@ -85,8 +85,8 @@ export default function EditorHeader({
             variant="outlined"
             className={`w-[90px] py-0 px-3 justify-center ${
               isPreview
-                ? "hover:bg-indigo-100 text-[var(--text-dark)]"
-                : "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-[var(--text-dark)] py-2 hover:opacity-90"
+                ? "hover:bg-indigo-100 text-[var(--text-light)]"
+                : "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-[var(--text-light)] py-2 hover:opacity-90"
             }`}
           >
             Preview

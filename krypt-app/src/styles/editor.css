@@ -2,154 +2,187 @@
 /* Editor Styles - editor.css */
 /* ========================== */
 .tiptap {
-    line-height: 1.5;
-    font-size: 1rem;
-    background-color: var(--background);
-    color: var(--text-dark);
-    min-height: 200px;
-    outline: none;
-    padding: 1rem;
-    transition: background-color 0.2s ease, color 0.2s ease;
+  line-height: 1.5;
+  font-size: 1rem;
+  background-color: var(--background);
+  color: var(--text-dark);
+  height: 100%;
+  min-height: 0;
+  outline: none;
+  padding: 1rem;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* Stylisation de la scrollbar pour les navigateurs WebKit (Chrome, Edge, Safari) */
+.tiptap::-webkit-scrollbar {
+  width: 8px; /* Réduit la largeur pour la rendre moins envahissante */
+}
+
+.tiptap::-webkit-scrollbar-track {
+  background: var(--background); /* Couleur de fond discrète */
+  border-radius: 4px;
+}
+
+.tiptap::-webkit-scrollbar-thumb {
+  background-color: var(--border); /* Couleur de la barre, assortie à ton thème */
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
 /* Paragraphs */
 .tiptap p {
-    margin: 0.5rem 0;
-    color: var(--text-dark);
+  margin: 0.5rem 0;
+  color: var(--text-dark);
+  flex: 0 0 auto; 
 }
 
 /* Headings */
 .tiptap h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin: 1rem 0 0.5rem;
-    color: var(--text-dark);
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1rem 0 0.5rem;
+  color: var(--text-dark);
+  flex: 0 0 auto;
 }
 
 .tiptap h2 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin: 0.75rem 0 0.5rem;
-    color: var(--text-dark);
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0.75rem 0 0.5rem;
+  color: var(--text-dark);
+  flex: 0 0 auto;
 }
 
 .tiptap h3 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin: 0.5rem 0;
-    color: var(--text-dark);
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+  color: var(--text-dark);
+  flex: 0 0 auto;
 }
 
 /* Horizontal rule */
 .tiptap hr {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 1.5rem 0;
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 1.5rem 0;
+  flex: 0 0 auto;
 }
 
 /* Lists */
 .tiptap ul {
-    list-style-type: disc;
-    padding-left: 1.5rem;
-    margin: 0.5rem 0;
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+  flex: 0 0 auto;
 }
 
 .tiptap ol {
-    list-style-type: decimal;
-    padding-left: 1.5rem;
-    margin: 0.5rem 0;
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin: 0.5rem 0;
+  flex: 0 0 auto;
 }
 
 /* Blockquote */
 .tiptap blockquote {
-    border-left: 4px solid var(--border);
-    padding-left: 1rem;
-    color: var(--text-dark);
-    font-style: italic;
-    background-color: var(--secondary);
-    margin: 1rem 0;
-    border-radius: 0.25rem;
+  border-left: 4px solid var(--border);
+  padding-left: 1rem;
+  color: var(--text-dark);
+  font-style: italic;
+  background-color: var(--secondary);
+  margin: 1rem 0;
+  border-radius: 0.25rem;
+  flex: 0 0 auto;
 }
 
 /* Code blocks */
 .tiptap pre {
-    background: var(--background);
-    padding: 1rem;
-    border-radius: 0.5rem;
-    font-family: 'Fira Code', monospace;
-    overflow-x: auto;
-    color: var(--text-dark);
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+  background: var(--background);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  font-family: "Fira Code", monospace;
+  overflow-x: auto;
+  color: var(--text-dark);
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
+  flex: 0 0 auto;
 }
 
 /* Inline code */
 .tiptap code {
-    background-color: var(--secondary);
-    color: var(--text-dark);
-    padding: 0.2rem 0.4rem;
-    border-radius: 0.25rem;
-    font-size: 0.9rem;
-    font-family: 'Fira Code', monospace;
+  background-color: var(--secondary);
+  color: var(--text-dark);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9rem;
+  font-family: "Fira Code", monospace;
 }
 
 /* Links */
 .tiptap a {
-    color: var(--primary);
-    text-decoration: underline;
-    transition: color 0.2s ease;
+  color: var(--primary);
+  text-decoration: underline;
+  transition: color 0.2s ease;
 }
 
 .tiptap a:hover {
-    color: var(--background-2);
+  color: var(--background-2);
 }
 
 /* Task lists */
 .tiptap ul[data-type="taskList"] {
-    list-style: none;
-    padding-left: 0;
+  list-style: none;
+  padding-left: 0;
+  flex: 0 0 auto;
 }
 
 .tiptap ul[data-type="taskList"] li {
-    display: flex;
-    align-items: center;
-    margin: 0.25rem 0;
+  display: flex;
+  align-items: center;
+  margin: 0.25rem 0;
+  flex: 0 0 auto;
 }
 
 .tiptap ul[data-type="taskList"] li input[type="checkbox"] {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 /* Badges / Tags */
 .badge-tag {
-    display: inline-block;
-    background-color: var(--secondary);
-    color: var(--text-dark);
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding: 0.2rem 0.6rem;
-    border-radius: 9999px;
-    margin: 0 0.25rem 0.25rem 0;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
+  display: inline-block;
+  background-color: var(--secondary);
+  color: var(--text-dark);
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  margin: 0 0.25rem 0.25rem 0;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
 }
 
 .badge-tag:hover {
-    background-color: var(--background);
-    color: var(--text-dark);
+  background-color: var(--background);
+  color: var(--text-dark);
 }
 
 /* Color input (palette) */
 input[type="color"]::-webkit-color-swatch {
-    border-radius: 9999px;
-    border: none;
+  border-radius: 9999px;
+  border: none;
 }
 
 input[type="color"]::-webkit-color-swatch-wrapper {
-    padding: 0;
+  padding: 0;
 }
 
 input[type="color"]::-moz-color-swatch {
-    border-radius: 9999px;
-    border: none;
+  border-radius: 9999px;
+  border: none;
 }
+
