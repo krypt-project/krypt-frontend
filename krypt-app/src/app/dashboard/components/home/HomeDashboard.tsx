@@ -65,7 +65,7 @@ export default function HomeDashboard({
   ];
 
   return (
-    <div className="flex flex-col flex-1 p-8 space-y-8 overflow-y-auto">
+    <div className="flex flex-col flex-1 p-8 space-y-8 overflow-y-auto bg-[var(--secondary)]">
       {/* Title */}
       <h2 className="text-3xl font-semibold">Welcome back</h2>
 
