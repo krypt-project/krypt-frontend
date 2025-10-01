@@ -263,13 +263,13 @@ export default function AccountSettings() {
           <div className="border-t border-[var(--border)] mt-10"></div>
           <div className="flex flex-col align-middle justify-center">
             <h2 className="text-2xl mt-2 mb-4 font-bold">Modules</h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 text-start">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 text-start">
               {MODULES_BY_ROLE[user.role.roleType]?.map((feature, idx) => (
                 <FeatureCard
                   key={idx}
                   {...feature}
-                  width="250px" // Dimension réduite pour Settings Profile
-                  height="201px" // Dimension réduite pour Settings Profile
+                  width="250px"
+                  height="200px"
                 />
               ))}
               <Card
