@@ -23,7 +23,7 @@ type Props = {
 
 export function ChatBotInterface({ isOpen, onClose }: Props) {
   const chatZoneRef = React.useRef<HTMLDivElement | null>(null);
-  // max height for the expanding textarea (px)
+
   const MAX_INPUT_HEIGHT = 200;
 
   return (
@@ -70,7 +70,7 @@ export function ChatBotInterface({ isOpen, onClose }: Props) {
       {/* Chat Zone */}
       <div
         ref={chatZoneRef}
-        className="flex-1 overflow-y-scroll p-4 space-y-3 bg-[var(--secondary)] pb-5" // Remplace h-[66%] par flex-1
+        className="flex-1 overflow-y-scroll p-4 space-y-3 bg-[var(--secondary)] pb-5"
       >
         {/* Exemple de messages */}
         <div className="flex items-start gap-3 ">
@@ -142,8 +142,6 @@ export function ChatBotInterface({ isOpen, onClose }: Props) {
       {/* Send Zone */}
       <div className="flex flex-col p-4 border-[var(--border)] justify-end gap-2">
         <div className="flex flex-row gap-2 items-end">
-          {/* Wrapper is relative and provides a minimum height so the absolute Input
-          inside can be anchored to bottom and grow upward. */}
           <div className="w-full max-w-[100%] relative min-h-[2.5rem]">
             <Input
               placeholder="Pose ta question..."

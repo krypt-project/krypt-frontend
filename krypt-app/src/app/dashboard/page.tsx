@@ -285,8 +285,6 @@ export default function DashboardPage() {
               setTab={setTab}
               onRename={handleRenameNote}
             />
-
-            {/* Wrapper scrollable: centre l'éditeur et force une min-width */}
             <div className="flex-1 overflow-auto">
               <div className="min-w-[900px] max-w-none w-full mx-auto h-full">
                 {tab === "edit" ? (
