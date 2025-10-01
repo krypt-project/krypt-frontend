@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Card } from "@/components/atoms/Card/Card";
 import { FeatureCard } from "@/components/molecules/FeatureCard";
 import { LucideIcon, Plus } from "lucide-react";
+import { toast } from "react-hot-toast";
 
 import {
   MODULES_STUDENT,
@@ -77,18 +78,28 @@ export default function AccountSettings() {
 
   const handleSave = async () => {
     if (!user) return;
+    if (!form.firstName.trim() || !form.lastName.trim()) {
+      toast.error("First name and last name are required !")
+      return;
+    }
+    const loadingToast = toast.loading("Updating profile...");
     setLoading(true);
     try {
-      const updatedUser = await apiFetch(`/users/${user.email}`, {
-        method: "PUT",
-        body: JSON.stringify(form),
+      const updatedUser = await apiFetch(`/users/me`, {
+        method: "PATCH",
+        body: JSON.stringify({
+          firstName: form.firstName,
+          lastName: form.lastName,
+        }),
       });
       setUser(updatedUser);
-      alert("Profile updated successfully!");
+      toast.dismiss(loadingToast);
+      toast.success("Profile updated successfully!");
     } catch (err) {
       console.error(err);
-      alert("Failed to update profile.");
+      toast.error("Failed to update profile.");
     } finally {
+      toast.dismiss(loadingToast);
       setLoading(false);
     }
   };
@@ -163,6 +174,7 @@ export default function AccountSettings() {
               name="email"
               value={form.email}
               onChange={handleChange}
+              readOnly
               className="p-3 border border-[var(--border)] rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--border)] focus:border-[var(--border)] transition"
             />
           </div>
@@ -256,12 +268,17 @@ export default function AccountSettings() {
               {MODULES_BY_ROLE[user.role.roleType]?.map((feature, idx) => (
                 <FeatureCard key={idx} {...feature} />
               ))}
-              <Card variant="feature" className="border-[var(--success)] hover:border-[var(--success)] p-6 md:p-10">
+              <Card
+                variant="feature"
+                className="border-[var(--success)] hover:border-[var(--success)] p-6 md:p-10"
+              >
                 <h3 className="mb-3 flex flex-col items-center gap-2 text-lg font-semibold text-[var(--text-dark)]">
                   <Plus size={20} />
                   <span>View Modules</span>
                 </h3>
-                <p className="text-sm text-[var(--text-secondary)]">Purchase the Modules you need</p>
+                <p className="text-sm text-[var(--text-secondary)]">
+                  Purchase the Modules you need
+                </p>
               </Card>
             </div>
           </div>

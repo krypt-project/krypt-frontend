@@ -14,6 +14,7 @@ import HomeDashboard from "./components/home/HomeDashboard";
 import { apiFetch } from "@/utils/api";
 import { useAutoSaveNote } from "@/hooks/useAutoSaveNote";
 import AccountSettings from "./components/settings/AccountSettings";
+import { toast } from "react-hot-toast";
 
 /* Style */
 import AppearanceSettings from "./components/settings/AppearanceSettings";
@@ -41,12 +42,14 @@ export default function DashboardPage() {
       title: "Account",
       description: "Manage your profile settings",
       icon: <User size={16} className="mr-2 text-[var(--text-dark)]" />,
+      subLabels: ["Profile", "Email", "Password"]
     },
     {
       id: 2,
       title: "Appearance",
       description: "Customize your application",
       icon: <Palette size={16} className="mr-2 text-[var(--text-dark)]" />,
+      subLabels: ["Theme", "Accent Color"],
     },
   ]);
   const [tab, setTab] = useState<"edit" | "preview">("edit");
@@ -81,12 +84,14 @@ export default function DashboardPage() {
           content: "",
         }),
       });
-
-      setNotes([newNote, ...notes]);
+      const notesFromApi: Note[] = await apiFetch("/notes");
+      setNotes(notesFromApi);
       setSelectedNoteId(newNote.id);
       setTab("edit");
+      toast.success("Note successfully created!");
     } catch (err) {
       console.error("Failed to create note", err);
+      toast.error("Failed to create note.");
     }
   };
 
@@ -106,6 +111,7 @@ export default function DashboardPage() {
         method: "PUT",
         body: JSON.stringify({ ...selectedNote, content }),
       });
+      toast.success("Note succesfully saved !");
     },
   });
 
@@ -120,41 +126,87 @@ export default function DashboardPage() {
   const handleRenameNote = async (newTitle: string) => {
     if (!selectedNote) return;
 
-    setNotes((prev) =>
-      prev.map((note) =>
-        note.id === selectedNote.id ? { ...note, title: newTitle } : note
-      )
-    );
-
     try {
+      setNotes((prev) =>
+        prev.map((note) =>
+          note.id === selectedNote.id ? { ...note, title: newTitle } : note
+        )
+      );
+
       await apiFetch(`/notes/${selectedNote.id}`, {
         method: "PUT",
         body: JSON.stringify({ ...selectedNote, title: newTitle }),
       });
+
+      const notesFromApi: Note[] = await apiFetch("/notes");
+      setNotes(notesFromApi);
+
+      toast.success("Note successfully renamed !");
     } catch (err) {
       console.error("Failed to rename note", err);
+      setNotes((prev) =>
+        prev.map((note) =>
+          note.id === selectedNote.id ? { ...note, title: newTitle } : note
+        )
+      );
+      toast.error("Failed to rename note !");
     }
   };
 
   const handleDeleteNote = async (noteId: number) => {
-    if (!confirm("Are you sure you want to delete this note?")) return;
-
-    try {
-      await apiFetch(`/notes/${noteId}`, {
-        method: "DELETE",
-      });
-
-      setNotes((prev) => prev.filter((n) => n.id !== noteId));
-
-      if (selectedNoteId === noteId) {
-        setSelectedNoteId(null);
-        setTab("edit");
+    toast(
+      (t) => (
+        <div
+          className="flex flex-col gap-2 p-3 text-white rounded-lg overflow-hidden"
+          style={{ maxWidth: "400px" }}
+        >
+          <span className="text-sm leading-tight">
+            Are you sure you want to delete this note?
+          </span>
+          <div className="flex gap-2 justify-center mt-2">
+            <Button
+              variant="error"
+              size="sm"
+              onClick={async () => {
+                try {
+                  await apiFetch(`/notes/${noteId}`, {
+                    method: "DELETE",
+                  });
+                  setNotes((prev) => prev.filter((n) => n.id !== noteId));
+                  if (selectedNoteId === noteId) {
+                    setSelectedNoteId(null);
+                    setTab("edit");
+                  }
+                  toast.success("Note successfully deleted!");
+                } catch (err) {
+                  console.error("Failed to delete note", err);
+                  toast.error("Failed to delete note!");
+                } finally {
+                  toast.dismiss(t.id);
+                }
+              }}
+            >
+              Confirm
+            </Button>
+            <Button
+              variant="default"
+              size="sm"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      ),
+      {
+        duration: Infinity,
+        position: "top-center",
+        style: {
+          background: "#333",
+        },
       }
-    } catch (err) {
-      console.error("Failed to delete note", err);
-    }
+    );
   };
-
   const handleSelectActivity = (next: Activity) => {
     setActivity(next);
 

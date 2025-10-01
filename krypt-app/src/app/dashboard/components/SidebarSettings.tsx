@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import Button from "@/components/atoms/Button/Button";
 import Loader from "@/components/feedback/Loader";
@@ -13,6 +13,7 @@ type Settings = {
   title: string;
   icon?: React.ReactNode;
   description: string;
+  subLabels: string[];
 };
 
 interface SidebarSettingsProps {
@@ -27,6 +28,25 @@ export default function SidebarSettings({
   const [collapsed, setCollapsed] = useState(false);
   const [loading] = useState(false);
 
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredSettings = settings.filter((setting) => {
+    const titleMatch = setting.title
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const subLabelsMatch =
+      setting.subLabels?.some((label) =>
+        label.toLowerCase().includes(searchTerm.toLowerCase())
+      ) ?? false;
+    return titleMatch || subLabelsMatch;
+  });
+  useEffect(() => {
+    if (filteredSettings.length > 0 && searchTerm) {
+      const firstSettingId = filteredSettings[0].id;
+      onSelectSetting(firstSettingId);
+    }
+  }, [filteredSettings, searchTerm, onSelectSetting]);
+  
   return (
     <>
       {loading && (
@@ -56,14 +76,19 @@ export default function SidebarSettings({
               >
                 <Search size={16} className="text-[var(--text-secondary)]" />
                 {!collapsed && (
-                  <Input type="text" placeholder="Search settings ..." />
+                  <Input
+                    type="text"
+                    placeholder="Search settings ..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
                 )}
               </div>
             </div>
 
             {/* Settings */}
             <ul className="space-y-2">
-              {settings.map((setting) => (
+              {filteredSettings.map((setting) => (
                 <li key={setting.id}>
                   <Button
                     variant="sidebar"

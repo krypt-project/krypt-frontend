@@ -179,7 +179,6 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
             <Settings size={20} />
           </Button>
         </Popup>
-
         <Popup content={<span>Logout</span>} position="right">
           <Button
             onClick={logout}
