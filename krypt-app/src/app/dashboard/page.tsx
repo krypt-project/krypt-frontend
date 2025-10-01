@@ -226,7 +226,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="flex h-screen bg-[var(--background)] text-[var(--text-dark)] overflow-x-auto">
+    <div className="flex h-screen bg-[var(--secondary)] text-[var(--text-dark)] overflow-x-auto">
       {/* Permanent left bar */}
       <ActivityBar active={activity} onSelect={handleSelectActivity} />
       <button
