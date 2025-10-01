@@ -31,6 +31,11 @@ export default function SidebarNotes({
 }: SidebarNotesProps) {
   const [collapsed, setCollapsed] = useState(false);
   const [loading] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
@@ -60,7 +65,12 @@ export default function SidebarNotes({
                 }`}
               >
                 {!collapsed && (
-                  <Input type="text" placeholder="Search notes ..." />
+                  <Input
+                    type="text"
+                    placeholder="Search notes ..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
                 )}
               </div>
             </div>
@@ -85,12 +95,13 @@ export default function SidebarNotes({
                     <Plus size={16} />
                   </Button>
                 </li>
-                {notes.length === 0 && (
+
+                {filteredNotes.length === 0 && (
                   <li className="px-2 py-1 text-sm text-[var(--text-secondary)] italic">
-                    No notes yet
+                    {searchTerm ? "No matching notes" : "No notes yet"}
                   </li>
                 )}
-                {notes.map((note) => (
+                {filteredNotes.map((note) => (
                   <li
                     key={note.id}
                     className="group flex items-center justify-between mt-1"
@@ -98,7 +109,7 @@ export default function SidebarNotes({
                     <Button
                       onClick={() => onSelectNote(note.id)}
                       variant="sidebar"
-                      className={`flex items-center text-left truncate ${
+                      className={`flex items-center w-full text-left truncate ${
                         note.id === selectedNoteId
                           ? "bg-[var(--secondary)] text-[var(--primary)]"
                           : "text-[var(--text-dark)]"

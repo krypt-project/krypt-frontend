@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Toaster } from "react-hot-toast";
 import "@/styles/globals.css";
 import "@/styles/editor.css";
 
@@ -44,6 +45,29 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
+        <Toaster
+          position="bottom-center"
+          reverseOrder={false}
+          toastOptions={{
+            // Define default options
+            className: "",
+            duration: 5000,
+            removeDelay: 1000,
+            style: {
+              background: "#363636",
+              color: "#fff",
+            },
+
+            // Default options for specific types
+            // success: {
+            //   duration: 3000,
+            //   iconTheme: {
+            //     primary: "green",
+            //     secondary: "black",
+            //   },
+            // },
+          }}
+        />
       </body>
     </html>
   );
