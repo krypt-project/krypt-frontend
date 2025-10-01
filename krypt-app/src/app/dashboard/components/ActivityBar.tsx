@@ -179,93 +179,95 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
             <Settings size={20} />
           </Button>
         </Popup>
-        <Popup content={<span>Logout</span>} position="right">
-          <Button
-            onClick={logout}
-            variant="sidebar"
-            className={`p-2 text-[var(--text-dark)] bg-[var(--error)]/50 hover:text-[var(--error)]`}
-            title="Logout"
-          >
-            <LogOut size={20} />
-          </Button>
-        </Popup>
+        
+        {/* User avatar with popup */}
+        {user && (
+          <div className="relative mb-4">
+            <Popup
+            className="min-h-[150px] h-[120px]"
+              content={
+                <div>
+                  <p className="font-semibold">
+                    {user.firstName} {user.lastName}
+                  </p>
+                  <p className="text-sm text-[var(--text-secondary)]">
+                    {user.email}
+                  </p>
+                  <p className="text-sm text-[var(--primary)] mt-2">
+                    {user.role.roleType}
+                  </p>
+
+                  {/* Dropdown change status */}
+                  <div className="flex gap-2 mt-2">
+                    <Button
+                      variant="outlined"
+                      onClick={() => setStatus("online")}
+                      className="text-[var(--success)]"
+                    >
+                      Online
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={() => setStatus("idle")}
+                      className="text-[var(--warning)]"
+                    >
+                      Idle
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={() => setStatus("dnd")}
+                      className="!text-[var(--error)]"
+                    >
+                      DND
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={() => setStatus("offline")}
+                      className="text-[var(--text-secondary)]"
+                    >
+                      Offline
+                    </Button>
+                  </div>
+                </div>
+              }
+              position="right"
+            >
+              <div className="relative w-13 h-13">
+                {user.avatarUrl ? (
+                  <Image
+                    src={user.avatarUrl}
+                    alt={`${user.firstName} ${user.lastName} ${user.role.roleType}`}
+                    className="rounded-full object-cover border-2 border-[var(--border)] cursor-pointer"
+                    fill
+                  />
+                ) : (
+                  <div className="w-13 h-13 rounded-full bg-[var(--border)] flex items-center justify-center text-md font-bold text-[var(--text-dark)] cursor-pointer">
+                    {user.firstName[0]}
+                    {user.lastName[0]}
+                  </div>
+                )}
+
+                {/* Status point */}
+                <span
+                  className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-[var(--background)] ${statusColors[status]}`}
+                />
+              </div>
+            </Popup>
+          </div>
+        )}
         <div className="border-t border-[var(--border)] w-full" />
       </div>
 
-      {/* User avatar with popup */}
-      {user && (
-        <div className="relative mb-4">
-          <Popup
-            content={
-              <div>
-                <p className="font-semibold">
-                  {user.firstName} {user.lastName}
-                </p>
-                <p className="text-sm text-[var(--text-secondary)]">
-                  {user.email}
-                </p>
-                <p className="text-sm text-[var(--primary)] mt-2">
-                  {user.role.roleType}
-                </p>
-
-                {/* Dropdown change status */}
-                <div className="flex gap-2 mt-2">
-                  <Button
-                    variant="outlined"
-                    onClick={() => setStatus("online")}
-                    className="text-[var(--success)]"
-                  >
-                    Online
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => setStatus("idle")}
-                    className="text-[var(--warning)]"
-                  >
-                    Idle
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => setStatus("dnd")}
-                    className="!text-[var(--error)]"
-                  >
-                    DND
-                  </Button>
-                  <Button
-                    variant="outlined"
-                    onClick={() => setStatus("offline")}
-                    className="text-[var(--text-secondary)]"
-                  >
-                    Offline
-                  </Button>
-                </div>
-              </div>
-            }
-            position="right"
-          >
-            <div className="relative w-13 h-13">
-              {user.avatarUrl ? (
-                <Image
-                  src={user.avatarUrl}
-                  alt={`${user.firstName} ${user.lastName} ${user.role.roleType}`}
-                  className="rounded-full object-cover border-2 border-[var(--border)] cursor-pointer"
-                  fill
-                />
-              ) : (
-                <div className="w-13 h-13 rounded-full bg-[var(--border)] flex items-center justify-center text-md font-bold text-[var(--text-dark)] cursor-pointer">
-                  {user.firstName[0]}
-                  {user.lastName[0]}
-                </div>
-              )}
-
-              {/* Status point */}
-              <span
-                className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-[var(--background)] ${statusColors[status]}`}
-              />
-            </div>
-          </Popup>
-        </div>
-      )}
+      <Popup content={<span>Logout</span>} position="right">
+        <Button
+          onClick={logout}
+          variant="sidebar"
+          className={`p-2 text-[var(--text-dark)] mb-5 bg-[var(--error)]/50 hover:text-[var(--error)]`}
+          title="Logout"
+        >
+          <LogOut size={20} />
+        </Button>
+      </Popup>
     </div>
   );
 }
