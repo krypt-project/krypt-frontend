@@ -79,7 +79,7 @@ export default function AccountSettings() {
   const handleSave = async () => {
     if (!user) return;
     if (!form.firstName.trim() || !form.lastName.trim()) {
-      toast.error("First name and last name are required !")
+      toast.error("First name and last name are required !");
       return;
     }
     const loadingToast = toast.loading("Updating profile...");
@@ -118,10 +118,9 @@ export default function AccountSettings() {
       <h1 className="text-3xl font-bold mb-8 text-[var(--text-dark)]">
         Account Settings
       </h1>
-
-      <Card variant="default">
+      <div className="bg-[var(--background)] shadow-md rounded-lg p-6 space-y-6">
         {/* Avatar */}
-        <div className="flex relative w-full h-24 mb-6 justify-center">
+        <div className="flex relative w-full h-24 mb-6 justify-center ">
           {user.avatarUrl ? (
             <Image
               src={user.avatarUrl}
@@ -264,9 +263,14 @@ export default function AccountSettings() {
           <div className="border-t border-[var(--border)] mt-10"></div>
           <div className="flex flex-col align-middle justify-center">
             <h2 className="text-2xl mt-2 mb-4 font-bold">Modules</h2>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 text-center">
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 text-start">
               {MODULES_BY_ROLE[user.role.roleType]?.map((feature, idx) => (
-                <FeatureCard key={idx} {...feature} />
+                <FeatureCard
+                  key={idx}
+                  {...feature}
+                  width="250px" // Dimension réduite pour Settings Profile
+                  height="201px" // Dimension réduite pour Settings Profile
+                />
               ))}
               <Card
                 variant="feature"
@@ -283,7 +287,7 @@ export default function AccountSettings() {
             </div>
           </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

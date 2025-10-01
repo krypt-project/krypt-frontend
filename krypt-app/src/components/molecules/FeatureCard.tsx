@@ -6,6 +6,8 @@ type FeatureCardProps = {
   color: string;
   title: string;
   desc: string;
+  width?: string; // Optionnel pour personnaliser dans Settings Profile
+  height?: string; // Optionnel pour personnaliser dans Settings Profile
 };
 
 export function FeatureCard({
@@ -13,24 +15,31 @@ export function FeatureCard({
   color,
   title,
   desc,
+  width = "300px", // Par défaut pour Marketplace
+  height = "200px", // Par défaut pour Marketplace
 }: FeatureCardProps) {
   return (
     <Card
       variant="feature"
-      className="p-6 md:p-10 flex flex-col justify-between w-[300px] h-[200px] flex-shrink-0 overflow-hidden"
+      className={`p-4 md:p-6 flex flex-col justify-start w-[${width}] h-[${height}] flex-shrink-0 overflow-hidden`} // Changé justify-between à justify-start pour aligner en haut
     >
-      {/* Header : icon + title */}
-      <div className="flex flex-col items-start gap-2 min-h-[60px]">
-        <Icon size={20} color={color} />
-        <h3 className="text-lg font-semibold text-[var(--text-dark)] line-clamp-2">
-          {title}
-        </h3>
+      <div className="flex flex-col gap-2">
+          {/* Alignement horizontal pour icône + titre */}
+          <Icon size={20} color={color} />
+        <div className="flex items-center gap-2">
+          {" "}
+          <h3 className="text-lg font-semibold text-[var(--text-dark)] line-clamp-3">
+            {" "}
+            {/* Augmenté à 3 lignes */}
+            {title}
+          </h3>
+        </div>
+        <p className="text-sm text-[var(--text-secondary)] line-clamp-4 mt-2">
+          {" "}
+          {/* Augmenté à 4 lignes, ajouté mt-2 pour espacement */}
+          {desc}
+        </p>
       </div>
-
-      {/* Description */}
-      <p className="text-sm text-[var(--text-secondary)] line-clamp-3 min-h-[3rem]">
-        {desc}
-      </p>
     </Card>
   );
 }
