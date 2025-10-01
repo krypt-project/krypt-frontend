@@ -28,7 +28,7 @@ export function ChatBotInterface({ isOpen, onClose }: Props) {
 
   return (
     <div
-      className={`fixed top-0 right-0 h-screen border border-[var(--border)] w-[35%] bg-[var(--background)] text-[var(--text-dark)] shadow-xl z-50 transform transition-transform duration-300 ${
+      className={`fixed top-0 right-0 h-screen border-b border-l border-[var(--border)] w-[35%] bg-[var(--background)] text-[var(--text-dark)] shadow-xl z-50 transform transition-transform duration-300 ${
         isOpen ? "translate-x-0" : "translate-x-full"
       } flex flex-col`}
     >
