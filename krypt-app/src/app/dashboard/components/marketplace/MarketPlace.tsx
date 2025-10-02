@@ -17,8 +17,10 @@ export default function Marketplace() {
     <>
       <MarketplaceNavbar filter={filter} setFilter={setFilter} />
 
-      <div className="flex flex-1 justify-center w-full bg-[var(--secondary)] p-3">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-25 mb-10 auto-rows-[200px]">
+      <div className="flex flex-1 w-full bg-[var(--secondary)] p-3">
+        <div
+          className="grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 mt-22 ml-4 mr-4 mb-10 auto-rows-[200px]"
+        >
           {filteredModules.map((m, idx) => (
             <FeatureCard key={idx} {...m} />
           ))}
