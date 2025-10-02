@@ -71,11 +71,9 @@ export default function EditorHeader({
           <Button
             onClick={() => setTab("edit")}
             variant="outlined"
-            className={`w-[90px] py-0 px-3 justify-center ${
-              isEdit
-                ? "hover:bg-indigo-100 text-[var(--text-light)]"
-                : "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-[var(--text-light)] py-2 hover:opacity-90"
-            }`}
+            className={`w-[90px] px-3 justify-center
+                "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-white py-2 hover:opacity-90"
+            `}
           >
             Edit
           </Button>
@@ -83,11 +81,10 @@ export default function EditorHeader({
           <Button
             onClick={() => setTab("preview")}
             variant="outlined"
-            className={`w-[90px] py-0 px-3 justify-center ${
-              isPreview
-                ? "hover:bg-indigo-100 text-[var(--text-light)]"
-                : "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-[var(--text-light)] py-2 hover:opacity-90"
-            }`}
+            className={`w-[90px] px-3 justify-center
+    
+                "border-0 bg-gradient-to-tr from-[var(--background-2)] to-[var(--primary)] text-white py-2 hover:opacity-90"
+            `}
           >
             Preview
           </Button>
