@@ -295,7 +295,7 @@ export default function DashboardPage() {
                     />
                   </div>
                 ) : (
-                  <div className="h-full overflow-y-auto tiptap prose w-full py-12">
+                  <div className="h-full overflow-y-auto tiptap prose max-w-[900px] mx-auto">
                     <div
                       className="w-full"
                       dangerouslySetInnerHTML={{ __html: selectedNote.content }}
