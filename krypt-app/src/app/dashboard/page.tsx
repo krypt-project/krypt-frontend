@@ -57,11 +57,11 @@ export default function DashboardPage() {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login-register?mode=login");
-      return;
-    }
+    // const token = localStorage.getItem("token");
+    // if (!token) {
+    //   router.push("/login-register?mode=login");
+    //   return;
+    // }
 
     (async () => {
       try {

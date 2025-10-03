@@ -43,9 +43,9 @@ export default function HomeDashboard({
   }, [notes]);
 
   // Fake data for metrics
-  const tokensRemaining = 12340;
-  const storageUsed = 2.1;
-  const storageTotal = 5;
+  const tokensRemaining = 999_999;
+  const storageUsed = 1907;
+  const storageTotal = 999_999 ;
   const storagePercent = Math.round((storageUsed / storageTotal) * 100);
 
   const storageData = [
@@ -115,7 +115,7 @@ export default function HomeDashboard({
                 Storage Used
               </p>
               <p className="text-lg font-semibold">
-                {storageUsed} GB / {storageTotal} GB
+                {storageUsed.toLocaleString()} GB / {storageTotal.toLocaleString()} GB
               </p>
             </div>
           </div>

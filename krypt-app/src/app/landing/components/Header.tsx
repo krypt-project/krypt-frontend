@@ -69,7 +69,7 @@ export default function Header() {
                 </Button>
               )}
               <Button
-                href="/login-register?mode=login"
+                href="/dashboard"
                 variant="outlined"
                 size="sm"
               >

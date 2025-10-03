@@ -35,7 +35,9 @@ export default function Hero() {
                 data-aos="zoom-y-out"
                 data-aos-delay={450}
               >
-                <Button variant="gradient">{HERO_CONTENT.primaryCta}</Button>
+                <Button variant="gradient" href="/dashboard">
+                  {HERO_CONTENT.primaryCta}
+                </Button>
                 <Button variant="outlined">{HERO_CONTENT.secondaryCta}</Button>
               </div>
             </div>

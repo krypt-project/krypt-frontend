@@ -144,7 +144,7 @@ export function ChatBotInterface({ isOpen, onClose }: Props) {
         <div className="flex flex-row gap-2 items-end">
           <div className="w-full max-w-[100%] relative min-h-[2.5rem]">
             <Input
-              placeholder="Pose ta question..."
+              placeholder=""
               variant="shadow"
               multiline
               className="absolute bottom-0 left-0 right-0 resize-none"
