@@ -268,8 +268,6 @@ export default function AccountSettings() {
                 <FeatureCard
                   key={idx}
                   {...feature}
-                  width="250px"
-                  height="200px"
                 />
               ))}
               <Card
