@@ -260,7 +260,8 @@ export default function ActivityBar({ active, onSelect }: ActivityBarProps) {
 
       <Popup content={<span>Logout</span>} position="right">
         <Button
-          onClick={logout}
+          // onClick={logout}
+          href="../"
           variant="sidebar"
           className={`p-2 text-[var(--text-dark)] mb-5 bg-[var(--error)]/50 hover:text-[var(--error)]`}
           title="Logout"

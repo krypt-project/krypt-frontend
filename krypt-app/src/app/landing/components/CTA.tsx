@@ -44,7 +44,7 @@ export default function Cta() {
 
             <div className="mx-auto max-w-xs sm:flex sm:max-w-none sm:justify-center">
               <Button
-                href="#"
+                href="/dashboard"
                 variant="gradient"
                 size="lg"
                 rounded

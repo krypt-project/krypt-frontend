@@ -6,6 +6,7 @@ import icon from "@/app/favicon.png";
 import Image from "next/image";
 import Button from "@/components/atoms/Button/Button";
 import { Sun, Moon } from "lucide-react";
+import { toast } from "react-hot-toast";
 
 type Theme = "light" | "dark";
 
@@ -18,6 +19,32 @@ export default function Header() {
     if (savedTheme) {
       setTheme(savedTheme);
       document.documentElement.setAttribute("data-theme", savedTheme);
+    }
+    const hasShownToast = localStorage.getItem("hasShownWelcomeToast");
+    if (!hasShownToast) {
+      toast(
+        (t) => (
+          <span>
+            Bienvenue sur la version <b>beta</b> de <b>KRYPT</b>. Explorez la
+            page d’accueil, puis accédez à l’application pour découvrir.
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              className="ml-2 px-2 py-1 rounded text-white bg-gray-500"
+            >
+              Fermer
+            </button>
+          </span>
+        ),
+        {
+          duration: Infinity,
+          style: {
+            maxWidth: "500px",
+            boxShadow: "0px 4px 6px rgba(255, 0, 0, 0.5)",
+          },
+        }
+      );
+      // Marque le toast comme affiché
+      localStorage.setItem("hasShownWelcomeToast", "true");
     }
   }, []);
 
@@ -68,11 +95,7 @@ export default function Header() {
                   <Sun size={16} />
                 </Button>
               )}
-              <Button
-                href="/dashboard"
-                variant="outlined"
-                size="sm"
-              >
+              <Button href="/dashboard" variant="outlined" size="sm">
                 Login
               </Button>
               <Button

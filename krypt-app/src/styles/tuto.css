@@ -1,0 +1,37 @@
+.tuto-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+.tuto-highlight {
+  position: fixed;
+  border-radius: 12px;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.5);
+  pointer-events: auto; 
+  transition: all 0.3s ease;
+}
+
+.tuto-popup {
+  position: absolute;
+  background: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  max-width: 320px;
+  z-index: 1002;
+}
+
+.tuto-close {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background: #ff4444;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.tuto-close:hover {
+  background: #cc0000;
+}

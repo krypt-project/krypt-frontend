@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { User, Palette, PlusIcon, BotMessageSquare } from "lucide-react";
 
@@ -15,7 +15,7 @@ import { apiFetch } from "@/utils/api";
 import { useAutoSaveNote } from "@/hooks/useAutoSaveNote";
 import AccountSettings from "./components/settings/AccountSettings";
 import { toast } from "react-hot-toast";
-
+import { Tuto } from "@/components/Tuto";
 /* Style */
 import AppearanceSettings from "./components/settings/AppearanceSettings";
 import { ChatBotInterface } from "@/components/molecules/ChatBotInterface";
@@ -30,6 +30,11 @@ type Note = {
 type Activity = "home" | "notes" | "settings" | "marketplace" | null;
 
 export default function DashboardPage() {
+  const kryptorRef = useRef<HTMLDivElement>(null!);
+  const kryptorButtonRef = useRef<HTMLButtonElement>(null!);
+  const [showTuto, setShowTuto] = useState(false);
+  const [showKryptorButtonTuto, setShowKryptorButtonTuto] = useState(false);
+
   const router = useRouter();
   const [notes, setNotes] = useState<Note[]>([]);
   const [selectedNoteId, setSelectedNoteId] = useState<number | null>(null);
@@ -42,7 +47,7 @@ export default function DashboardPage() {
       title: "Account",
       description: "Manage your profile settings",
       icon: <User size={16} className="mr-2 text-[var(--text-dark)]" />,
-      subLabels: ["Profile", "Email", "Password"]
+      subLabels: ["Profile", "Email", "Password"],
     },
     {
       id: 2,
@@ -57,12 +62,55 @@ export default function DashboardPage() {
   const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
+    const hasShownPanelTuto = localStorage.getItem("hasShownPanelTuto");
+    if (!hasShownPanelTuto && isChatOpen) {
+      setShowTuto(true);
+    }
+
+    const hasShownKryptorButtonTuto = localStorage.getItem(
+      "hasShownKryptorButtonTuto"
+    );
+    if (!hasShownKryptorButtonTuto) {
+      const timer = setTimeout(() => {
+        setShowKryptorButtonTuto(true);
+      }, 5000);
+
+      return () => clearTimeout(timer); 
+    }
+  }, [isChatOpen]);
+
+  useEffect(() => {
     // const token = localStorage.getItem("token");
     // if (!token) {
     //   router.push("/login-register?mode=login");
     //   return;
     // }
 
+    const hasShownToast = localStorage.getItem("hasShownDashboardToast");
+    if (!hasShownToast) {
+      toast(
+        (t) => (
+          <span>
+            Tableau de Bord : votre vue d&apos;ensemble de KRYPT.
+            <button
+              onClick={() => toast.dismiss(t.id)}
+              className="ml-2 px-2 py-1 rounded text-white bg-gray-500"
+            >
+              Fermer
+            </button>
+          </span>
+        ),
+        {
+          duration: Infinity,
+          style: {
+            maxWidth: "500px",
+            boxShadow: "0px 4px 6px rgba(255, 0, 0, 0.5)",
+          },
+        }
+      );
+      // Marque le toast comme affiché
+      localStorage.setItem("hasShownDashboardToast", "true");
+    }
     (async () => {
       try {
         const notesFromApi: Note[] = await apiFetch("/notes");
@@ -236,9 +284,20 @@ export default function DashboardPage() {
         }`}
         aria-expanded={isChatOpen}
         aria-controls="chat-panel"
+        ref={kryptorButtonRef}
       >
         <BotMessageSquare className="text-[var(--text-light)]" />
       </button>
+      {showKryptorButtonTuto && (
+        <Tuto<HTMLButtonElement>
+          targetRef={kryptorButtonRef}
+          message="Accéder à Kryptor : Votre futur assistant IA."
+          onClose={() => {
+            setShowKryptorButtonTuto(false);
+            localStorage.setItem("hasShownKryptorButtonTuto", "true");
+          }}
+        />
+      )}
       {/* Sidebar only if an activity is selected */}
       {activity === "notes" && (
         <SidebarNotes
@@ -271,6 +330,7 @@ export default function DashboardPage() {
               onClick={handleCreateNote}
               variant="default"
               className="bg-[var(--success)] text-[var(--text-light)] px-6 py-3 hover:bg-[var(--success)]/80"
+              // ref={buttonRef}
             >
               <PlusIcon className="mr-2 w-5" />
               Create a new note
@@ -331,6 +391,17 @@ export default function DashboardPage() {
         )}
       </main>
       {/* Chat panel */}
+      {showTuto && (
+        <Tuto<HTMLDivElement>
+          targetRef={kryptorRef}
+          message="Bienvenue sur l'interface de Kryptor. Cette section sera bientôt votre espace d'interaction avec notre assistant IA. 
+            Revenez bientôt pour bénéficier d'un accompagnement personnalisé."
+          onClose={() => {
+            setShowTuto(false);
+            localStorage.setItem("hasShownPanelTuto", "true");
+          }}
+        />
+      )}
       <aside
         id="chat-panel"
         className={`h-full bg-[var(--background)] border-l border-[rgba(0,0,0,0.06)] transition-all duration-300 ease-in-out overflow-y-auto ${
@@ -344,6 +415,7 @@ export default function DashboardPage() {
             <ChatBotInterface
               isOpen={isChatOpen}
               onClose={() => setIsChatOpen(false)}
+              ref={kryptorRef}
             />
           )}
         </div>
