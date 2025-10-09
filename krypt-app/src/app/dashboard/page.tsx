@@ -16,17 +16,21 @@ import { useAutoSaveNote } from "@/hooks/useAutoSaveNote";
 import AccountSettings from "./components/settings/AccountSettings";
 import { toast } from "react-hot-toast";
 import { Tuto } from "@/components/Tuto";
+import { supabase } from "@/utils/supabaseClient";
 /* Style */
 import AppearanceSettings from "./components/settings/AppearanceSettings";
 import { ChatBotInterface } from "@/components/molecules/ChatBotInterface";
 import Marketplace from "./components/marketplace/MarketPlace";
 
 type Note = {
-  id: number;
-  title: string;
-  content: string;
-  modificationDate?: string;
+  id: number; // note_id (int8)
+  title: string; // title (varchar)
+  content: string; // content (text)
+  creationDate?: string; // creation_date (timestamp)
+  modificationDate?: string; // modification_date (timestamp)
+  userId?: number; // user_id (int8)
 };
+
 type Activity = "home" | "notes" | "settings" | "marketplace" | null;
 
 export default function DashboardPage() {
@@ -75,16 +79,20 @@ export default function DashboardPage() {
         setShowKryptorButtonTuto(true);
       }, 5000);
 
-      return () => clearTimeout(timer); 
+      return () => clearTimeout(timer);
     }
   }, [isChatOpen]);
 
   useEffect(() => {
-    // const token = localStorage.getItem("token");
-    // if (!token) {
-    //   router.push("/login-register?mode=login");
-    //   return;
-    // }
+    // (async () => {
+    //   const {
+    //     data: { user },
+    //   } = await supabase.auth.getUser();
+    //   if (!user) {
+    //     router.push("/login-register?mode=login");
+    //     return;
+    //   }
+    // })();
 
     const hasShownToast = localStorage.getItem("hasShownDashboardToast");
     if (!hasShownToast) {
@@ -113,28 +121,83 @@ export default function DashboardPage() {
     }
     (async () => {
       try {
-        const notesFromApi: Note[] = await apiFetch("/notes");
-        setNotes(notesFromApi);
+        const { data: notesFromDb, error } = await supabase
+          .from("note_table")
+          .select(
+            "note_id, title, content, creation_date, modification_date, user_id"
+          );
+        if (error) {
+          throw error;
+        }
+        const mappedNotes =
+          notesFromDb?.map((note) => ({
+            id: note.note_id,
+            title: note.title,
+            content: note.content,
+            creationDate: note.creation_date,
+            modificationDate: note.modification_date,
+            userId: note.user_id,
+          })) || [];
+        setNotes(mappedNotes);
+        if (
+          selectedNoteId &&
+          !mappedNotes.some((note) => note.id === selectedNoteId)
+        ) {
+          setSelectedNoteId(null);
+          setTab("preview");
+        }
       } catch (error) {
         console.error("Failed to fetch notes:", error);
+        toast.error("Failed to load notes.");
       }
     })();
-  }, [router]);
+  }, []);
 
   const selectedNote = notes.find((n) => n.id === selectedNoteId);
 
   const handleCreateNote = async () => {
     try {
-      const newNote: Note = await apiFetch("/notes", {
-        method: "POST",
-        body: JSON.stringify({
-          title: `Untitled ${notes.length + 1}`,
-          content: "",
-        }),
-      });
-      const notesFromApi: Note[] = await apiFetch("/notes");
-      setNotes(notesFromApi);
-      setSelectedNoteId(newNote.id);
+      const { data: newNote, error: createError } = await supabase
+        .from("note_table")
+        .insert([
+          {
+            title: `Untitled ${notes.length + 1}`,
+            content: "",
+            user_id: 1, // Tu mets 1 pour l'instant
+            creation_date: new Date().toISOString(),
+            modification_date: new Date().toISOString(),
+          },
+        ])
+        .select(
+          "note_id, title, content, creation_date, modification_date, user_id"
+        )
+        .single();
+
+      if (createError) {
+        throw createError;
+      }
+
+      const { data: notesFromDb, error: fetchError } = await supabase
+        .from("note_table")
+        .select(
+          "note_id, title, content, creation_date, modification_date, user_id"
+        );
+      if (fetchError) {
+        throw fetchError;
+      }
+
+      const mappedNotes =
+        notesFromDb?.map((note) => ({
+          id: note.note_id,
+          title: note.title,
+          content: note.content,
+          creationDate: note.creation_date,
+          modificationDate: note.modification_date,
+          userId: note.user_id,
+        })) || [];
+
+      setNotes(mappedNotes);
+      setSelectedNoteId(newNote.note_id);
       setTab("edit");
       toast.success("Note successfully created!");
     } catch (err) {
@@ -149,17 +212,32 @@ export default function DashboardPage() {
   };
 
   useAutoSaveNote({
-    noteId: selectedNote ? selectedNote.id.toString() : null,
-    content: selectedNote ? selectedNote.content : "",
-    delay: 2000,
-    threshold: 50,
+    noteId: selectedNote?.id ? selectedNote.id.toString() : null,
+    content: selectedNote?.content || "",
+    delay: 2000, // Sauvegarde après 2 secondes d'inactivité
     onSave: async (content) => {
-      if (!selectedNote) return;
-      await apiFetch(`/notes/${selectedNote.id}`, {
-        method: "PUT",
-        body: JSON.stringify({ ...selectedNote, content }),
-      });
-      toast.success("Note succesfully saved !");
+      if (!selectedNote || !selectedNote.id) return;
+      try {
+        const { error } = await supabase
+          .from("note_table")
+          .update({ content, modification_date: new Date().toISOString() })
+          .eq("note_id", selectedNote.id);
+        if (error) {
+          throw error;
+        }
+        // Mettre à jour l'état local
+        setNotes((prev) =>
+          prev.map((note) =>
+            note.id === selectedNote.id
+              ? { ...note, content, modificationDate: new Date().toISOString() }
+              : note
+          )
+        );
+        toast.success("Note successfully saved!");
+      } catch (err) {
+        console.error("Failed to save note", err);
+        toast.error("Failed to save note.");
+      }
     },
   });
 
@@ -172,32 +250,70 @@ export default function DashboardPage() {
   };
 
   const handleRenameNote = async (newTitle: string) => {
-    if (!selectedNote) return;
+    if (!selectedNote || !selectedNote.id) {
+      toast.error("Aucune note sélectionnée.");
+      return;
+    }
 
     try {
+      // Mettre à jour l'état local immédiatement (optimistic update)
       setNotes((prev) =>
         prev.map((note) =>
-          note.id === selectedNote.id ? { ...note, title: newTitle } : note
+          note.id === selectedNote.id
+            ? {
+                ...note,
+                title: newTitle,
+                modificationDate: new Date().toISOString(),
+              }
+            : note
         )
       );
 
-      await apiFetch(`/notes/${selectedNote.id}`, {
-        method: "PUT",
-        body: JSON.stringify({ ...selectedNote, title: newTitle }),
-      });
+      // Mettre à jour dans Supabase
+      const { error: updateError } = await supabase
+        .from("note_table")
+        .update({
+          title: newTitle,
+          modification_date: new Date().toISOString(),
+        })
+        .eq("note_id", selectedNote.id);
 
-      const notesFromApi: Note[] = await apiFetch("/notes");
-      setNotes(notesFromApi);
+      if (updateError) {
+        throw updateError;
+      }
 
-      toast.success("Note successfully renamed !");
+      // Recharger les notes pour synchronisation
+      const { data: notesFromDb, error: fetchError } = await supabase
+        .from("note_table")
+        .select(
+          "note_id, title, content, creation_date, modification_date, user_id"
+        );
+      if (fetchError) {
+        throw fetchError;
+      }
+
+      setNotes(
+        notesFromDb?.map((note) => ({
+          id: note.note_id,
+          title: note.title,
+          content: note.content,
+          creationDate: note.creation_date,
+          modificationDate: note.modification_date,
+          userId: note.user_id,
+        })) || []
+      );
+      toast.success("Note successfully renamed!");
     } catch (err) {
       console.error("Failed to rename note", err);
+      // Revenir à l'état précédent en cas d'erreur
       setNotes((prev) =>
         prev.map((note) =>
-          note.id === selectedNote.id ? { ...note, title: newTitle } : note
+          note.id === selectedNote.id
+            ? { ...note, title: selectedNote.title }
+            : note
         )
       );
-      toast.error("Failed to rename note !");
+      toast.error("Failed to rename note!");
     }
   };
 
@@ -217,9 +333,13 @@ export default function DashboardPage() {
               size="sm"
               onClick={async () => {
                 try {
-                  await apiFetch(`/notes/${noteId}`, {
-                    method: "DELETE",
-                  });
+                  const { error } = await supabase
+                    .from("note_table")
+                    .delete()
+                    .eq("note_id", noteId);
+                  if (error) {
+                    throw error;
+                  }
                   setNotes((prev) => prev.filter((n) => n.id !== noteId));
                   if (selectedNoteId === noteId) {
                     setSelectedNoteId(null);
@@ -255,6 +375,7 @@ export default function DashboardPage() {
       }
     );
   };
+
   const handleSelectActivity = (next: Activity) => {
     setActivity(next);
 

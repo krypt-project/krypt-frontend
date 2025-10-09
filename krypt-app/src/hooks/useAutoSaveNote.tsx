@@ -7,7 +7,6 @@ type UseAutoSaveNoteProps = {
   noteId: string | null;
   content: string;
   delay?: number;
-  threshold?: number;
   onSave: (content: string) => Promise<void>;
 };
 
@@ -15,7 +14,6 @@ export function useAutoSaveNote({
   noteId,
   content,
   delay = 2000,
-  threshold = 50,
   onSave,
 }: UseAutoSaveNoteProps) {
   const lastSavedContent = useRef(content);
@@ -43,24 +41,23 @@ export function useAutoSaveNote({
     saveLocal();
   }, [content, noteId]);
 
-  // Debounced + threshold save to server
+  // Debounced save to server
   useEffect(() => {
-    if (!noteId) return;
-
-    const diff =
-      Math.abs(content.length - lastSavedContent.current.length) >= threshold;
+    if (!noteId || content === lastSavedContent.current) return;
 
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
     timeoutRef.current = setTimeout(async () => {
-      if (content !== lastSavedContent.current || diff) {
+      try {
         await onSave(content);
         lastSavedContent.current = content;
+      } catch (err) {
+        console.error("Failed to save to server:", err);
       }
     }, delay);
 
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-  }, [noteId, content, delay, threshold, onSave]);
+  }, [content, noteId, delay, onSave]);
 }
