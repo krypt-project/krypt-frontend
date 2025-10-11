@@ -42,7 +42,7 @@ export default function DashboardPage() {
       title: "Account",
       description: "Manage your profile settings",
       icon: <User size={16} className="mr-2 text-[var(--text-dark)]" />,
-      subLabels: ["Profile", "Email", "Password"]
+      subLabels: ["Profile", "Email", "Password"],
     },
     {
       id: 2,
@@ -55,13 +55,15 @@ export default function DashboardPage() {
   const [tab, setTab] = useState<"edit" | "preview">("edit");
   const [activity, setActivity] = useState<Activity>(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
+    const storedToken = localStorage.getItem("token");
+    if (!storedToken) {
       router.push("/login-register?mode=login");
       return;
     }
+    setToken(storedToken);
 
     (async () => {
       try {
@@ -344,6 +346,7 @@ export default function DashboardPage() {
             <ChatBotInterface
               isOpen={isChatOpen}
               onClose={() => setIsChatOpen(false)}
+              token={token || undefined}
             />
           )}
         </div>
