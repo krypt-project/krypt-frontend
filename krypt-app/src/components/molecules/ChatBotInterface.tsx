@@ -1,4 +1,3 @@
-// /components/molecules/ChatBotInterface.tsx
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -62,7 +61,6 @@ export function ChatBotInterface({ isOpen, onClose, token }: Props) {
     }
   };
 
-  // === Handle sending a message ===
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
     const userMsg: Message = { sender: "user", text: input };
