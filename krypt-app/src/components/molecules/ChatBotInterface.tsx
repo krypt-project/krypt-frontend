@@ -7,6 +7,7 @@ import Badge from "../atoms/Badge/Badge";
 import Input from "../atoms/Input/Input";
 import { Select } from "../atoms/Select";
 import { apiAIFetch } from "@/utils/api";
+import ReactMarkdown from "react-markdown";
 
 const chats = [
   { value: "chat1", label: "Hello World!" },
@@ -131,17 +132,24 @@ export function ChatBotInterface({ isOpen, onClose, token }: Props) {
               msg.sender === "user" ? "justify-end" : ""
             }`}
           >
-            <p
+            <div
               className={`flex-wrap px-3 py-2 max-w-[90%] rounded-2xl ${
                 msg.sender === "user"
                   ? "bg-[var(--primary)]/30"
                   : "bg-[var(--background)] text-[var(--text-dark)]"
               }`}
             >
-              {msg.text}
-            </p>
+              {msg.sender === "bot" ? (
+                <div className="tiptap">
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
+                </div>
+              ) : (
+                <p>{msg.text}</p>
+              )}
+            </div>
           </div>
         ))}
+
         {isLoading && (
           <div className="flex items-start gap-3">
             <p className="px-3 py-2 max-w-[90%] rounded-2xl bg-[var(--background)] text-[var(--text-dark)] opacity-75">
