@@ -8,6 +8,7 @@ import Input from "../atoms/Input/Input";
 import { Select } from "../atoms/Select";
 import { apiAIFetch } from "@/utils/api";
 import ReactMarkdown from "react-markdown";
+import Loader from "../feedback/Loader";
 
 const chats = [
   { value: "chat1", label: "Hello World!" },
@@ -140,7 +141,7 @@ export function ChatBotInterface({ isOpen, onClose, token }: Props) {
               }`}
             >
               {msg.sender === "bot" ? (
-                <div className="tiptap">
+                <div className="chatbot">
                   <ReactMarkdown>{msg.text}</ReactMarkdown>
                 </div>
               ) : (
@@ -152,9 +153,9 @@ export function ChatBotInterface({ isOpen, onClose, token }: Props) {
 
         {isLoading && (
           <div className="flex items-start gap-3">
-            <p className="px-3 py-2 max-w-[90%] rounded-2xl bg-[var(--background)] text-[var(--text-dark)] opacity-75">
-              Typing...
-            </p>
+            <div className="px-4 py-4 max-w-[90%] rounded-full bg-[var(--background)] text-[var(--text-dark)] opacity-75">
+              <Loader size={16} />
+            </div>
           </div>
         )}
       </div>
