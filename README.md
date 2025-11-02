@@ -1,10 +1,76 @@
-# mindvault-frontend
+# krypt-frontend | Next.js + TypeScript + TailwindCSS
 
-Web interface for the **MindVault** project, developed with **Next.js** and **Tailwind CSS**.
+<p align="center">
+  <img src="image.png" alt="Landing page screenshot" width="400">
+</p>
+<p align="center">
+  <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/b6bda25a-bf76-43eb-9911-585fcb82b76f" />
+</p>
 
-# Landing Page Preview
-<img width="505" height="1079" alt="image" src="https://github.com/user-attachments/assets/a8f46854-6a8d-49e3-aa72-2473cb838d40" />
+---
 
-# Editor Preview
-<img width="1916" height="1078" alt="image" src="https://github.com/user-attachments/assets/290bf0c4-e570-4056-9cd2-15a159939485" />
+## Overview
 
+This frontend project is developed with **Next.js**, **TypeScript**, and **TailwindCSS**.  
+It provides a modern, responsive landing page that demonstrates:
+
+- **Reusable components**: `Button`, `Card`, `Input`, `Badge`, etc.  
+- **Common landing page sections**: Hero, Features, Testimonials, Call to Action, Footer.  
+- **Consistent design system** with global CSS variables.  
+- **Responsive and accessible** implementation, ready for production.  
+- Easy extension to additional pages such as a dashboard or editor.
+
+---
+
+## Technologies
+
+- [Next.js](https://nextjs.org/)  
+- [TypeScript](https://www.typescriptlang.org/)  
+- [TailwindCSS](https://tailwindcss.com/)  
+- [Lucide Icons](https://lucide.dev/) for iconography  
+- [Tiptap](https://tiptap.dev/) for optional rich-text editing  
+
+---
+
+## Project Architecture
+
+```text
+src/
+ └─ app
+     ├─ landing
+     │   ├─ components
+     │   │   ├─ Header.tsx
+     │   │   ├─ Hero.tsx
+     │   │   ├─ Features.tsx
+     │   │   ├─ Testimonials.tsx
+     │   │   ├─ CTA.tsx
+     │   │   └─ Footer.tsx
+     │   └─ page.tsx
+     ├─ dashboard
+     │   └─ components
+     │       └─ ... (similar structure as landing)
+     ├─ account-verified
+     │   └─ components
+     │       └─ ... (similar structure as landing)
+     └─ login-register
+         └─ components
+             └─ ... (similar structure as landing)
+ ├─ components
+ │   ├─ atoms
+ │   │   ├─ Button.tsx
+ │   │   ├─ Badge.tsx
+ │   │   └─ Card.tsx
+ │   ├─ molecules
+ │   │   └─ FeatureCard.tsx
+ │   └─ feedback
+ ├─ config
+ ├─ hooks
+ ├─ services
+ ├─ styles
+ │   ├─ globals.css
+ │   ├─ editor.css
+ │   ├─ landing.css
+ │   └─ dashboard.css
+ ├─ types
+ └─ utils
+```

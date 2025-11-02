@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`Card component (auto-generated) rendering matches snapshot 1`] = `
+<div>
+  <div
+    class="relative rounded-2xl border backdrop-blur-md transition-shadow flex flex-col bg-[var(--background)] border-[var(--border)] shadow-sm p-6"
+  >
+    <div
+      class="mt-auto"
+    >
+      Snapshot
+    </div>
+  </div>
+</div>
+`;
