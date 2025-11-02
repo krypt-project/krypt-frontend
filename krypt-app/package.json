@@ -11,6 +11,7 @@
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
+    "@mastra/openai": "^1.0.1-alpha.48",
     "@radix-ui/react-slot": "^1.2.3",
     "@tiptap/extension-bold": "^3.2.0",
     "@tiptap/extension-bullet-list": "^3.2.0",
